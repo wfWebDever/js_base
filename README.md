@@ -1,2 +1,2 @@
 # js_base
-js base 
+js basic knowledge 
