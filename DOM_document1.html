@@ -1,0 +1,121 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>DOM_document1</title>
+<script type="text/javascript">
+	function docdemo1()
+		{
+			var tabNode=window.document.getElementById("tabdemo");
+			alert(tabNode);
+			//设置表格框线
+			tabNode.border="1";
+			alert(tabNode.nodeName);
+			alert(tabNode.nodeType);
+			alert(tabNode.nodeValue);
+
+			
+			
+		}
+	function docdemo2()
+		{
+			var textnode=document.getElementsByName("sex");
+			alert(textnode.length);
+			for(var x=0;x<textnode.length;x++)
+				{
+					alert(textnode[x].value);
+				}
+			//var textNode=document.getElementsByName("user")[0];
+			alert(textNode.nodeName);
+			alert(textNode.name);
+			alert(textNode.type);
+			alert(textNode.value);
+		}
+	function docdemo3()
+		{
+			
+			var tdnode=document.getElementsByTagName("td");
+			for(var x=0;x<tdnode.length;x++)
+				{
+					alert(tdnode[x].textContent)
+					//alert(tdnode[x].innerText) //显示标签间的文本内容，仅支持IE
+				}		    
+		}
+	function docdemo4(){
+		var tabnode=document.getElementById("tabdemo");//先获取便签所在的容器 
+		var tdnodes=tabnode.getElementsByTagName("td");
+		for (var x=0;x<tdnodes.length;x++)
+			{
+				alert(tdnodes[x].textContent);
+			}
+		
+		}
+	window.onload=function (){
+		var arr=document.links;
+		for(var x=0;x<arr.length;x++){
+			arr[x].target="_bank";
+			}		
+		}
+//获取所有节点		
+	function getAllNodes(){
+		getNodes(document,0);
+		document.write(info);
+		}
+	var info="";
+	 //单个节点的递归
+	function getNodes(node,level){
+		info+=getLevel(level)+node.nodeName+"..."+node.nodeType+"..."+node.nodeValue+"<br/>"
+		var arr=node.childNodes;
+		level++;
+		for(var x=0;x<arr.length;x++){
+			if(arr[x].hasChildNodes()){
+				getNodes(arr[x],level);
+				}
+			else{
+				info+=getLevel(level)+arr[x].nodeName+"..."+arr[x].nodeType+"..."+arr[x].nodeValue+"<br/>";
+				}
+			}
+		}
+	function getLevel(level){
+		var s="";
+		for(var x=0;x<level;x++){
+			s+="|.."
+			}
+		return s;
+		}
+
+
+</script>
+</head>
+
+<body>
+	用户名：<input type="text" name="user"  />密码：<input type="password" name="pwd" /><br />
+    性别：<input type="radio" name="sex" value="男"  checked="checked" />男 <input type="radio" name="sex" value="女" />女<br />
+	<input type="button"  value="Document对象演示" onclick="getAllNodes()" /><br />
+    <input  type="url" value="baidu" />
+    <input type="time" value="time" />
+    <div>这是一个区域
+    </div>
+	<table id="tabdemo">
+    	<tr>
+        	<td>单元格一</td>
+        </tr>
+        <tr>
+        	<td>单元格二</td>
+        </tr><tr>
+        	<td>单元格二</td>
+        </tr>
+    </table>
+    
+    <table>
+    	<tr>
+        	<td></td>
+            <td></td>
+        </tr>
+    </table>
+    <a href="http://www.baidu.com">百度网站</a>
+    <a href="http://www.sina.com">新浪网站</a>
+    <a href="http://www.hao123.com">hao123网站</a>
+    
+</body>
+</html>

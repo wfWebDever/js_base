@@ -1,0 +1,120 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>exercise1</title>
+</head>
+<body>
+    <form  ons>
+        姓名：<input type="text" id="name"/>
+        Email：<input type="text" id="Email"/>
+        电话：<input type="text" id="tel"/><br/><br/>
+       <button id="adduser" type="button">提交</button>
+    </form>
+    <hr/>
+    <table border="1" cellspacing="0" align="center" id="table1" >
+        <tbody>
+        <tr>
+            <td>姓名</td>
+            <td>Email</td>
+            <td>电话</td>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <td>TOM</td>
+            <td>TOM@163.com</td>
+            <td>11111</td>
+            <td><a href="Delete?id=tom">Delete</a></td>
+        </tr>
+        <tr>
+            <td>Jeeey</td>
+            <td>jeey@163.com</td>
+            <td>12222</td>
+            <td><a href="Delete?id=Jeeey">Delete</a></td>
+        </tr>
+        </tbody>
+    </table>
+<script type="text/javascript">
+    window.onload=function(){
+        document.getElementById("adduser").onclick=function(){
+        var name=document.getElementById("name").value;
+        var email=document.getElementById("Email").value;
+        var tel=document.getElementById("tel").value;
+
+        //td
+        var nametd=document.createElement("td");
+            var nameText=document.createTextNode(name);
+        nametd.appendChild(nameText);
+        //alert(nametd.childNodes[0].no);
+        var emailtd=document.createElement("td");
+            var emailText=document.createTextNode(email);
+        emailtd.appendChild(emailText);
+        var teltd=document.createElement("td");
+            var telText=document.createTextNode(tel);
+        teltd.appendChild(telText);
+         var deltd=document.createElement("td");
+             var aElement=document.createElement("a");
+             aElement.setAttribute("href","Delete?id="+name);
+                var delText=document.createTextNode("Delete");
+             aElement.appendChild(delText);
+         deltd.appendChild(aElement);
+         //tr
+         var trElement=document.createElement("tr");
+         trElement.appendChild(nametd);
+         trElement.appendChild(emailtd);
+         trElement.appendChild(teltd);
+         trElement.appendChild(deltd);
+         //table
+         var tableElement=document.getElementById("table1");
+         //var tableE=document.getElementsByTagName("table")[0] ;//少用，无法解析出来吧
+            //alert(tableE.nodeName);
+         var tbodyElement=document.createElement("tbody");
+         //var tbodyElement=tableElement.firstChild; //这种方法不适用
+         tbodyElement.appendChild(trElement);
+         tableElement.appendChild(tbodyElement);
+
+          /**************delete********************/
+        aElement.onclick=function(){
+             return deleteTr(aElement);  // 如果return false ,使该动作onclick的默认网页链接(a标签超链接)失效。
+         }
+        }
+    }
+  function deleteTr(aElement){
+      var nameValue=aElement.parentNode.parentNode.firstChild.firstChild.nodeValue;
+      var flag= confirm("确认删除该条记录");
+      if(flag==false)
+          {
+               return false;   //return false  h函数终止
+          }
+       var trElement=aElement.parentNode.parentNode;
+      var tableElement=trElement.parentNode;
+      tableElement.removeChild(trElement) ;
+      return false;
+
+
+  }
+
+    function validate_required(field,alerttxt)
+    {
+        with (field)
+        {
+            if (value==null||value=="")
+            {alert(alerttxt);return false}
+            else {return true}
+        }
+    }
+
+    function validate_form(thisform)
+    {
+        with (thisform)
+        {
+            if (validate_required(email,"Email must be filled out!")==false)
+            {email.focus();return false}
+        }
+    }
+
+</script>
+
+</body>
+</html>

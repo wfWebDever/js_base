@@ -1,0 +1,22 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<script type="text/javascript">
+	function crtadd(){
+		var textNode=window.document.createTextNode("区域一");
+		var divNode=document.getElementById("div_1");
+		divNode.appendChild(textNode);
+		//或者直接用下面方法添加文本数据
+		//divNode.innerHTML="区域一";
+		}
+</script>
+</head>
+
+<body>
+<div id="div_1">
+</div>
+<input type="button" value="创建添加节点信息"  onclick="crtadd()"/>
+</body>
+</html>

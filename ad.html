@@ -1,0 +1,20 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<script type="text/javascript">
+	//设定广告弹窗3秒后自动关闭
+	//window.setTimeout("window.close()",3000);
+	//每隔一秒该窗口获得焦点，故和下面的方法结合后，关闭总的浏览器都不能关闭。
+	window.setInterval("window.focus()",1000);
+	window.onunload=function()//广告关闭后再次打开
+	{
+		window.open("ad.html","_blank",'width=200,height=100 toolbar=yes titlebar=yes status=yes scrollbars=yes resizable=yes location=yes ');
+	}
+</script>
+</head>
+
+<body>
+</body>
+</html>

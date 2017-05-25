@@ -1,0 +1,265 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <style type="text/css">
+      /*  div{clear: both;}
+        div#a{width: 100px;height:100px;background-color: bisque;clear: both;}
+        table{border: 2px solid red;clear: both;}
+        div#b{width: 80px;height:100px;background-color: green;float: left;clear: both;}*/
+        p
+        {
+            display:inline;
+            border: 1px solid;
+            clear: both;
+        }
+        ul{
+           list-style-type: none;
+        }
+        li{
+            display: inline;
+        }
+        a{
+            text-decoration:none;
+        }
+        
+		.navtop >li{
+				width:10%;
+				float:left;
+				padding: 10px 5px;
+		}
+		.navtop >li a:link {color: #444}		
+		.navtop >li a:visited {color: #333}	
+		.navtop >li a:hover {background-color: #333}	
+		.navtop >li a:active {color: #000}
+		<!-- 导航条的图片 只写一个 其他的类似 -->
+		.navtop >li:nth-child(2)::before {			
+				background:url(2.png) no-repeat center;
+		}
+		<!-- 清除浮动 -->
+		.navtop::after{
+				display:block;
+				content:'';
+				clear:both;
+		}	
+		.sign	input {
+			color: #c0c0c0;
+			}	
+		.sign .signIn{				
+				background: blue;
+				border-radius: 10px;
+				color: #fff;
+				padding: 10px ;
+			}
+		.box {
+			margin-top: -50px;
+			
+			width:100px;
+			height:100px;
+			background:red;
+			position:relative;
+		}
+		.elem{
+			margin-top: -40px;
+			width:100px;
+			height: 120px;
+			position: absolute;
+			background: blue;
+		}
+		*:focus {
+		outline: none;
+		}
+    </style>
+</head>
+<body>
+    <input type="text">aaaa
+	<div style="background: red;width: 100px;">
+        <div id="a" >
+            <table>
+                <tr><td>1111111111111</td></tr>
+                <tr><td>11111</td></tr>
+            </table>
+        </div>
+        <div id="b">B</div>
+        <p>22222222222</p>
+    </div>
+
+    <ul>
+        <li><a href="#">Link one</a></li>
+        <li><a href="#">Link two</a></li>
+        <li><a href="#">Link three</a></li>
+        <li><a href="#">Link four</a></li>
+    </ul>
+	<div class="span8">
+	 <p>
+		Whether you’re looking to prepare for an interview for JavaScript role, topics thacript should be able to answer. Bear in mind that answers 
+	</p>
+	 <p>
+		Whether you’re looking to prepare for an interview for JavaScript role, you’re an interviewer looking for inspiration or you just 
+	</p>
+	</div>
+	<div  class="nav">
+		<ul class="navtop">
+			<li><a href="#">Brand Name</a></li>
+			<li><a href="#">Home</a></li>
+			<li><a href="#">Pages</a></li>
+			<li><a href="#">Messages</a></li>
+			<li><a href="#">Stats</a></li>
+			<li><a href="#">Permissons</a></li>
+			<li><a href="#">  </a></li>
+			<li><a href="#">Sign Up</a></li>
+			<li class="noactive">
+				<a href="#">Sign In</a>
+				<div class="sign">
+					<form name="sign" action="sign.asp" method="get">
+					<input type="text" value="Username"/>
+					<input type="password"  value="Username"/>
+					<input type="checkbox" name="RememberMe" value="RememberMe" /> Remember Me
+					<input type="submit" value="Sign in" class="signIn"/>
+					<br/>or
+					<input type="submit" value="Sign in with Google" class="signIn"/>
+					<input type="submit" value="Sign in with Twitter" class="signIn"/>
+					</form>
+				</div>
+			</li>
+		</ul>
+	</div>
+	<div class="box" style="z-index:2">
+		<div class="elem" style="z-index:3">a</div>
+	</div>
+	<div class="box" style="z-index:1">
+		<div class="elem" style="z-index:4">b</div>
+	</div>
+<script type="text/javascript">
+var a="a";
+var b=function(){
+    console.log(a);
+}
+function c(){
+    console.log(a);
+}
+//c();
+
+var fn=function(i){
+	return function(){
+		return i++;
+	}
+}(10);
+
+
+var t=1;	
+function say() {
+	console.log(t);
+	t=3;
+	console.log(t);
+	t=2;
+	console.log(t);
+}
+say();
+q();
+var q=function(){
+}
+function test1()   
+{   
+  this.var01 = "test"; 
+    
+} 
+
+function test2()   
+{ 
+  alert(var01); 
+} 
+ window.onload=function(){
+     //alert(t);
+	
+	var test=new test1();
+	//test1();
+	//alert(test.var01);
+	//test2();
+	
+	var a=fn();
+	//alert(a);
+	var b=fn();
+	//alert(b);
+	
+	//alert(0==false);
+	var a="aa'a''b'";
+	//alert(a);
+	//alert( typeof(true==1));
+	var car;
+	//alert(typeof(car1==undefined));
+	function test() {
+		return function(){
+		//alert(this.a)
+		}
+	}
+	//alert(typeof(test()));
+	var nullobject=null;
+	//alert( nullobject==undefined);
+	//alert(NaN===NaN)
+	var str="ab cd\r\n";
+	
+	console.log(str.charAt(2)==null);
+	var bFound=true;
+	console.log( bFound.toString());
+	var num=111;
+	console.log(num.length);
+	console.log( typeof parseInt("111a"));
+		var str1="aa ";
+        var str2="bbb";
+        //console.log(str1.lastIndexOf("a"));  //
+        //console.log(str1);
+	//console.log(str1.concat(" 111"));
+	
+	//console.log(str1==null);
+	//console.log(Object.prototype);
+	console.log([1,2]instanceof Object);
+	console.log(0==false)
+	
+	var arr1=[1,2,3];
+	var arr2=[1,2,5];
+	var arr1len=arr1.length;
+	var sameArr=[];
+	for(var i=0;i<arr1len;i++){
+		for(var j=0;j<arr2.length;j++){
+			if(arr1[i]==arr2[j]) {
+				sameArr.push(arr1[i]);
+			}
+		}
+	}
+	//alert("the same number is "+sameArr);
+	countJs();
+ }
+document.getElementsByClassName = function(className, tag, elm) {  
+        var testClass = new RegExp("(^|\s)" + className + "(\s|$)");  
+        var tagtag = tag || "*";  
+        var elmelm = elm || document;  
+        var elements = (tag == "*" && elm.all)? elm.all : elm.getElementsByTagName(tag);  
+        var returnElements = [];  
+        var current;  
+        var length = elements.length;  
+        for(var i=0; i<length; i++){  
+            current = elements[i];  
+            if(testClass.test(current.className)){  
+                returnElements.push(current);  
+            }  
+        }  
+        return returnElements;  
+    } 
+ function countJs(){
+     var divSpan = document.getElementsByClassName("span8")[0]; 
+	 alert(divSpan.length);
+	 var pElements=divSpan.textContent();
+	 alert(pElements);
+	 //var pElements=divSpan.text();
+	 var num=0;
+	 var jsString=new RegExp("JavaScript","g");
+	 if (jsString.test(pElements)) {
+		num++;
+	 }
+	 alert(num);
+ }
+ 
+</script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>js_obj</title>
+</head>
+
+<body>
+<script type="text/javascript">
+//创建对象
+	function PersonObj(name,age,sex)
+	{
+		this.name=name;
+		this.age=age;
+		this.sex=sex;
+		this.getName=function()
+	   		{
+				return this.name;
+			
+			}
+		this.setName=function(n)
+		{
+			this.name=n;
+		}
+	};
+	var p=new PersonObj("zhangsan",23,"female");
+	alert(p.getName());
+	p.setName("lisi");
+	alert(p.getName());
+	var p2=new PersonObj();
+	alert(p2.getName());
+	//p.name="zhangsan";
+	p.age=23;
+	p.sex="female";
+	//p.show=method;
+	
+	//p.show();
+	/*
+	function method()
+	{
+		alert("method run!");
+	}*/
+	
+</script>
+</body>
+</html>

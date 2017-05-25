@@ -1,0 +1,50 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+</head>
+
+<body>
+<script>
+
+	var arr=["abc",12,true];
+	arr[5]='ab';
+	//alert(arr.length);
+	for(var x=0;x<arr.length;x++)
+		{
+			//alert(arr[x]);
+		}
+	var arr2=new Array("abc",12,true);
+	//alert(arr2);
+	arr2[5]=23;
+	for(var x=0;x<arr2.length;x++)
+		{
+			//alert(arr2[x]);
+		}
+//排序
+	var nums=[4,5,3,8,7,10,444,-1];
+	alert(nums);
+	function sortNum(arr)
+	{
+		for(var x=0;x<arr.length-1;x++)
+		{
+			for(var y=x+1;y<arr.length;y++)
+			{
+				if(arr[x]>arr[y])
+				swap(arr,x,y);
+			}
+		}
+	}
+	function swap(arr,x,y)
+	{
+		var temp=arr[x];
+		arr[x]=arr[y];
+		arr[y]=temp;
+	}
+	sortNum(nums);
+	alert(nums);
+	
+</script>
+</body>
+</html>

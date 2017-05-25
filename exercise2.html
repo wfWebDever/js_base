@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+    <input type="checkbox" name="check" id="check" value="全选/全不选"/>全选/全不选
+    <br/>
+    <input type="checkbox" name="items" value="足球"  />足球
+    <input type="checkbox" name="items" value="篮球" />篮球
+    <input type="checkbox" name="items" value="羽毛球" />羽毛球
+    <br/>
+    <input type="button" name="checkball" id="checkall" value="全选">
+    <input type="button" name="checkball" id="checkno" value="全不选">
+    <input type="button" name="checkball" id="invert" value="反选">
+<script type="text/javascript">
+    window.onload=function(){
+        //all
+        document.getElementById("checkall").onclick=function(){
+
+            var itemsElement=document.getElementsByName("items") ;
+            for(var i=0;i<itemsElement.length;i++){
+                itemsElement[i].checked="checked";
+            }
+        }
+        //none
+        document.getElementById("checkno").onclick=function(){
+			var itemsnoElement=document.getElementsByName("items");
+			for(var i=0;i<itemsnoElement.length;i++){
+				itemsnoElement[i].checked=null;
+			}
+		}
+        document.getElementById("invert").onclick=function(){
+            var itemsElement=document.getElementsByName("items") ;
+            for(var i=0;i<itemsElement.length;i++){
+                var itemsElem=itemsElement[i];
+//                alert(itemsElem);
+                if(itemsElem.checked){
+                    itemsElem.checked=null ;
+                } else{
+                    itemsElem.checked="checked";
+                }
+            }
+        }
+        document.getElementById("check").onclick=function(){
+//              alert(this.checked);    //this指这个函数的调用对象，也就是这个选择框。
+                 var itemsElements=document.getElementsByName("items") ;
+                for(var i=0;i<itemsElements.length;i++){
+                    var itemsElement=itemsElements[i];
+                    if(this.checked==true){
+                        itemsElement.checked="checked";
+                    }else{
+                        itemsElement.checked=null;
+                    }
+                }
+        }
+    }
+</script>
+
+</body>
+</html>
