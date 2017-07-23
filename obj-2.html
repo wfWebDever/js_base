@@ -24,17 +24,39 @@
 	}
 	Person.prototype.show=function ()
 	{
-		alert("show run");
+		//alert("show run");
 	}
 	var p=new Person();
-	alert(p.getName());
+	//alert(p.getName());
 	function Student(){};
 	//类通过prototype指向原型对象，再执向一个要继承的父类对象
 	Student.prototype=p;
 	var stu=new Student();
 	stu.setName("zhangsan");
-	alert(stu.getName());
-	alert(stu.show());
+	//alert(stu.getName());
+	//alert(stu.show());
+
+	var name = "The Window";
+	var object = {
+		name : "My Object",
+		getNameFunc : function(){
+			return function(){
+				return this.name;
+			};
+		}
+	};
+	//alert(object.getNameFunc()());
+	var A={
+		a:1,
+		b:2
+	}
+	if(typeof B=='undefined'){
+
+		console.info(111);
+	}else{
+		console.info('not')
+	}
+
 </script>
 </body>
 </html>
