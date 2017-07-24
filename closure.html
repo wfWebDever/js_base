@@ -3,33 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <title>闭包</title>
+    <style type="text/css">
+        body {
+            font-family: Helvetica, Arial, sans-serif;
+            font-size: 12px;
+        }
+
+        h1 {
+            font-size: 1.5em;
+        }
+
+        h2 {
+            font-size: 1.2em;
+        }
+    </style>
 </head>
 <body>
 
+<p>Some paragraph text</p>
+<h1>some heading 1 text</h1>
+<h2>some heading 2 text</h2>
+
+<a href="#" id="size-12">12</a>
+<a href="#" id="size-14">14</a>
+<a href="#" id="size-16">16</a>
 
 <script type="text/javascript">
-    var db=(function () {
-        var data={};
-        return function (key,val) {
-            if(val===undefined){
-                return data[key]
-            }else {
-                return data[key]=val;
+   function makeAdder(x) {
+       return function (y) {
+           return x+y;
+       }
+   }
+   var add5=makeAdder(5);
+   var add10=makeAdder(10);
+   console.info(add5(2));
+   console.info(add10(2));
 
-            }
-        }
-    })();
+   function makeSizer(size) {
+       return function () {
+           document.body.style.fontSize=size+"px";
+       }
+   }
 
-    console.info(db("x"),db("x",1));
+   document.getElementById("size-12").onclick= makeSizer(12);
+   document.getElementById("size-14").onclick= makeSizer(14);
+   document.getElementById("size-16").onclick= makeSizer(16);
 
-    function O() {
-        var a=1;
-        return function () {
-           return a;
-        }
-    }
-    var o=O();
-    //console.info(o(),a)
 </script>
 
 </body>
