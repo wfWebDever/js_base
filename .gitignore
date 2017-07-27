@@ -4,6 +4,9 @@
 
 # IntelliJ project files
 .idea
+bower_components
+vendor
+js
 *.iml
 out
 gen

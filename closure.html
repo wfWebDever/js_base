@@ -17,8 +17,9 @@
             font-size: 1.2em;
         }
     </style>
+    <script src="vendor/jquery/dist/jquery.js"></script>
 </head>
-<body>
+<body onresize="throttle_s()">
 
 <p>Some paragraph text</p>
 <h1>some heading 1 text</h1>
@@ -48,6 +49,44 @@
    document.getElementById("size-12").onclick= makeSizer(12);
    document.getElementById("size-14").onclick= makeSizer(14);
    document.getElementById("size-16").onclick= makeSizer(16);
+
+
+   var resizeTimer=null;
+   function resize(){
+       if(resizeTimer){
+           clearTimeout(resizeTimer)
+       }
+       resizeTimer=setTimeout(function(){
+           dosomething.apply(this);
+       },5000)
+   }
+
+   function throttle_s() {
+       throttle(dosomething,5000)
+   }
+
+   function throttle(fn,delay) {
+       var resizeTimer=null;
+       return function () {
+           if(resizeTimer){
+               clearTimeout(resizeTimer)
+           }
+           resizeTimer=setTimeout(function(){
+               fn.apply(this);
+           },delay)
+       }
+   }
+
+   function  dosomething() {
+       console.info("do some")
+   }
+
+   var data=[{a:1},{b:2}];
+
+   $.each(data,function (item,a) {
+       //console.info(item,a);
+   })
+
 
 </script>
 
