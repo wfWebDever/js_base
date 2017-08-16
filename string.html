@@ -1,5 +1,5 @@
-ï»¿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+ï»¿<!DOCTYPE html>
+<html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>js_string</title>
@@ -9,39 +9,26 @@
 <script type="text/javascript">
 
 var str="  sds "
-alert("--"+str.trim()+"--");
+console.info("--"+str.trim()+"--");
 
-alert(str.charAt(2));
-//function StringTest(){
-	var str1="  aaa ff ";
-	alert("|"+str1.trim()+"|");
+console.info(str.charAt(2));
+
+var str1="  aaa ff ";
+console.info("|"+str1.trim()+"|");
 	
-//}
-//Í¨¹ýÕýÔò±í´ïÊ½£¨·½·¨2£©È¥³ý×Ö·û´®Ç°ºó¿Õ¸ñ
+
+
 String.prototype.trim=function()
 {
-	/**
-	*
-	*·½·¨Ò»
-	var start=0;
-	var end=this.length-1;
-	if(start<=end && this.charAt(start)==" ")
-	start++;
-	if(start<=end && this.charAt(end)==" ")
-	end--;
-	var str=this.substring(start,end+1);
-	return(str);
-	*/
-	//·½·¨¶þ
 	var regular=/(^\s*)|(\s*$)/gi;
 	return(this.replace(regular,""));
 }
-//Á¬½Ó×Ö·û´®
+
 var str2="Hello ";
 var str3="Word ";
 var str4=" job!";
-alert(str2.concat(str3,str4));
-alert(str2.substring(0,2));
+console.info(str2.concat(str3,str4));
+console.info(str2.substring(0,2));
 
 </script>
 </body>
