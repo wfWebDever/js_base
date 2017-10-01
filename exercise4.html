@@ -16,6 +16,16 @@
 </select>
 
 <script type="text/javascript">
+
+    var json_data={
+
+        "山东":[{"jinan":0531,'weifang':0536}]
+    }
+
+    
+
+
+
     window.onload = function () {
         document.getElementById("province").onchange = function () {
             //获取当前选中的省份
@@ -87,27 +97,6 @@
         xmlDoc.load(filename);
         return  xmlDoc;
     }
-    /*function  parseXml(filename){
-     var xmlDoc;
-     if(window.ActiveXObject)
-     {
-     xmlDoc    = new ActiveXObject("Microsoft.XMLDOM");
-     xmlDoc.async    = false;
-     xmlDoc.load(filename);
-     }
-     else if (document.implementation&&document.implementation.createDocument)
-     {
-     xmlDoc    = document.implementation.createDocument("","",null);
-     xmlDoc.async=false;
-     xmlDoc.load(filename);
-     }
-     else
-     {
-     return null;
-     }
-
-     return xmlDoc;
-     }*/
 </script>
 </body>
 </html>
