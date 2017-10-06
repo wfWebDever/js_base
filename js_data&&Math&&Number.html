@@ -8,15 +8,11 @@
 
 <body>
 	<script  type="text/javascript">
-	
-	    document.write("<p>"+Date()+"</p>");
+	    document.write("<p>"+new Date().toString()+"</p>");
 		var datedemo=new Date();
-		document.write(datedemo.toLocaleDateString());
+		document.write(datedemo.toLocaleString());
 		document.write("<p></p>")
 		document.write(datedemo.getDate());
-		
-		
-		
 	</script>
 </body>
 </html>
