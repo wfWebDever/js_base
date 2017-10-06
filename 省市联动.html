@@ -1,0 +1,85 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>省市联动</title>
+</head>
+<body>
+<select id="province" name="province">
+   <!-- <option value="请选择。。。" selected="selected">请选择。。。</option>-->
+    <!--<option value="山东省">山东省</option>
+    <option value="河北省">河北省</option>
+    <option value="北京市">北京市</option>-->
+</select>
+<select id="city" name="city">
+   <!-- <option selected="selected">请选择。。。</option>-->
+</select>
+
+<script type="text/javascript">
+
+    var list = [
+        {
+                key:'0536',
+                name: '潍坊',
+                citys: [
+                    {
+                        '0536_0': "诸城",
+                        '0536_1': "寿光",
+                        '0536_1': "临朐",
+                        '0536_1': "高密"
+                    }
+                ]
+        }
+        ,
+        {
+                key:'0532',
+                name: '青岛',
+                citys: [
+                    {
+                        '0532_0': "市南区",
+                        '0532_1': "市北区",
+                        '0532_1': "黄岛区",
+                        '0532_1': "李沧区"
+                    }
+                ]
+        }
+    ]
+
+    var create_left_options=function () {
+        var $elem='';
+        list.forEach(function (item) {
+            $elem+='<option value="'+item.key+'">'+item.name+'</option>'
+        })
+        document.getElementById("province").append($elem);
+    }
+
+
+    window.onload = function () {
+
+        create_left_options();
+        document.getElementById("province").onchange = function () {
+            //获取当前选中的省份
+            var changeProvince = this.value;
+            //清空city下拉,每次选择前都要清空，不然下拉框中会保存上一次的城市列表
+            var selectElement = document.getElementById("city");
+            var optionElement = selectElement.getElementsByTagName("option");
+            //从前往后删除，第一次会先把“请选择”删除，然后清掉一个后，optionElement.length会减一
+            //第一个删除济南后,青岛会排在[0]位置上，此时会删除[1]=诸城。
+            /*for (var i = 0;i<optionElement.length; i++) {
+             // alert(optionElement.length);
+             //alert(optionElement[i].firstChild.nodeValue);  //可以查看删除了哪个
+             selectElement.removeChild(optionElement[i]);
+             }*/
+            //从后往前删除,这样不管长度怎么变化，总是会删除全部，只保留第一个"请选择" 。
+            for (var i = optionElement.length - 1; i > 0; i--) {
+                selectElement.removeChild(optionElement[i]);
+            }
+
+
+
+        }
+    }
+
+</script>
+</body>
+</html>

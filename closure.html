@@ -17,9 +17,9 @@
             font-size: 1.2em;
         }
     </style>
-    <script src="vendor/jquery/dist/jquery.js"></script>
+    <script src="../jquery-1.7.1.js"></script>
 </head>
-<body onresize="throttle_s()">
+<body onresize="resize()">
 
 <p>Some paragraph text</p>
 <h1>some heading 1 text</h1>
@@ -51,41 +51,54 @@
    document.getElementById("size-16").onclick= makeSizer(16);
 
 
-   var resizeTimer=null;
+   /*var resizeTimer=null;
    function resize(){
+       console.info("resize");
        if(resizeTimer){
            clearTimeout(resizeTimer)
        }
        resizeTimer=setTimeout(function(){
            dosomething.apply(this);
-       },5000)
-   }
+       },500)
+   }*/
 
-   function throttle_s() {
-       throttle(dosomething,5000)
-   }
-
-   function throttle(fn,delay) {
-       var resizeTimer=null;
+   /*var resize=throttle(dosomething,500);
+   function throttle(fn,delay,immedtery) {
+       var resizeTimer='';
+       console.info('resize,resizeTimer',resizeTimer);
        return function () {
+           console.info('closure resize timer',resizeTimer);
            if(resizeTimer){
-               clearTimeout(resizeTimer)
+               clearTimeout(resizeTimer);
            }
-           resizeTimer=setTimeout(function(){
-               fn.apply(this);
+           resizeTimer=setTimeout(function () {
+               fn.apply();
            },delay)
        }
-   }
 
+   }*/
+
+   var resize=(function (fn,delay) {
+       var resizeTimer='';
+       console.info('resize,resizeTimer',resizeTimer);
+       return function () {
+           console.info('closure resize timer',resizeTimer);
+           if(resizeTimer){
+               clearTimeout(resizeTimer);
+           }
+           resizeTimer=setTimeout(function () {
+               fn.apply();
+           },delay)
+       }
+   })('dosomething',500);
+
+   
    function  dosomething() {
        console.info("do some")
    }
 
-   var data=[{a:1},{b:2}];
 
-   $.each(data,function (item,a) {
-       //console.info(item,a);
-   })
+
 
 
 </script>
