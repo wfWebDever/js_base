@@ -34,28 +34,25 @@ function add()
 }
 console.info(1,2,3,4);
 //函数,函数名 引用指向函数实体对象，函数体作为字符串打印出来。
-function method()
-	{
+function method() {
     	//alert("aa");
 		return("abc");
-    }
+}
 var str=method;
    //或者这样，用toString()返回源代码
 document.write(method.toString());
-alert(str);
+console.info(str);
 
 method();
 //匿名函数
 var str2=function ()
 {
 	return("H");
-	
 }
-alert(str2());
+console.info(str2());
 
-window.onload=function()
-{
-	alert("onload");
+window.onload=function() {
+	console.info("onload");
 };
 
 
