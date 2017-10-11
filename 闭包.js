@@ -33,6 +33,22 @@ var object = {
 };
 var getName = object.getNameFunc();
 console.info("2,==",getName());
+
+var key=1;
+var obj={
+    key:2,
+    get_key:function () {
+        return this.key+1;
+    }
+};
+var fun_get_key=obj.get_key;
+console.info("3,is==",fun_get_key(),fun_get_key());
+
+var test_closure=function () {
+    'use strict';
+    return this;
+};
+console.info('4,is==',global);
 //  对于匿名函数小括号括起来的含义
 /*
  * 小括号返回的是function对象，然后在加上后面跟的参数，

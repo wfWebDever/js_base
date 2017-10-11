@@ -98,6 +98,17 @@
    }
 
 
+   //var key=1;
+   var obj={
+       key:2,
+       get_key:function () {
+           var that=this;
+           return that.key++;
+       }
+   };
+   var fun_get_key=obj.get_key;
+   console.info("3,is==",fun_get_key(),fun_get_key());
+
 
 
 
