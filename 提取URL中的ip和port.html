@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<script type="text/javascript">
+    //第一种方法，先提取如 218  206  179 190  8080 这几个数字的字符串，然后数组中的前4个元素组成IP，最后1个元素是端口
+    /*var regExpHost=/\d+/g;
+    var host =OCURL.match(regExpHost);
+    var hostValue=host[0]+"."+host[1]+"."+host[2]+"."+host[3];
+    var portValue=host[4];
+
+    //第二种方法，先提取包括IP和端口的这个字符串“218.206.179.190：8080”，然后用分割符提取。
+    var IPortREg=/(\d+[.])+\d+[:]\d+/g ;
+    var IPort=OCURL.match(IPortREg);
+    //    var IpString=IPort.toString();注：这是数组，或者先转成字符串或者用数组的第一个元素表示。
+    var IP= (IPort[0].split(":"))[0] ;
+    var Port= (IPort[0].split(":"))[1];*/
+
+    var get_url_param=function (name) {
+        var url=window.location.search;
+        var test='?_ijt=n9noongulfldt7036t1q8mngr8&b=ff';
+        console.info(url);
+        var reg=new RegExp("(?|&"+name+"=");
+        var val=url.match(reg);
+        console.info(val);
+    };
+
+    get_url_param('');
+</script>
+</body>
+</html>
