@@ -3,6 +3,13 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>省市联动</title>
+    <script src="../vendor/jquery-3.2.1.js"></script>
+    <style>
+        select{
+            width: 150px;
+            display: inline-block;
+        }
+    </style>
 </head>
 <body>
 <select id="province" name="province">
@@ -19,62 +26,61 @@
 
     var list = [
         {
-                key:'0536',
+                value:'0536',
                 name: '潍坊',
                 citys: [
-                    {
-                        '0536_0': "诸城",
-                        '0536_1': "寿光",
-                        '0536_1': "临朐",
-                        '0536_1': "高密"
-                    }
-                ]
+                    {value:'0536_0',name: "诸城"},
+                    {value:'0536_1',name:"寿光"},
+                    {value:'0536_2',name:"临朐"},
+                    {value:'0536_3',name: "高密"}
+                    ]
+
         }
         ,
         {
-                key:'0532',
+                value:'0532',
                 name: '青岛',
                 citys: [
-                    {
-                        '0532_0': "市南区",
-                        '0532_1': "市北区",
-                        '0532_1': "黄岛区",
-                        '0532_1': "李沧区"
-                    }
-                ]
+                    {value:'0532_0',name: "市南区"},
+                    {value:'0532_1',name: "市北区"},
+                    {value:'0532_2',name: "黄岛区"},
+                    {value:'0532_3',name:"李沧区"}
+                    ]
+
         }
-    ]
+    ];
 
     var create_left_options=function () {
-        var $elem='';
+        var $elem='<option value="请选择。。。" selected="selected">请选择。。。</option>';
         list.forEach(function (item) {
-            $elem+='<option value="'+item.key+'">'+item.name+'</option>'
-        })
-        document.getElementById("province").append($elem);
-    }
-
+            $elem+='<option value="'+item.value+'">'+item.name+'</option>'
+        });
+        $("#province").append($elem);
+    };
 
     window.onload = function () {
-
         create_left_options();
+
         document.getElementById("province").onchange = function () {
             //获取当前选中的省份
-            var changeProvince = this.value;
-            //清空city下拉,每次选择前都要清空，不然下拉框中会保存上一次的城市列表
-            var selectElement = document.getElementById("city");
-            var optionElement = selectElement.getElementsByTagName("option");
-            //从前往后删除，第一次会先把“请选择”删除，然后清掉一个后，optionElement.length会减一
-            //第一个删除济南后,青岛会排在[0]位置上，此时会删除[1]=诸城。
-            /*for (var i = 0;i<optionElement.length; i++) {
-             // alert(optionElement.length);
-             //alert(optionElement[i].firstChild.nodeValue);  //可以查看删除了哪个
-             selectElement.removeChild(optionElement[i]);
-             }*/
-            //从后往前删除,这样不管长度怎么变化，总是会删除全部，只保留第一个"请选择" 。
-            for (var i = optionElement.length - 1; i > 0; i--) {
-                selectElement.removeChild(optionElement[i]);
+            var select_province = this.value;
+            var citys=null;
+            list.forEach(function (item) {
+                if(item.value===select_province){
+                    citys=item.citys;
+                }
+            });
+            var $htm='';
+            if(!citys){
+                $htm='';
+                $("#city").empty().append($htm);
+                return;
             }
+            citys.forEach(function (item) {
+                $htm+='<option value="'+item.value+'">'+item.name+'</option>';
+            });
 
+            $("#city").empty().append($htm);
 
 
         }
