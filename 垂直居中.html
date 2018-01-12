@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>垂直居中</title>
+    <style>
+        .parent{
+            height: 100px;
+            border: 1px solid red;
+            font-size: 16px;
+        }
+        .parent:before{
+            font-size: 14px;
+            display: inline-block;
+            content: '';
+            width: 0;
+            height: 100%;
+            vertical-align: middle;
+        }
+        .span{
+            display: inline-block;
+            height: 20px;
+            width: 100px;
+            background: green;
+        }
+        .span1{
+            height: 50px;
+            vertical-align: middle;
+        }
+        .span2{
+            vertical-align: middle;
+        }
+        .parent2{
+            border: 1px solid red;
+            font-size: 16px;
+            line-height: 100px;
+        }
+        .parent2 .span{
+            line-height: normal;
+        }
+    </style>
+</head>
+<body>
+
+<div class="parent">
+    <span class="span span1"></span>
+    <span class="span span2"></span>
+</div>
+<div class="parent2">
+    <span class="span span1">inner1</span>
+    <span class="span span2">inner2</span>
+</div>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>去抖</title>
+</head>
+<body>
+<input type="text" id="div1" onkeypress="debounce(func,5000,false)" value="dianji"/>
+
+<script type="text/javascript">
+
+    function func() {
+        console.info(new Date().getTime());
+    }
+
+    function debounce(method,delay,immediate) {
+        //console.info('dsds',method,delay,immediate)
+        let timer;
+        return function () {
+            let context = this, args = arguments;
+            let later = function () {
+                timer = null;
+                if (!immediate) {
+                    method.apply(context, args);
+                }
+            };
+            if (immediate && !timer) {
+                method.apply(context, args);
+            }
+            console.info(timer);
+            clearTimeout(timer);
+            timer = setTimeout(later, delay);
+            console.info(timer);
+        }
+    }
+    function clickfun() {
+        debounce(func,5000);
+    }
+
+    /*document.querySelectorAll('#div1')[0].addEventListener('click',function () {
+
+    })*/
+
+</script>
+</body>
+</html>
