@@ -38,6 +38,30 @@
         .parent2 .span{
             line-height: normal;
         }
+
+        .parent3{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid darkseagreen;
+            padding: 10px 0;
+            height: 500px;
+        }
+        .parent3 >div{
+            width: 300px;
+            height: 300px;
+            flex: 1 1 auto;
+        }
+        .parent3 >div:nth-child(1){
+            border: 1px solid red;
+            align-self: flex-start;
+        }
+        .parent3 >div:nth-child(2){
+            border: 1px solid gray;
+        }
+        .parent3 >div:nth-child(3){
+            border: 1px solid green;
+        }
     </style>
 </head>
 <body>
@@ -50,5 +74,11 @@
     <span class="span span1">inner1</span>
     <span class="span span2">inner2</span>
 </div>
+
+<article class="parent3">
+    <div>div1</div>
+    <div>div2</div>
+    <div>div3</div>
+</article>
 </body>
 </html>

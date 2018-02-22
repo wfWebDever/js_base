@@ -9,6 +9,7 @@ var get_timer = function (fun, countdown, delay, immediately) {
             clearTimeout(timer);
             return;
         }
+        
         if(immediately && !timer){
             fun.call(null,countdown,timer);
             countdown--;
