@@ -59,8 +59,3 @@ const exd=function (x=2,y=x) {
 
 //const  x=x;//x is not defined
 
-(function (x) {
-    console.info(x);
-    return x;
-}(1));
-console.info(x)

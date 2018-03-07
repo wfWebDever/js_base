@@ -26,26 +26,36 @@
     function test() {
         var n = 8;
         return function () {
-            return ++n;
+            return n++;
         }
     }
     var result = test();
-    console.info("1,is==", result(), result());
+    var result2=test();
+    console.info("1 test,is==", result(), result(),result2());
 
 
     //
-    //闭包的例子  和this
+    //this
     var name_val = "This Window";
     var object = {
-        name_val: 1,
-        getNameFunc: function () {
-            var that=this;
+        name_val: "inner window",
+        /*getNameFunc: function () {
+            //var that=this;
             return function () {
-                return that.name_val;
+                return this.name_val;
+            }
+        }*/
+        getNameFunc: ()=>{
+            //console.info("waiceng",this);//'window'
+            return ()=>{
+                return this.name_val;
             }
         }
     };
-    var getName = object.getNameFunc()();
+    //var getName = object.getNameFunc()();//用闭包
+    //var getName = object.getNameFunc().call(object);//call apply改变调用的对象
+    var getName = object.getNameFunc().call(object);//ES6箭头函数
+    
     console.info("2,==", getName);
 
     var key = "window 1";
@@ -72,6 +82,17 @@
      * alert( typeof  function(x,y){}) ;---function
      * 解析json数据 ,将文本数据加上小括号，使之变成一个对象形式，再eval解析
      * */
+    
+    var i="window";
+    function a(){
+        var i="inner";
+        
+        var b=function(){
+            return i;
+        }
+        return b;
+    }
+    console.info(a()());
 
 
 </script>
