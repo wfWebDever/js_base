@@ -1,16 +1,7 @@
 
-const x=100;
-const Acto=(type=x+1)=>(
-    {
-        type:type
-    }
-)
 
 
-console.info(Acto());
-console.info([1,2,3].map(x=>x*x));
-
-const obj={
+/*const obj={
     id:1,
     getId:function () {
         //var that=this;
@@ -20,5 +11,29 @@ const obj={
     }
 };
 const getId=obj.getId;
-getId.call(obj);
-//obj.getId();
+getId.call(obj);*/
+
+"use strict";
+
+const time=function(){
+    this.a=1;
+    this.run=function(){
+        console.info("11",this);
+        setTimeout(()=>{
+            console.info("22",this.a);
+        },1000);         
+    }
+    
+    /*this.run=function(){
+        console.info("11",this);
+        let _this=this;
+        setTimeout(function(){
+          console.info("22",_this.a);
+        },1000)      
+    }*/
+}
+let t=new time();
+t.run();
+
+
+
