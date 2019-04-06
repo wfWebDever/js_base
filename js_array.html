@@ -13,35 +13,32 @@
 	var str2=new Array(2.12,"false",false);
 	var str3=new Array();
 	var str=str1.concat(str2);
-	//alert(str);
-	document.write("("+str+")");
-	document.write("<p></p>");
-	document.write(str.join("---")+"<br/>");
-	//join()和toString()方法结果相同
-	document.write(str.join()+"<br/>");
-	document.write(str.toString()+"<br/>");
 	
-	//alert(str.pop());
-	//push方法返回新数组的长度值，非新数组
-	//var strpush=str.push(new Array("abc",34434))
+	console.info(str.join("---")+ "\n");
+
+	console.info(str.toString()+"\n");
+	
+	console.info(str.pop());
+
+	console.info(str.push(new Array("abc",34434)))
 	
 //返回数组中最大值,带入sortNumber比较函数来进行数值排序，不代函数的话，会已ASCII字符排序。
-	var arr=[3,11,2,45];
-	alert(arr);
+	var arr=[3,11,2,45,99,1000];
+	
 	function getMax(arr)
 	{
 		
 		var arrnew=arr.sort(sortNumber);
-		alert(arrnew);
-		alert(arrnew.slice(-1));//取末尾数值
+	
+		return arrnew.slice(-1)[0];//取末尾数值
 	}
 	function sortNumber(a,b)//比较函数
 	{
 		return a-b;//升序排序
 		//return b-a;//降序排序，slice(-1)取最小值
 	}
-	//getMax(arr);
-//第二种方法
+	console.info("max=",getMax(arr));
+//第二种方法 冒泡排序
 
 function getMax2(arr)
 {   
@@ -53,7 +50,7 @@ function getMax2(arr)
 	}
 	return max;
 }
-alert(getMax2(arr));
+console.info("max=",getMax2(arr));
 
 //对象的原型属性，可以对其添加新的属性或者方法。
 Array.prototype.getMax=function(){}
