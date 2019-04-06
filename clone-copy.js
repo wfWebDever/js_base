@@ -1,14 +1,17 @@
-const obj = Object.assign({ name: '1' }, { name: '2' }, { name: '3' });
-console.info(obj);  //3 后来的覆盖上一个的
+// 浅拷贝
+const obj1 = Object.assign({}, { name1: '1' }, { name2: '2' }, { name3: '3' });
+console.log(obj1);
 
-const obj2 = {
-  a: 1,
-  b: {
-    c: 2,
-  },
-};
-const copy = Object.assign({}, obj2);
-console.info(JSON.stringify(copy));
-obj2.a = 2;
-obj2.b.c = 3;
-console.info(JSON.stringify(copy));
+// 深拷贝 但是不能复制函数 和undefined
+const o2 = { a: 1, b: { b1: 2 }, c: 'c1' };
+const o2Copy = JSON.parse(JSON.stringify(o2));
+console.log(o2Copy);
+o2.a = 2;
+console.log(o2.a, o2Copy.a);
+
+// undefined fun
+const o3 = {
+  a: 1, b: { b1: 2 }, c: undefined, d: function () {}, };
+const o3Copy = JSON.parse(JSON.stringify(o3));
+console.log(o3Copy);// { a: 1, b: { b1: 2 } }
+
