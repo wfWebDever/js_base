@@ -11,7 +11,8 @@ console.log(o2.a, o2Copy.a);
 
 // undefined fun
 const o3 = {
-  a: 1, b: { b1: 2 }, c: undefined, d: function () {}, };
+  a: 1, b: { b1: 2 }, c: undefined, d() {},
+};
 const o3Copy = JSON.parse(JSON.stringify(o3));
 console.log(o3Copy);// { a: 1, b: { b1: 2 } }
 
