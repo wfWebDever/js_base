@@ -1,5 +1,5 @@
-let obj = { a: [1, 2], b: { c: { d: 1 }, e: 2 } };
-let _toString = Object.prototype.toString;
+const obj = { a: [1, 2], b: { c: { d: 1 }, e: 2 } };
+const _toString = Object.prototype.toString;
 const isFunction = function (obj) {
   return _toString.call(obj) === "[object Function]";
 }
@@ -7,7 +7,7 @@ const isObject = function (obj) {
   return _toString.call(obj) === "[object Object]";
 }
 const isArray = function (obj) {
-  return _toString.call(obj) === "[object Array]";
+  return _toString.call(obj) === '[object Array]';
 }
 const deepClone = function (obj) {
   let type = _toString.call(obj);
