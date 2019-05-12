@@ -7,79 +7,49 @@
 // 所以谨慎用闭包和全局变量。
 // 是否应用了闭包特性，必须确定该段代码有没有
 // 最重要的要素：未销毁的局部变量
+// 作用域链: 函数作用域 全局作用域
+// call apply 对箭头函数的绑定对象无效
 
 // this 的值取决于函数调用的方式
 
 function test() {
   let n = 8;
-  return function () {
-    // eslint-disable-next-line no-plusplus,no-return-assign
-    return n += 1;
-  };
+  // eslint-disable-next-line no-return-assign
+  return () => n += 1;
 }
 
-const result = test();
+const result1 = test();
 const result2 = test();
-console.info('1 test,is==', result(), result(), result2());
-
-
-//
-// this
-// eslint-disable-next-line camelcase,no-unused-vars
+console.info('1 test,is==', result1(), result1(), result2());
+// 箭头函数不会创建自己的this,它只会从自己的作用域链的上一层继承this
 const name_val = 'This Window';
 const object = {
   name_val: 'inner window',
-  /*getNameFunc() {
-    return this.name_val;
-  },*/
-  getNameFunc() {
-    //var that=this;
-    return () => this.name_val;
+  getNameFunc: () => {
+    //getNameFunc的作用域也是因为箭头函数的缘故，所以this取上一层作用域的this,而上一层为全局作用域。
+    return () => this.name_val; //取作用域的上一层this ，严格模式下 undefined
   },
-  /* getNameFunc: () => {
-
-   }, */
-
 };
 console.log(object.getNameFunc()());
 console.log(object.getNameFunc().call(object));
-// const getName = object.getNameFunc().call(object);
-// console.log(getName);
-
-// eslint-disable-next-line no-unused-vars
-const key = 'window 1';
 const obj = {
-  key: 'obj 1',
-  get_key() {
-    // 'use strict';
-    return this.key;
+  a: 10,
+};
+
+Object.defineProperty(obj, 'b', {
+  get: () => {
+    console.log(this.a, typeof this.a, this);
+    return this.a + 10;
+    // 代表全局对象 'Window', 因此 'this.a' 返回 'undefined'
   },
-};
-// eslint-disable-next-line camelcase
-const fun_get_key = obj.get_key;
-console.info('3,is==', fun_get_key());
+});
 
 
-// eslint-disable-next-line camelcase
-const test_this = function () {
-  return this;
-};
-console.info('4,is==', test_this());
-//  对于匿名函数小括号括起来的含义
-/*
- * 小括号返回的是function对象，然后在加上后面跟的参数，
- * 从而立即执行这个函数,实现普通函数的调用形式,
- * alert( typeof  function(x,y){}) ;---function
- * 解析json数据 ,将文本数据加上小括号，使之变成一个对象形式，再eval解析
- * */
-
-// eslint-disable-next-line no-unused-vars
+// 闭包的变量作用域链
 const i = 'window';
-
 function a() {
   // eslint-disable-next-line no-shadow
   const i = 'inner';
-  
   // eslint-disable-next-line func-names
   const b = function () {
     return i;
