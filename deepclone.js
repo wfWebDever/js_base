@@ -1,4 +1,4 @@
-const obj = { a: [1, 2], b: { c: { d: 1 }, e: 2 } };
+const obj = {a: [1, 2], b: {c: {d: 1}, e: 2}};
 const _toString = Object.prototype.toString;
 const isFunction = function (obj) {
   return _toString.call(obj) === "[object Function]";
