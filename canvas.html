@@ -6,11 +6,9 @@
     <script src="../vendor/jquery-1.7.1.js"></script>
 </head>
 <body>
-    
+<canvas id='marker' width='100px' height='100px' style='display: none'></canvas>
 
 <script type="text/javascript">
-    var tpl="<canvas id='marker' width='100px' height='100px' style='display: none'></canvas>";
-     $('body').append(tpl);
     var canvas=document.getElementById('marker');
     var ct=canvas.getContext('2d');
     ct.fillStyle = "rgb(200,0,0)";
