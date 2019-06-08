@@ -11,7 +11,7 @@
 
 <script type="text/javascript">
 
-  function func() {
+  function func(a,b ,c) {
     console.info(new Date().getTime());
   }
 
@@ -34,11 +34,13 @@
       timer = setTimeout(later, delay);
       console.info(timer);
     }*/
-    if (immediate) {
+    if (immediate && !debounce.timer) {
       method.apply(null, arguments);
     }
     clearTimeout(debounce.timer);
-    debounce.timer = setTimeout(method, delay);
+    debounce.timer = setTimeout(function () {
+      method.apply(null, arguments);
+    }, delay);
   }
 
   function clickfun() {
