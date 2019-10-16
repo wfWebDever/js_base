@@ -13,43 +13,50 @@
 
 function test() {
   let n = 8;
-  // eslint-disable-next-line no-return-assign
   return () => n += 1;
 }
 
 const result1 = test();
 const result2 = test();
 console.info('1 test,is==', result1(), result1(), result2());
+
 // 箭头函数不会创建自己的this,它只会从自己的作用域链的上一层继承this
 const name_val = 'This Window';
 const object = {
   name_val: 'inner window',
-  getNameFunc: () => {
+  getNameFun: function() {
+    // 继承这里的this
+    return () => {
+      return this.name_val;
+    }
+  },
+  getNameFunArrow: () => {
     //getNameFunc的作用域也是因为箭头函数的缘故，所以this取上一层作用域的this,而上一层为全局作用域。
     return () => this.name_val; //取作用域的上一层this ，严格模式下 undefined
   },
 };
-console.log(object.getNameFunc()());
-console.log(object.getNameFunc().call(object));
+console.log(object.getNameFun()());
+console.log(object.getNameFunArrow()());
+//inner , undefined
+
 const obj = {
   a: 10,
 };
 
 Object.defineProperty(obj, 'b', {
   get: () => {
-    console.log(this.a, typeof this.a, this);
-    return this.a + 10;
+    console.log(this.a);
+    return this.a;
     // 代表全局对象 'Window', 因此 'this.a' 返回 'undefined'
   },
 });
-
+obj.b;
+// undefined
 
 // 闭包的变量作用域链
 const i = 'window';
 function a() {
-  // eslint-disable-next-line no-shadow
   const i = 'inner';
-  // eslint-disable-next-line func-names
   const b = function () {
     return i;
   };
@@ -57,4 +64,5 @@ function a() {
 }
 
 console.info(a()());
+// inner
 
