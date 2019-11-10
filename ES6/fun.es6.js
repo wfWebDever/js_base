@@ -26,7 +26,7 @@ const time = function () {
       let _this=this;
       setTimeout(function(){
         console.info("22",_this.a);
-      },1000)
+      },1000)`
   }*/
 }
 let t = new time();
