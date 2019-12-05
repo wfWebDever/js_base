@@ -10,3 +10,18 @@ async function asyncPrint(value, ms) {
 }
 
 asyncPrint('hello world', 50);
+// 手写实现一个promise
+class MyPromise {
+  constructor(executor) {
+    executor();
+  }
+}
+
+const promise = new MyPromise(function (resolve, reject) {
+  let a = 1;
+  resolve(1);
+});
+
+const promise2 = new  Promise((resolve, reject) => {
+  resolve(1);
+});
