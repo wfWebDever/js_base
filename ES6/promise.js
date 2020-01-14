@@ -1,19 +1,16 @@
-function timeout(ms) {
-  return new Promise((resolve) => {
-    setTimeout(resolve, ms);
-  });
-}
-
-async function asyncPrint(value, ms) {
-  await timeout(ms);
-  console.log(value);
-}
-
-asyncPrint('hello world', 50);
 // 手写实现一个promise
 class MyPromise {
+  value = null;
+  status = null;
+  pedding = 'pedding';
+  fullfiled = 'fullfiled';
+  rejected = 'rejected';
+  
   constructor(executor) {
-    executor();
+    executor(this.resolve.bind(this), this.reject);
+  }
+  resolve(value){
+  
   }
 }
 
