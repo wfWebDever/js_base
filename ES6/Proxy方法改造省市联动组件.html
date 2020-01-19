@@ -1,25 +1,25 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>省市联动</title>
-    <script src="../../vendor/jquery.js"></script>
-    <style>
-        select {
-            width: 150px;
-            display: inline-block;
-        }
-    </style>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <title>省市联动用Proxy改动成组件</title>
+  <script src="../../vendor/jquery.js"></script>
+  <style>
+    select {
+      width: 150px;
+      display: inline-block;
+    }
+  </style>
 </head>
 <body>
 <select id="province" name="province">
-    <!-- <option value="请选择。。。" selected="selected">请选择。。。</option>-->
-    <!--<option value="山东省">山东省</option>
-    <option value="河北省">河北省</option>
-    <option value="北京市">北京市</option>-->
+  <!-- <option value="请选择。。。" selected="selected">请选择。。。</option>-->
+  <!--<option value="山东省">山东省</option>
+  <option value="河北省">河北省</option>
+  <option value="北京市">北京市</option>-->
 </select>
 <select id="city" name="city">
-    <!-- <option selected="selected">请选择。。。</option>-->
+  <!-- <option selected="selected">请选择。。。</option>-->
 </select>
 
 <script type="text/javascript">
@@ -54,7 +54,7 @@
     list.forEach(function (item) {
       $elem += '<option value="' + item.value + '">' + item.text + '</option>'
     });
-    $("#province").append($elem);
+    window.$("#province").append($elem);
   };
   const updateCitys = (value) => {
     const select_province = value;
@@ -76,7 +76,10 @@
 
     $("#city").empty().append($htm);
   };
-  let selectedProvinceProxy = new Proxy({value: '', text: ''}, {
+  let selectedProvinceProxy = new Proxy({
+      value: '',
+      text: ''
+  }, {
     get(target, p, receiver) {
       console.log('get', target, p, receiver);
 
