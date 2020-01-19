@@ -1,15 +1,21 @@
-
+/*
+* async await复杂用法
+*
+* */
 async function runA() {
   return await goA(async () => {
-    const map = [{a:1},{a:2},{a:3}].map(async (item) => {
-      console.log('map, item a = ', item.a);
-      return await setA(item);
-    });
+    const values = [{a:1},{a:2},{a:3}];
+    const map = [];
+    for (let i =0; i < values.length; i++) {
+      console.log('map, item a = ', values[i].a);
+      map.push(setA(values[i]));
+    }
     map.forEach(item=>{
       item.then((ret)=> {
-        console.log(ret)
+        console.log('map each', ret)
       })
     });
+    // return map;
     return Promise.all(map);
   });
 }
@@ -29,16 +35,4 @@ runA().then((ret)=>{
 });
 
 
-async function testA() {
-  const map = [{a:1},{a:2},{a:3}].map(async (item) => {
-    console.log('map, item a = ', item.a);
-    return await setA(item);
-  });
-}
 
-async function testB(cb){
-  return await 2;
-}
-testB().then(ret => {
-  console.log('ret', ret);
-});
