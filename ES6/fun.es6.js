@@ -17,7 +17,7 @@ const time = function () {
   this.run = function () {
     console.info("11", this);
     setTimeout(() => {
-      console.info("22", this.a);
+      console.info("22", this);
     }, 1000);
   }
   
