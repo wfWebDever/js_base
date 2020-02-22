@@ -13,7 +13,7 @@ console.log(o2.a, o2Copy.a);
 const o3 = {
   a: 1, b: { b1: 2 }, c: undefined, d() {},
 };
-const o3Copy = JSON.parse(JSON.stringify(o3));
+const o3Copy = JSON.parse(JSON.stringify(o3))
 console.log(o3Copy);// { a: 1, b: { b1: 2 } }
 
 //深拷贝 es5方式

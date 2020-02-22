@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <script type="text/javascript" src="../vendor/jquery.js"></script>
+        <script type="text/javascript" src="../../vendor/jquery.js"></script>
     </head>
     <body>
-    
+
         <ul id="ul">
             <li class="li">
                 item 1
@@ -58,7 +58,7 @@
                     }
                 }
             }
-           
+
 
             let liElem=document.querySelectorAll("li");
             let i=0,
@@ -68,13 +68,13 @@
                     console.info(num);//闭包保存的是上一个函数的活动对象，也就是指引用的值
                     return function(){
                         handle.call(this,event,num);
-                    } 
+                    }
                 }(i),false);
             }
             function handle(event,i){
                 console.info("LI;","i=",i,this);
             }
-            
+
             document.querySelector("ul").addEventListener("click",(event)=>{
                 if(event.target==this){
                     console.info("ul");
@@ -88,10 +88,10 @@
 
 
 
-            
-            
-            
-        
+
+
+
+
         </script>
     </body>
 </html>

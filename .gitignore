@@ -10,3 +10,4 @@ vendor
 *.iml
 out
 gen
+ts/build
