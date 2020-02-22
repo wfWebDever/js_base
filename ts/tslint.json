@@ -1,0 +1,10 @@
+{
+    "root": true,
+    "defaultSeverity": "error",
+    "extends": [
+        "tslint:recommended"
+    ],
+    "jsRules": {},
+    "rules": {},
+    "rulesDirectory": []
+}
