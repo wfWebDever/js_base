@@ -1,4 +1,4 @@
-/*const obj={
+/* const obj={
     id:1,
     getId:function () {
         //var that=this;
@@ -8,29 +8,26 @@
     }
 };
 const getId=obj.getId;
-getId.call(obj);*/
+getId.call(obj); */
 
-"use strict";
+'use strict'
 
 const time = function () {
-  this.a = 1;
+  this.a = 1
   this.run = function () {
-    console.info("11", this);
+    console.info('11', this)
     setTimeout(() => {
-      console.info("22", this);
-    }, 1000);
+      console.info('22', this)
+    }, 1000)
   }
-  
-  /*this.run=function(){
+
+  /* this.run=function(){
       console.info("11",this);
       let _this=this;
       setTimeout(function(){
         console.info("22",_this.a);
       },1000)`
-  }*/
+  } */
 }
-let t = new time();
-t.run();
-
-
-
+const t = new time()
+t.run()
