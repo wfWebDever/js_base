@@ -31,3 +31,5 @@ const time = function () {
 }
 const t = new time()
 t.run()
+
+// 使用闭包的方式来的

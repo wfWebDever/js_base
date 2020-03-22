@@ -3,3 +3,4 @@
 3、HTTP请求发起和响应html。
 4、页面呈现： 把html 生成DOM tree 和CSS渲染样式-- render tree-布局。遇到script会暂停渲染，除非是异步js.
 5、连接断开： 4次挥手。
+
