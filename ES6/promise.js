@@ -1,5 +1,10 @@
 // 手写实现一个promise
 
+/*
+  * 首先要实现构造函数
+  * 构造函数参数为方法，方法的参数分别为resolve reject 2个方法，resolve reject改变promise的值和状态
+  * then为核心方法 要返回新的promise对象
+* */
 // then:
 // then 方法可以被同一个 promise 调用多次
 // 当 promise 成功执行时，所有 onFulfilled 需按照其注册顺序依次回调
@@ -10,14 +15,19 @@ const PENDING = 'pending'
 const FULLFILED = 'fullfiled'
 const REJECTED = 'rejected'
 const isFunction = (fun) => fun && typeof fun === 'function'
-const isObj = (value) => value && typeof value === 'object'
+const isObj = obj => !!(obj && typeof obj === 'object')
+const isThenable = obj => (isFunction(obj) || isObj(obj)) && 'then' in obj
 const hanlderCallback = (cb, status, value) => {
-  const { onFullfiled, onRejected, resolve, reject } = cb
-  if (status === FULLFILED) {
-    isFunction(onFullfiled) ? resolve(onFullfiled(value)) : resolve(value)
-  }
-  if (status === REJECTED) {
-    isFunction(onRejected) ? reject(onRejected(value)) : reject(value)
+  const { onFulfilled, onRejected, resolve, reject } = cb
+  try {
+    if (status === FULLFILED) {
+      isFunction(onFulfilled) ? resolve(onFulfilled(value)) : resolve(value)
+    }
+    if (status === REJECTED) {
+      isFunction(onRejected) ? reject(onRejected(value)) : reject(value)
+    }
+  } catch (error) {
+    reject(error)
   }
 }
 const hanlderCallbacks = (callbacks, status, value) => {
@@ -26,40 +36,36 @@ const hanlderCallbacks = (callbacks, status, value) => {
     hanlderCallback(cb, status, value)
   }
 }
-// async resolve value
-const onFulfiled = function (value) {
-  const promise = this
-  if (promise.status !== PENDING) return
-  promise.status = FULLFILED
-  promise.value = value
-  setTimeout(hanlderCallbacks, 0, promise.callbackQueue, promise.status, promise.value)
-}
 // 处理value type
-const resolvePromiseValue = function (value, promise, onfulfiled, onRejected) {
+const resolvePromiseValue = function (promise, value, onfulfiled, onRejected) {
   try {
     if (value === promise) {
-      let reason = new TypeError('same promise not')
+      const reason = new TypeError('same promise not')
       onRejected(reason)
+      return
     }
     if (value instanceof MyPromise) {
-      return value.then(onfulfiled, onRejected)
+      value.then(onfulfiled, onRejected)
+      return
     }
-    if (isObj(value)) {
-    
+    if (isThenable(value)) {
+      try {
+        const then = value.then
+        if (isFunction(then)) {
+          return new MyPromise(then.bind(value)).then(onfulfiled, onRejected)
+        }
+      } catch (error) {
+        return onRejected(error)
+      }
     }
-    onfulfiled.call(promise, value)
+    // 非上面特殊value 直接处理
+    onfulfiled(value)
   } catch (e) {
     const reason = new Error('resolve value error')
     onRejected(reason)
   }
 }
 
-const onRejected = function (reason, promise) {
-  if (promise.status !== PENDING) return
-  promise.status = REJECTED
-  promise.value = reason
-  setTimeout(hanlderCallbacks, 0, promise.callbackQueue, promise.status, promise.value)
-}
 class MyPromise {
   // status = PENDING; // ES7提案，需要babel
   // value = undefined;
@@ -67,23 +73,38 @@ class MyPromise {
     this.status = PENDING
     this.value = undefined
     this.callbackQueue = []
-    executor(this.resolve.bind(this), this.reject.bind(this))
+    const transition = (promise, status, value) => {
+      if (promise.status !== PENDING) return
+      promise.status = status
+      promise.value = value
+      setTimeout(hanlderCallbacks, 0, promise.callbackQueue, promise.status, promise.value)
+    }
+    const onFulfiled = value => {
+      transition(this, FULLFILED, value)
+    }
+    let flag = false
+    const resolve = value => {
+      if (flag) {
+        return
+      }
+      flag = true
+      resolvePromiseValue(this, value, onFulfiled, onRejected)
+    }
+    const onRejected = function (reason) {
+      transition(this, REJECTED, reason)
+    }
+    const reject = function (reason) {
+      onRejected(reason)
+    }
+    executor(resolve, reject)
     return this
   }
-
-  resolve (value) {
-    resolvePromiseValue(value, this, onFulfiled, onRejected)
-  }
   
-  reject (error) {
-    onRejected(error, this)
-  }
-  
-  then (onFullfiled, onRejected) {
+  then (onFulfilled, onRejected) {
     return new MyPromise((resolve, reject) => {
       const promise = this
       const { status, value } = promise
-      const callback = { onFullfiled, onRejected, resolve, reject }
+      const callback = { onFulfilled, onRejected, resolve, reject }
       if (this.status === PENDING) {
         this.callbackQueue.push(callback)
       } else {
@@ -94,21 +115,18 @@ class MyPromise {
   }
 }
 
-/*
-  * 首先要实现构造函数
-  * 构造函数参数为方法，方法的参数分别为resolve reject 2个方法，resolve reject改变promise的值和状态
-  * then为核心方法 要返回新的promise对象
-* */
-/*
-const promise = new MyPromise(function (resolve, reject) {
+
+/*const promise = new MyPromise(function (resolve, reject) {
   const a = 1
   console.log('first promise value is', a)
   resolve(a)
 })
 promise.then((data) => {
   console.log(`first called ${data}`)
-})
-*/
+  return ++data
+}).then(data => {
+  console.log('then then value is', data)
+})*/
 
 /*const promise2 = new MyPromise((resolve, reject) => {
   setTimeout(() => {
@@ -116,34 +134,26 @@ promise.then((data) => {
     resolve(2)
   }, 3000)
 })
-
-
 promise2.then((data) => {
   console.log('then value is', data)
   return data + 1
+}).then(data => {
+  console.log('then then value is', data)
+  return data + 1
 })*/
 
-/*new MyPromise((resolve, reject) => {
-  console.log('reject promise is')
-  reject('reson')
-}).then(() => {}, (reason) => {
-  console.log('reject then is', reason)
-  return reason
-})*/
 
-new MyPromise((resolve, reject) => {
-  const promi = new MyPromise((resolve, reject) => {
-    resolve(2)
-  })
-  resolve(promi)
+new MyPromise((resolve) => {
+  // resolve(new MyPromise(resolve => {
+    resolve(1)
+  // }))
 }).then((data) => {
-  console.log(data)
+  return new MyPromise(resolve => {
+    console.log('then value is ', data)
+    resolve(data + 1)
+  })
 })
 
-new Promise((resolve) => {
-  resolve(new Promise((resolve) => {
-    resolve(2)
-  }))
-}).then((data) => {
-  console.log(data)
+new MyPromise(resolve => {
+  resolve(2)
 })

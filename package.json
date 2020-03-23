@@ -2,7 +2,8 @@
   "name": "jsbase",
   "version": "1.0.0",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "promisetest": "promises-aplus-tests ES6/promise.js"
   },
   "dependencies": {
     "promises-aplus-tests": "^2.1.2",
