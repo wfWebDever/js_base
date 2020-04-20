@@ -176,8 +176,8 @@ register (path, rawModule, runtime = true) {
 
 ```javascript 1.8
 function installModule (store, rootState, path, module, hot) {
-  const isRoot = !path.length;
-  const namespace = store._modules.getNamespace(path);
+  const isRoot = !path.length
+  const namespace = store._modules.getNamespace(path)
 
   // register in namespace map
   if (module.namespaced) {
