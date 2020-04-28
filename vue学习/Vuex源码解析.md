@@ -174,7 +174,7 @@ register (path, rawModule, runtime = true) {
 ### 安装模块
 - state：用vue给root对象添加响应式属性
 
-```javascript 1.8
+```javascript
 function installModule (store, rootState, path, module, hot) {
   const isRoot = !path.length
   const namespace = store._modules.getNamespace(path)
