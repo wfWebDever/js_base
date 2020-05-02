@@ -168,9 +168,16 @@ registerModule (path, rawModule, options = {}) {
     resetStoreVM(this, this.state); // 重置模块
   }
 ```
-### 对于注册模块
-逻辑为：如果path为空数组，那么为根模块，
+### 注册模块
+- 总体逻辑：把传入的参数先转换成module，获取父模块，然后作为子模块插入到父模块中。
+- 获取父模块逻辑有点绕：如果path为空数组，那么为根模块。
+  除最后一个，则为模块的路径，如果数组为1，则模块路径在根路径下，也就是父模块为root
 如果path不为空，那么该数组的最后一个为要注册的模块，前面的为路径。比如['child1', 'child1_1', 'child1_1_1']
+- 通过 ```this._modules.register``` 方法注册
+- 优秀代码：```path.slice(0, -1)``` 以前获取数组的前几个都是 
+```const arr = []; arr.slice(0, arr.length - 1)```
+倒数第一个为-1 倒数第二个为 -2 ，这样写很直观。
+
 ```javascript 1.8
 ...
 this._modules.register(path, rawModule);
@@ -184,12 +191,12 @@ register (path, rawModule, runtime = true) {
     if (path.length === 0) {
       this.root = newModule;
     } else {
-      const parent = this.get(path.slice(0, -1));// 除最后一个，则为模块的路径，如果数组为1，则模块路径在根路径下，也就是父模块为root.
+      const parent = this.get(path.slice(0, -1)); // 取路径的从0到倒数第二个作为新数组来获取父模块
       parent.addChild(path[path.length - 1], newModule);
     }
 
     // register nested modules
-    // 递归调用子模块注册
+    // 递归调用子模块注册 
     if (rawModule.modules) {
       forEachValue(rawModule.modules, (rawChildModule, key) => {
         this.register(path.concat(key), rawChildModule, runtime);
@@ -197,6 +204,7 @@ register (path, rawModule, runtime = true) {
     }
   }
 ```
+
 ### 安装模块
 - state：用vue给root对象添加响应式属性
 
@@ -225,7 +233,7 @@ function installModule (store, rootState, path, module, hot) {
           );
         }
       }
-      Vue.set(parentState, moduleName, module.state); //用vue给root对象添加响应式属性
+      Vue.set(parentState, moduleName, module.state); // 用vue给root对象添加响应式属性
     });
   }
 
