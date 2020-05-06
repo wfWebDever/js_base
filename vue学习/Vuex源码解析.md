@@ -206,7 +206,7 @@ register (path, rawModule, runtime = true) {
 ```
 
 ### 安装模块
-- state：用vue给root对象添加响应式属性
+- state：用 ```Vue.set``` 给模块的父模块的state对象添加该模块的state响应式属性。
 
 ```javascript
 function installModule (store, rootState, path, module, hot) {
@@ -233,11 +233,13 @@ function installModule (store, rootState, path, module, hot) {
           );
         }
       }
-      Vue.set(parentState, moduleName, module.state); // 用vue给root对象添加响应式属性
+      Vue.set(parentState, moduleName, module.state); // 这是重点 用到了Vue的 set方法
     });
   }
-
+// 构造执行环境
+// 这部分暂时放过 过后再理解。
   const local = module.context = makeLocalContext(store, namespace, path);
+ 
 
   module.forEachMutation((mutation, key) => {
     const namespacedType = namespace + key;
@@ -260,3 +262,217 @@ function installModule (store, rootState, path, module, hot) {
   });
 }
 ```
+
+## vuex中的state获取API
+```javascript
+// 使用方法 
+// 找到模块然后直接获取state属性，而不是像dispatch commit 那样通过命名空间的方式
+this.$store.home.a
+// this.$store 代表root state
+```
+- 安装模块的逻辑中 有一处
+```Vue.set(parentState, moduleName, module.state);```
+- 找到父的state对象，然后用vue.set把该模块的state添加响应式属性
+
+```
+function installModule (store, rootState, path, module, hot) {
+  const isRoot = !path.length;
+  const namespace = store._modules.getNamespace(path);
+...
+  // set state
+  if (!isRoot && !hot) {
+    const parentState = getNestedState(rootState, path.slice(0, -1));
+    const moduleName = path[path.length - 1];
+    store._withCommit(() => {
+      {
+        if (moduleName in parentState) {
+          console.warn(
+            `[vuex] state field "${moduleName}" was overridden by a module with the same name at "${path.join('.')}"`
+          );
+        }
+      }
+      Vue.set(parentState, moduleName, module.state);
+    });
+  }
+```
+
+## getters API
+- 使用方法 ```this.$store.getters['home/getterHome']```
+- ```resetStoreVM ```重置
+- 直接是通过getters根上获取该getter对应的key值, 这个key值是命名空间路径,代表的是唯一key
+- 使用了 Object.defineProperty 对 store.getters对象上生成以模块key,它的取值get方法是返回的store._vm[key]
+-  store._vm 属性保存当前的vue实例，具体作用是data里面保存着state，computed存着getters，可以缓存。
+  故上面的取值getter获取的直接是缓存后的getter值
+- store._wrappedGetters 保存着当前的getters，是在installModule阶段生成
+
+```javascript
+function resetStoreVM (store, state, hot) {
+  const oldVm = store._vm;
+
+  // bind store public getters
+  store.getters = {};
+  // reset local getters cache
+  store._makeLocalGettersCache = Object.create(null);
+  const wrappedGetters = store._wrappedGetters; // 注册的时候生成的
+  const computed = {};
+  forEachValue(wrappedGetters, (fn, key) => {
+    // use computed to leverage its lazy-caching mechanism
+    // direct inline function use will lead to closure preserving oldVm.
+    // using partial to return function with only arguments preserved in closure environment.
+    computed[key] = partial(fn, store);
+    Object.defineProperty(store.getters, key, {
+      get: () => store._vm[key],
+      enumerable: true // for local getters
+    });
+  });
+
+  // use a Vue instance to store the state tree
+  // suppress warnings just in case the user has added
+  // some funky global mixins
+  const silent = Vue.config.silent;
+  Vue.config.silent = true;
+  store._vm = new Vue({// 用Vue实例对象来构造state和 getters 
+    data: {
+      $$state: state
+    },
+    computed
+  });
+  Vue.config.silent = silent;
+
+  // enable strict mode for new vm
+  if (store.strict) {
+    enableStrictMode(store);
+  }
+
+  if (oldVm) {
+    if (hot) {
+      // dispatch changes in all subscribed watchers
+      // to force getter re-evaluation for hot reloading.
+      store._withCommit(() => {
+        oldVm._data.$$state = null;
+      });
+    }
+    Vue.nextTick(() => oldVm.$destroy());
+  }
+}
+```
+
+### installModule 生成的getters
+- 故getters中定义的每个属性的执行方法的参数包括4个方面.
+
+
+```
+getters: {
+  getA(state, getters, rootState, rootGetters) {
+    .....
+  }
+}
+```
+- 源码在此
+
+```javascript
+function registerGetter (store, type, rawGetter, local) {
+  if (store._wrappedGetters[type]) {
+    {
+      console.error(`[vuex] duplicate getter key: ${type}`);
+    }
+    return
+  }
+  store._wrappedGetters[type] = function wrappedGetter (store) {
+    return rawGetter(
+      local.state, // local state 当前模块
+      local.getters, // local getters 当前模块
+      store.state, // root state 根模块
+      store.getters // root getters 根模块
+    )
+  };
+}
+```
+
+## mutations 原理及改变状态唯一操作的原因
+- 使用方法, 参数中有当前模块的state 以及传入的参数
+
+```javascript
+mutations: {
+  changeHomeVal(state, playload) {
+    state.home = playload
+  }
+}
+```
+- 在```installModule```阶段 注册
+
+```javascript
+function registerMutation (store, type, handler, local) {
+  const entry = store._mutations[type] || (store._mutations[type] = []);
+  entry.push(function wrappedMutationHandler (payload) {
+    handler.call(store, local.state, payload); // 传入当前模块的 state 以及输入参数， 可以看到每个是数组
+  });
+}
+```
+
+- 获取注册到```store._mutations```对应的mutation, 通过```store.commit```方法执行。
+
+```
+commit (_type, _payload, _options) {
+    // check object-style commit
+   ...
+   const entry = this._mutations[type];
+   ...
+    this._withCommit(() => {
+      entry.forEach(function commitIterator (handler) {
+        handler(payload);
+      });
+    });
+   ...
+```
+
+- 对于为什么commit是状态的唯一方法， 并且是同步函数，不然下面的_committing 状态起不到作用
+
+```javascript
+_withCommit (fn) {
+    const committing = this._committing;
+    this._committing = true;
+    fn();
+    this._committing = committing;
+  }
+```
+
+## actions 
+- 使用方法
+```javascript
+actions: {
+      getHome({ state, getters, commit }, payload) {
+        return new Promise((resolve, reject) => {
+          commit('matution', 3)
+          resolve(3)
+        })
+      },
+    },
+```
+- 注册阶段, 获取到store._actions下的action, 也是个数组
+- 执行的时候传入的参数有一个包含当前的dispatch commit  getters state 根getters state的对象，可以通过解构方法获取
+- actions返回的结果为promise 不是的话 通过Promise.resolve()构造之。
+```javascript
+
+```
+
+```javascript
+function registerAction (store, type, handler, local) {
+  const entry = store._actions[type] || (store._actions[type] = []);
+  entry.push(function wrappedActionHandler (payload) {
+    let res = handler.call(store, {
+      dispatch: local.dispatch,
+      commit: local.commit,
+      getters: local.getters,
+      state: local.state,
+      rootGetters: store.getters,
+      rootState: store.state
+    }, payload);
+    if (!isPromise(res)) {
+      res = Promise.resolve(res);
+    }
+    ...
+  });
+}
+```
+
