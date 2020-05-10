@@ -12,3 +12,4 @@ out
 gen
 ts/build
 yarn.lock
+ES6/promise-statle.js

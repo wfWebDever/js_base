@@ -1,0 +1,155 @@
+# Props
+## template
+```vue
+  const fooComponent = {
+    template: `<div>{{a}}</div>`,
+    props: ['a'],
+  }
+  const Foo = {
+    components: {
+      fooComponent,
+    },
+    template: `
+      <div>
+        <foo-component :a="a"></foo-component>
+      </div>
+    `
+    ...
+   }
+```
+## 发生阶段
+- ```在beforeCreate```阶段
+- ```vm.$options.propsData``` 和```propsOptions``` 比较属性
+- 上面这个```$options.propsData````从哪生成的呢？
+
+```javascript
+function initProps (vm, propsOptions) {
+  const propsData = vm.$options.propsData || {};
+  const props = vm._props = {};
+  // cache prop keys so that future props updates can iterate using Array
+  // instead of dynamic object key enumeration.
+  const keys = vm.$options._propKeys = [];
+  const isRoot = !vm.$parent;
+  // root instance props should be converted
+  if (!isRoot) {
+    toggleObserving(false);
+  }
+  for (const key in propsOptions) {
+    keys.push(key);
+    const value = validateProp(key, propsOptions, propsData, vm);
+    /* istanbul ignore else */
+    {
+      const hyphenatedKey = hyphenate(key);
+      if (isReservedAttribute(hyphenatedKey) ||
+          config.isReservedAttr(hyphenatedKey)) {
+        warn(
+          `"${hyphenatedKey}" is a reserved attribute and cannot be used as component prop.`,
+          vm
+        );
+      }
+      defineReactive$$1(props, key, value, () => {
+        if (!isRoot && !isUpdatingChildComponent) {
+          warn(
+            `Avoid mutating a prop directly since the value will be ` +
+            `overwritten whenever the parent component re-renders. ` +
+            `Instead, use a data or computed property based on the prop's ` +
+            `value. Prop being mutated: "${key}"`,
+            vm
+          );
+        }
+      });
+    }
+    // static props are already proxied on the component's prototype
+    // during Vue.extend(). We only need to proxy props defined at
+    // instantiation here.
+    if (!(key in vm)) {
+      proxy(vm, `_props`, key);
+    }
+  }
+  toggleObserving(true);
+}
+```
+
+## propsData
+```javascript
+vnode = createComponent(Ctor, data, context, children, tag);
+// ```data``` 存储的是父组件传给子组件的数据 作为attrs形式传入。
+// 然后和子组件中的 ```props``` 比较属性。
+data = {
+  attrs: {
+    a: [1, 2]
+  }
+}
+```
+```javascript
+const propsData = extractPropsFromVNodeData(data, Ctor, tag);
+```
+
+```javascript
+function extractPropsFromVNodeData (
+  data,
+  Ctor,
+  tag
+) {
+  // we are only extracting raw values here.
+  // validation and default values are handled in the child
+  // component itself.
+  const propOptions = Ctor.options.props; // 子组件的props 把属性转化成对象形式 a: { type: null }
+  if (isUndef(propOptions)) {
+    return
+  }
+  const res = {};
+  const { attrs, props } = data;
+  if (isDef(attrs) || isDef(props)) {
+    for (const key in propOptions) {
+      const altKey = hyphenate(key);
+      {
+        const keyInLowerCase = key.toLowerCase();
+        if (
+          key !== keyInLowerCase &&
+          attrs && hasOwn(attrs, keyInLowerCase)
+        ) {
+          tip(
+            `Prop "${keyInLowerCase}" is passed to component ` +
+            `${formatComponentName(tag || Ctor)}, but the declared prop name is` +
+            ` "${key}". ` +
+            `Note that HTML attributes are case-insensitive and camelCased ` +
+            `props need to use their kebab-case equivalents when using in-DOM ` +
+            `templates. You should probably use "${altKey}" instead of "${key}".`
+          );
+        }
+      }
+      checkProp(res, props, key, altKey, true) ||
+      checkProp(res, attrs, key, altKey, false);
+    }
+  }
+  return res
+}
+```
+
+```javascript
+function checkProp (
+  res,
+  hash,
+  key,
+  altKey,
+  preserve
+) {
+  if (isDef(hash)) {
+    if (hasOwn(hash, key)) {
+      res[key] = hash[key];
+      if (!preserve) {
+        delete hash[key];
+      }
+      return true
+    } else if (hasOwn(hash, altKey)) {
+      res[key] = hash[altKey];
+      if (!preserve) {
+        delete hash[altKey];
+      }
+      return true
+    }
+  }
+  return false
+}
+```
