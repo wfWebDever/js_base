@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    test
+</div>
+<script>
+
+</script>
+<script type="module">
+  import Vue from './node_modules/vue/dist/vue.esm.browser.js'
+  /*const Child = {
+    template: `
+       <div>
+           <input :value="value"  @input="update"/>
+       </div>
+    `,
+    props: ['value'],
+    /!*model: {
+      prop: 'val',
+      event: 'input'
+    },*!/
+    created() {
+    },
+    mounted() {
+      console.log(this.val)
+    },
+    methods: {
+      update(e) {
+        console.log(this.val)
+        const val = e.target.value
+        console.log('update value is',val)
+        this.$emit('input', val)
+      }
+    }
+  }*/
+  const Home = {
+    template: `<div></div>`,
+    data(){
+      return {
+        a: 1,
+        b: 2,
+      }
+    },
+  }
+
+  const app = new Vue({
+    render: h => h(Home)
+  })
+  app.$mount('#app')
+</script>
+</body>
+</html>
