@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "promisetest": "promises-aplus-tests ES6/promise.js"
+    "promisetest": "promises-aplus-tests ES6/promise.js",
+    "docs:dev": "vuepress dev docs"
   },
   "dependencies": {
     "promises-aplus-tests": "^2.1.2",
@@ -11,6 +12,7 @@
     "typescript": "^3.8.2"
   },
   "devDependencies": {
-    "standard": "*"
+    "standard": "*",
+    "vuepress": "^1.5.2"
   }
 }
