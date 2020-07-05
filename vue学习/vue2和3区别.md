@@ -1,6 +1,6 @@
 
 # 响应式核心
-## 数据监控原理：
+## 数据监控原理
   - 用Object.defineProperty的get、set
   - 加上Dep作为数据监控依赖收集、派发更新中间件
   - 通过Watcher作为真正的数据载体
