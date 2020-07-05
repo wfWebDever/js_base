@@ -1,4 +1,6 @@
 # v-model 
+涉及到了 编译的原理，具体编译放在 ```vue核心之模版编译```章节。
+
 - 用法
 ```javascript
 template: `
