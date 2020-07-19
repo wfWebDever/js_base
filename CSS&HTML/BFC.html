@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>BFC概念及浮动</title>
+    <style type="text/css">
+        section {
+            border: 1px solid blue;
+        }
+
+        div {
+            margin: 5px;
+            width: 50px;
+            height: 50px;
+        }
+
+        .left {
+            float: left;
+            background: pink;
+        }
+
+        .right {
+            float: right;
+            background: cyan;
+        }
+        h2 {
+            overflow: auto;/*BFC 块格式化上下文 形成独立的区域，和其他区域隔离，形成自己的作用域 故用结界隔离起来*/
+        }
+    </style>
+</head>
+<body>
+<section>
+    <div class="left">1</div>
+    <div class="left">2</div>
+    <div class="right">3</div>
+    <p>Lorem ipsum dolor sit amet, </p>
+    <h2>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+        Morbi tristique sapien ac erat tincidunt, sit amet dignissim
+        lectus vulputate. Donec id iaculis velit. Aliquam vel
+        malesuada erat. Praesent non magna ac massa aliquet tincidunt
+        vel in massa. Phasellus feugiat est vel leo finibus congue.</h2>
+
+</section>
+</body>
+</html>

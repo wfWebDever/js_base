@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>margin边距折叠几种情况</title>
+    <style type="text/css">
+        .top {margin: 100px 0;background: #ccc; /*overflow: hidden;*/}
+        .div{width: 200px; height: 100px;background: blue;}
+        .div1, .div2{margin: 100px; border: 1px solid #ccc;}
+    </style>
+</head>
+<body>
+<div class="top">
+    <div class="div div1">父元素不是BFC或者没有设置padding border或者没有其他子元素存下的情况下,第一个子元素和最后一个子元素会和父折叠</div>
+    <div class="div div2">设置父元素BFC，那么父元素和子元素相邻的边距不会折叠，但是由于子元素在同一个BFC中，他们之间如果没有其他元素，也会折叠</div>
+</div>
+<div class="top"><div class="div div1">要想同级元素之间不发生边距折叠，则必须两者之间有其他元素</div></div>
+<div>兄弟之间有其他元素隔开了，那么边距不会折叠</div>
+<div class="top"><div class="div div2">要想同级元素之间不发生边距折叠，则必须两者不是同一个BFC中</div></div>
+</body>
+</html>
