@@ -42,7 +42,7 @@ class Observer {
 ```
 
 # get set 
-需要用到一个dep实例作为闭包在get收集依赖,在set中派发更新。具体这俩过程在下面介绍。
+需要用到一个dep实例作为中间层，在get中通过闭包收集dep依赖,而在set中派发更新。具体这2个过程在下面介绍。
 ```javascript
 function defineReactive$$1 (obj,key,val,customSetter,shallow) {
   const dep = new Dep();
@@ -52,10 +52,10 @@ function defineReactive$$1 (obj,key,val,customSetter,shallow) {
     configurable: true,
     get: function reactiveGetter () {
       const value = getter ? getter.call(obj) : val;
-      if (Dep.target) {
-        dep.depend();
+      if (Dep.target) { // watcher观察者对象 后面介绍，因为是要收集这个对象 故要先判断是否存在
+        dep.depend(); //收集依赖方法
         if (childOb) {
-          childOb.dep.depend();
+          childOb.dep.depend(); // 存在对象属性 其属性也得收集，因为可能其也依赖
           if (Array.isArray(value)) {
             dependArray(value);
           }
@@ -77,7 +77,7 @@ function defineReactive$$1 (obj,key,val,customSetter,shallow) {
         val = newVal;
       }
       childOb = !shallow && observe(newVal);
-      dep.notify();
+      dep.notify(); // 派发更新 
     }
   });
 }
