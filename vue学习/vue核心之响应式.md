@@ -21,7 +21,7 @@ function initState (vm) {
 - 从源码发现的细节
 给数据添加响应式属性 __ob__ 这个属性的值为该observer对象，由于observer对象的value 指向了该数据本身，故是一个循环引用。
 但是 由于 def(value, '__ob__', this)的作用 使__ob__为一个不可枚举类型，故这个__ob__在业务代码中不会遍历出来。
-```javascript
+```
 class Observer {
   constructor (value) {
     this.value = value;
@@ -42,8 +42,8 @@ class Observer {
 ```
 
 # get set 
-需要用到一个dep实例作为中间层，在get中通过闭包收集dep依赖,而在set中派发更新。具体这2个过程在下面介绍。
-```javascript
+需要用到一个dep实例作为中间层，在get中通过闭包收集dep依赖,而在set中其收集的依赖进行派发更新。具体这2个过程在下面介绍。
+```
 function defineReactive$$1 (obj,key,val,customSetter,shallow) {
   const dep = new Dep();
   
@@ -53,10 +53,10 @@ function defineReactive$$1 (obj,key,val,customSetter,shallow) {
     get: function reactiveGetter () {
       const value = getter ? getter.call(obj) : val;
       if (Dep.target) { // watcher观察者对象 后面介绍，因为是要收集这个对象 故要先判断是否存在
-        dep.depend(); //收集依赖方法
+        dep.depend(); // 收集依赖方法
         if (childOb) {
           childOb.dep.depend(); // 存在对象属性 其属性也得收集，因为可能其也依赖
-          if (Array.isArray(value)) {
+          if (Array.isArray(value)) { // 数组对象的话 要遍历元素，每个元素都需要递归的收集依赖
             dependArray(value);
           }
         }
