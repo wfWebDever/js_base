@@ -22,3 +22,23 @@
 // let str = 'i am is string'; str.slice(0);
 // 实际转换成String对象 ，这样就能理解了 为什么能调用这些方法，good
 
+/*第4天*/
+// 1、对象：数组也是一种对象,可以添加属性，但是因为不符合下标规范，所以数组的length没有变化，所以下面第4个值不存在
+// 进一步讲，要是添加的属性为数字型的字符串呢，那当然可以被JS引擎转化成下标形式
+// let arr = [1, 2, 3]; arr.len = 4; arr['3'] = 4
+// console.log(arr, arr.length)  // [ 1, 2, 3, len: 3 ], 3
+// 2、遍历对象的几种方法
+// Object.keys() //会遍历对象本身上的所有属性成一个数组集合,不包括设置为不能枚举的属性
+// Object.getOwnPropertyNames  //会遍历对象本身上的所有属性成一个数组集合,但包括设置为不能枚举的属性
+// for in 会遍历对象自身及其原型链上的属性
+// myObject.hasOwnProperty() 只针对某个属性是否是在对象本身上，所以需要和for in配合
+// const myObject = {
+//   a: 1,
+//   b: 2,
+// };
+// Object.defineProperty(myObject, 'c', {
+//   enumerable:false,
+//   value: 3
+// })
+// Object.getOwnPropertyNames(myObject); // ['a', 'b', 'c']
+
