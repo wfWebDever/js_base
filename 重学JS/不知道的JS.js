@@ -99,3 +99,6 @@ Object.defineProperty(fun.prototype, 'constructor', {
 })
 console.log(a.constructor) // function fun
 // 再往下深入的话，那其实这个constructor有什么作用呢，既然我可以随便定义这个属性。
+// 以上可以深刻理解了 JS的所谓继承，根本不存在，本质还是原型，或者链条更为确切。
+// 和其他语言的面向对象不是一回事。
+// 可以这样形容上述的函数构造对象的过程，本质是创建一个对象a，然后其原型是fun.prototype
