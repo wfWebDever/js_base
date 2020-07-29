@@ -76,3 +76,26 @@
 // 相对于继承，用委托更为确切，一个对象通过一种链接到另一个对象，然后可以取到另一个对象的属性和方法。
 // 原文：继承意味着复制操作，JavaScript(默认)并不会复制对象属性。相反，JavaScript 会在两 个对象之间创建一个关联，这样一个对象就可以通过委托访问另一个对象的属性和函数。
 // 委托(参见第 6 章)这个术语可以更加准确地描述 JavaScript 中对象的关联机制
+/*第8天*/
+//JS继承的理解
+// JS根本不是所谓的继承机制，因为继承是需要复制父辈的属性和方法的，而JS是通过原型链获取属性和方法，没有复制。
+// 通过'构造函数'举例来说
+function fun () {
+  console.log('fun')
+}
+fun.prototype = {}
+const a = new fun()
+console.log(a.constructor) // ？
+// 原来的固有印象是通过构造函数fun new出来的对象a 会有一个属性指向其构造函数fun,其实错了，a根本没有属性指向fun,
+// a.constructor是通过原型链去找,如果在fun.prototype找到了就是fun.prototype的指向，如果没找到，那么继续往上找，
+// 一直找到Object.prototype ，而它的constructor =》Object函数,故上面的结果为
+console.log(a.constructor) // function Object //注意这里的Object 为函数
+// 继续，故需要在其原型上加这个constructor属性指向fun函数， 并且是不可枚举的，那就用到了属性描述
+Object.defineProperty(fun.prototype, 'constructor', {
+  enumerable: false,
+  writable: true,
+  configurable: true,
+  value: fun
+})
+console.log(a.constructor) // function fun
+// 再往下深入的话，那其实这个constructor有什么作用呢，既然我可以随便定义这个属性。
