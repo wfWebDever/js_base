@@ -102,3 +102,27 @@ console.log(a.constructor) // function fun
 // 以上可以深刻理解了 JS的所谓继承，根本不存在，本质还是原型，或者链条更为确切。
 // 和其他语言的面向对象不是一回事。
 // 可以这样形容上述的函数构造对象的过程，本质是创建一个对象a，然后其原型是fun.prototype
+
+/*第9天*/
+// vue源码中用到了Object.create(null) 创建空的对象，去掉了原型链（本质是原型关联指向了null）储存一些数据。
+// Object.create ES5兼容写法
+if (!Object.create) {
+  Object.create = function (o) {
+    const f = function () {}
+    f.prototype = o
+    return new f()
+    // or
+    // const obj = {}
+    // obj.__proto__ = o //IE不支持 哈哈 只是表达一种思路
+    // return obj
+  }
+}
+// 这个兼容性（polyfill）写法，再次说明了委托原型链的本质，创建一个对象，这个对象的原型指向了要关联的对象。
+// 怎么创建一个对象 可以通过一个new 一个函数：
+/* 官方解释
+* 使用 new 来调用函数，或者说发生构造函数调用时，会自动执行下面的操作。
+1. 创建(或者说构造)一个全新的对象。
+2. 这个新对象会被执行[[原型]]连接。
+3. 这个新对象会绑定到函数调用的this。
+4. 如果函数没有返回其他对象，那么new表达式中的函数调用会自动返回这个新对象。
+* */
