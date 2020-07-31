@@ -83,6 +83,7 @@
 function fun () {
   console.log('fun')
 }
+
 fun.prototype = {}
 const a = new fun()
 console.log(a.constructor) // ？
@@ -126,3 +127,80 @@ if (!Object.create) {
 3. 这个新对象会绑定到函数调用的this。
 4. 如果函数没有返回其他对象，那么new表达式中的函数调用会自动返回这个新对象。
 * */
+
+/*第10天*/
+//通过两个对象之间建立委托联系的形式，更好的实现了关注点分离。举例
+// 首先是类的形式，'子类'需要call 一下'父类'，获取父的属性，然后通过创建一个新对象指向父函数的原型并赋到子类prototype上实现原型的关联
+function fa (name) {
+  this.name = name
+}
+
+fa.prototype.getName = function () {
+  return this.name
+}
+
+function fb (name, age) {
+  fa.call(this, name)
+  this.age = age
+}
+
+fb.prototype = Object.create(fa.prototype)
+const f = new fb('li', 100)
+console.log(f.getName())
+// 这种方式一点都不分离化，也很费解。
+// 以下是对象形式的委托关联
+const obj1 = {
+  getName () {
+    return this.name
+  }
+}
+const obj2 = {
+  name: 'li',
+  getAge () {
+    return this.age
+  }
+}
+Object.setPrototypeOf(obj2, obj1)
+console.log(obj2.getName())
+// 这种方式 很容易发现 两者之间并不存在很紧密的关系，通过原型链进行关联。
+// 联想到日常开发中， 写组件或者写业务，尽量做到分离、低耦合。
+
+//ES6中 class 中原型的探究
+// es6  class 说到底是隐藏了一些细节关系，不用通过显示的prototype来关联两个对象， 总结其实就是一种语法糖.
+class Widget {
+  constructor (width, height) {
+    this.width = width || 50
+    this.height = height || 50
+    this.$elem = null
+  }
+  
+  render ($where) {
+    if (this.$elem) {
+      this.$elem.css({ width: this.width, height: this.height }).appendTo($where)
+    }
+  }
+}
+class Button extends Widget {
+  constructor (width, height, label) {
+    super(width, height) // 类似执行了 Widget.call(this, width, height)
+    this.label = label || 'Default'
+    this.$elem = 'button'
+  }
+  
+  render ($where) {
+    super.render($where) // 往上找原型widget中的render方法 也是一种委托关联关系，本质不变
+    this.$elem.click(this.onClick.bind(this))
+  }
+  
+  onClick (evt) {
+    console.log('Button \'' + this.label + '\' clicked!')
+  }
+}
+
+const btn = new Button(20, 30, null)
+console.log(btn)
+// 总结
+
+
+
+
