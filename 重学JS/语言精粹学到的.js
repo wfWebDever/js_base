@@ -5,6 +5,7 @@
  // undefined 这样无法区分出来，如果后者能返回 'undeclared' 就能明了.但是呢，有了这种防范机制，在日常开发中，如果进行polyfill,那用typeof
  // 先检查是否存在，再补充当前环境缺失的功能。
  // 比如 if (typeof Promise !== 'undefined') {....}
+ // 2、Number类型中非数字值 NaN 不等于其自身，这是JS中唯一一个。
  
 
 // 注释

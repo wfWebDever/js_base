@@ -16,7 +16,10 @@
 // 3、typeof null === 'object' 在计算机底层，对象都是二进制形式，JS对前三位都是0的判定为对象，而null 都是0。
 // 这样就好理解了 起码有个底层道理，不然凭空认为是这样，觉得太儿戏。
 // 这是一个JS bug, 但是无法修复了，因为很多系统项目在用。
+// null 是关键字，不可以被覆盖。
 // 原文为：`注 1:原理是这样的，不同的对象在底层都表示为二进制，在 JavaScript 中二进制前三位都为 0 的话会被判 断为 object 类型，null 的二进制表示是全 0，自然前三位也是 0，所以执行 typeof 时会返回“object”。 `
+
+// Undefined: 不是关键字 ，可以被覆盖，而使用void(0) 可以很安全的使用undefined值
 
 // 4、基本类型的变量 调用的方法，本质是引擎自动将字面量形式的转换为对象，然后在调用其原型上的方法。
 // let str = 'i am is string'; str.slice(0);
@@ -214,7 +217,7 @@ console.log(btn)
   // 数组也是对象的一种，也可以添加属性，通常是不会改变数组的个数的，但是添加的属性如果是字符串形式的数字类型的值，那么就会被强制转换成索引。
   // const arr = []; arr['13'] = 'name'; console.log(arr.length) // 14 这是一个坑
   // 类数组的改装成真正数组 用Array.prototype.slice.call(arguments) 原理就是使用数组原型中的方法通过call绑定对象实现
-
+  
 // 字符串
  // 字符串类似与一个字符数组，可以借用数组的方法
  // 字符串由于是不可修改的，全部方法其实是生成新字符串， 而数组的方法是直接修改其本身的，比如reverse push等，这些就不能用在字符串上。
@@ -230,7 +233,18 @@ console.log(reverseStr)
 // 如果你经常把你的字符串当作字符数组来使用，那你最好直接把它存入数组而不是字符串中。这样你就没必要每次都将字符串转换为数组。当你真正需要字符串表示时，你可以调用数组的join("")方法。
 
 // 数字
- //
+ // 0.1 + 0.2 === 0.3 // false  5.1+5.2 === 5.3 // false 由于二进制浮点数对于0.1 0.2实现都不是真正的这个值，故相加结果不是0.3
+ // 原文：使用二进制浮点数最著名的副作用（请记住，是所有使用IEEE 754的语言——不仅是JavaScript）
+ // 故前端在涉及这种计算的时候 要特别小心.
+ // 规避措施有 使用一个微小的误差值Number.EPSILON 其实就是2^-52值(Math.pow(2,-52))
+ const num1 = 0.3 ; const num2 = 0.1 + 0.2;
+ console.log(Math.abs(num1 - num2) < Number.EPSILON) // true  // Math.abs取一下绝对值
+ // 整数的范围为下面两个
+ // Number.MAX_SAFE_INTEGER; // Math.pow( 2, 53 ) - 1
+ // Number.MIN_SAFE_INTEGER  //
+ // 测试是不是安全整数的方法
+ Number.isSafeInteger(Math.pow(2, 53))
+ // isNaN 是唯一一个不等于其自身的值, 检测方法有ES6的Number.isNaN() 和ES5的window.isNaN() //后者会把非数字类型的也检测成true
 
 
 
