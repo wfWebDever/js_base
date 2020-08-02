@@ -201,6 +201,36 @@ const btn = new Button(20, 30, null)
 console.log(btn)
 // 总结
 
+/*第十一天*/
+// 类型：
+// typeof Array === 'function'  //true
+// typeof Symbol() === 'symbol' // true
+// 检测null 方法
+// const nullVal = null
+// !nullVal && typeof nullVal === 'object'
+// JS弱类型的含义是指 变量永远不会强制其值的类型和初始值的类型一致，也就是说变量的值可以改变类型。
+
+// 数组
+  // 数组也是对象的一种，也可以添加属性，通常是不会改变数组的个数的，但是添加的属性如果是字符串形式的数字类型的值，那么就会被强制转换成索引。
+  // const arr = []; arr['13'] = 'name'; console.log(arr.length) // 14 这是一个坑
+  // 类数组的改装成真正数组 用Array.prototype.slice.call(arguments) 原理就是使用数组原型中的方法通过call绑定对象实现
+
+// 字符串
+ // 字符串类似与一个字符数组，可以借用数组的方法
+ // 字符串由于是不可修改的，全部方法其实是生成新字符串， 而数组的方法是直接修改其本身的，比如reverse push等，这些就不能用在字符串上。
+const str = 'abcd'
+// let reverseStr = Array.prototype.reverse.call(str) // Cannot assign to read only property '0' of object '[object String]'
+// 上面借用reverse 行不通 因为reverse会直接修改对象本身，而字符串是不能被修改的。
+let reverseStr = Array.prototype.join.call(str, '-') // a-b-c-d
+reverseStr = Array.prototype.map.call(str, s => {
+  return s
+}).join('-') // a-b-c-d
+console.log(reverseStr)
+// 借用join 或者借用map先转换成数组
+// 如果你经常把你的字符串当作字符数组来使用，那你最好直接把它存入数组而不是字符串中。这样你就没必要每次都将字符串转换为数组。当你真正需要字符串表示时，你可以调用数组的join("")方法。
+
+// 数字
+ //
 
 
 
