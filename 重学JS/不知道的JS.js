@@ -204,7 +204,7 @@ const btn = new Button(20, 30, null)
 console.log(btn)
 // 总结
 
-/*第十一天*/
+/*第十一、十二天*/
 // 类型：
 // typeof Array === 'function'  //true
 // typeof Symbol() === 'symbol' // true
@@ -255,4 +255,16 @@ console.log(reverseStr)
 // 原文：JS中的引用并不像其他语言中的引用或指针——它们永远不指向其他变量或引用，仅指向底层的值
 // JS中引用指向一个（共享的）值，所以如果你有10个不同的引用，它们始终是一个共享值的不同引用；它们都不引用/指向对方。
 
+/*第13天*/
+// 今天把类型一章看完了，发现没啥收获。
+// 类型转换
+  // 当JSON.stringify(..)遇到undefined、function和symbol的时候，会自动忽略它们的值。如果这样的值在数组中，
+ // 这个值会被替换成null（这样数组的位置信息就不被改变）。如果这样的值出现在对象的属性中，那这个属性会被排除掉。
+// JSON.stringify(..) 第3个参数可以打印漂亮的对象结构，这在日常开发显示某个对象值时很有用。而第二个参数是过滤数组或者函数。
+// NaN 也会被转换成假值 false
+// 假值对象
+const a1 = new Boolean(false)
+const b = new String('')
+const c = new Number(0)
+console.log(a1 && b && c) //Number0 // 也都是true
 
