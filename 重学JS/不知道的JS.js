@@ -259,8 +259,8 @@ console.log(reverseStr)
 // 今天把类型一章看完了，发现没啥收获。
 // 类型转换
   // 当JSON.stringify(..)遇到undefined、function和symbol的时候，会自动忽略它们的值。如果这样的值在数组中，
- // 这个值会被替换成null（这样数组的位置信息就不被改变）。如果这样的值出现在对象的属性中，那这个属性会被排除掉。
-// JSON.stringify(..) 第3个参数可以打印漂亮的对象结构，这在日常开发显示某个对象值时很有用。而第二个参数是过滤数组或者函数。
+  // 这个值会被替换成null（这样数组的位置信息就不被改变）。如果这样的值出现在对象的属性中，那这个属性会被排除掉。
+  // JSON.stringify(..) 第3个参数可以打印漂亮的对象结构，这在日常开发显示某个对象值时很有用。而第二个参数是过滤数组或者函数。
 // NaN 也会被转换成假值 false
 // 假值对象
 const a1 = new Boolean(false)
@@ -268,3 +268,10 @@ const b = new String('')
 const c = new Number(0)
 console.log(a1 && b && c) //Number0 // 也都是true
 
+/*第14天*/
+// 类型转换 a == b
+  //console.log(0 == [null]) // true // [null]会先通过toString()转换成字符串'' ，然后数字和字符串相比， 会将字符串''转换成数字 0
+  // null == undefined 除了这俩 其他任何和他俩比较都是false
+  // 只要有布尔值 都会首先转换成数字
+  // 如果两边的值中有 true 或者 false，千万不要使用 ==。
+  // 如果两边的值中有 []、"" 或者 0，尽量不要使用 ==。
