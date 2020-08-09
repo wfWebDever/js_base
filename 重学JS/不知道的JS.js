@@ -308,3 +308,8 @@ console.log(a1 && b && c) //Number0 // 也都是true
 // Benchmark.js 库 测试代码的性能，抛弃以前设置开始事件、结束事件的劣质做法。
 // jsPerf(http://jsperf.com) 在线测试
 // 尾调用优化TCO，函数内部最后执行的函数，引擎会优化内存空间
+
+/*第17天*/
+// yield
+// 划重点：yield 会导致生成器在执行过程中发送出一个值，这有点类似于中间的 return
+//
