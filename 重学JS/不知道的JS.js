@@ -313,3 +313,22 @@ console.log(a1 && b && c) //Number0 // 也都是true
 // yield
 // 划重点：yield 会导致生成器在执行过程中发送出一个值，这有点类似于中间的 return
 //
+
+/*第18天*/
+// 使用generator的原因是为了用同步的书写方式实现异步，故需要把异步 promise的一些实现细节隐藏起来，作为一个函数，而不必都放在当前函数中
+// 下面的代码就是把promise.all封装起来，这俩并发请求作为一个函数，在实际开发过程中很有用，让代码看起来更好维护
+// 注:普通函数，不是生成器
+// function bar(url1,url2) {
+//   return Promise.all( [request( url1 ), request( url2 )] );
+// }
+// function *foo() {
+// // 隐藏bar(..)内部基于Promise的并发细节
+//  const results = yield bar("http://some.url.1", "http://some.url.2" )
+//  const r1 = results[0];
+//  const r2 = results[1];
+//  const r3 = yield request( "http://some.url.3/?v=" + r1 + "," + r2);
+//  console.log( r3 );
+// }
+// 使用前面定义的工具run(..) run( foo );
+// 在 *foo() 内部，我们所做的一切就是要求 bar(..) 给我们一些 results，并通过 yield 来等待结果，这样更简洁也更清晰。
+// 我们不需要关心在底层是用Promise.all([ .. ]) Promise 组合来实现这一切。
