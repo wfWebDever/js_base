@@ -344,3 +344,8 @@ console.log(a1 && b && c) //Number0 // 也都是true
 //      在当前作用域内LHS（左查询）a变量，如果不存在，则继续向上作用域内查找，如果找到了，则把值2赋值给a,如果找不到，直到追寻到全局作用域。
 //      如果都找不到，在非严格模式下，那么就会在全局环境声明a,并把2赋值。如果在严格模式下，报ReferenceError.
 //      上面提到的左查询对应的右查询，可以理解为赋值右边的变量或者取值的行为。比如console.log(b); return a + b等等
+
+/*第22天*/
+// 判断类型
+//instanceof 和多全局对象(例如：多个 frame 或多个 window 之间的交互)
+// 在浏览器中，我们的脚本可能需要在多个窗口之间进行交互。多个窗口意味着多个全局环境，不同的全局环境拥有不同的全局对象，从而拥有不同的内置类型构造函数。这可能会引发一些问题。比如，表达式 [] instanceof window.frames[0].Array 会返回 false，因为 Array.prototype !== window.frames[0].Array.prototype，并且数组从前者继承。
