@@ -11,6 +11,13 @@
 
 // 2、this 既不指向函数自身也不指向函数的词法作用域。
 // this 实际上是在函数被调用时发生的绑定，它指向什么完全取决于函数在哪里被调用。
+// JavaScript 环境中内置的 setTimeout() 函数实现和下面的伪代码类似:
+// function setTimeout(fn,delay) { // 等待 delay 毫秒
+//   fn(); // <-- 调用位置!
+// }
+// 所以 setTimeout就是一个函数调用，然后其参数就是传递的参数， 有时候会误认为参数中的this 是在运行这个回调函数时才查找的，
+// 还是对于函数不够深入理解
+// setTimeout(this.fn, 1000)
 
 /*第3天*/
 // 3、typeof null === 'object' 在计算机底层，对象都是二进制形式，JS对前三位都是0的判定为对象，而null 都是0。
@@ -349,3 +356,16 @@ console.log(a1 && b && c) //Number0 // 也都是true
 // 判断类型
 //instanceof 和多全局对象(例如：多个 frame 或多个 window 之间的交互)
 // 在浏览器中，我们的脚本可能需要在多个窗口之间进行交互。多个窗口意味着多个全局环境，不同的全局环境拥有不同的全局对象，从而拥有不同的内置类型构造函数。这可能会引发一些问题。比如，表达式 [] instanceof window.frames[0].Array 会返回 false，因为 Array.prototype !== window.frames[0].Array.prototype，并且数组从前者继承。
+
+/*第23天*/
+// setTimeout的深入理解, 见上面第二天的补充
+// 绑定slice
+// function boundSlice () {
+//   const sliceProto = [].slice
+//   //return sliceProto.call(arguments)
+//   const callProto = Function.prototype.call
+//   //return callProto.call(sliceProto, arguments)
+//   const slice = callProto.bind(sliceProto)
+//   return slice(arguments)
+// }
+// console.log(boundSlice(1,2,3))

@@ -5,8 +5,6 @@
 * 递归的返回处理，递归的终点在哪，可以把递归分成小范围来处理
 *
 * */
-
-//[1, 2, 3,[5, 6, 7, [8, 9]]]
 // [1, 2, 3, [4], [5, 6, 7, [8, 9]]]
 function arrToOne (arr) {
   let arrOne = []
@@ -22,5 +20,31 @@ function arrToOne (arr) {
   return arrOne
 }
 
-const result = arrToOne([1, 2, 3, [5, 6, 7, [8, 9]]])
-console.log(result)
+// 第二种思路是通过内部函数处理二维数组情况, 不断循环当前传进来的数组，如果遇到非数组， 那么直接推进内部顶部变量
+// 如果遇到数组， 那么重复执行内部函数
+// 这样理解起来 还方便
+const arrToOne2 = (arr) => {
+  const arrOne = []
+  const fn = (currArray) => {
+    currArray.forEach(val => {
+      Array.isArray(val) ? fn(val) : arrOne.push(val)
+    })
+  }
+  fn(arr)
+  return arrOne
+}
+// 上面思路可以用累积器 reduce试一下 初始值就是[]
+const arrToOne3 = (arr) => {
+  return arr.reduce((arrOne, curr) => {
+    const currArr = Array.isArray(curr) ? arrToOne3(curr) : [curr]
+    arrOne.push(...currArr)
+    return arrOne
+  }, [])
+}
+// 最后用ES6的 flat方法
+
+
+console.log(arrToOne([1, 2, 3, [4],[5, 6, 7, [8, 9]]]))
+console.log(arrToOne2([1, 2, 3, [4], [5, 6, 7, [8, 9]]]))
+console.log(arrToOne3([1, 2, 3, [4], [5, 6, 7, [8, 9]]]))
+console.log([1, 2, 3, [4], [5, 6, 7, [8, 9]]].flat(Infinity))
