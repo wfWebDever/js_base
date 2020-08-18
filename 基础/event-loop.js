@@ -12,6 +12,7 @@ new Promise((resolve) => {
   for (let i = 0; i < 10000; i++) {
     i === 9999 && resolve()
   }
+  resolve(i)
   console.log(3)
 }).then(() => {
   console.log(4)
