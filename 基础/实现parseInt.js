@@ -1,32 +1,22 @@
-const parseIntFn = function (value) {
+const parseIntFn = function (str) {
   // '12a3aa' {} [] null undefined true false
-  if (typeof value === 'number') {
-    return value
+  if (typeof str !== 'string') {
+    throw new TypeError(str + 'must a string')
   }
-  if (typeof value !== 'string') {
-    throw new TypeError(value + 'must a string')
-  }
-  const arr = value.split('')
-  if (typeof Number(arr[0]) !== 'number') {
-    throw new ReferenceError(value + 'start must a number')
+  if (typeof Number(str.indexOf(0)) !== 'number') {
+    throw new ReferenceError(str + 'start code  must a number')
   }
   let numb = []
-  let findNum = true
-  arr.forEach(val => {
-    if (findNum) {
-      const numVal = Number(val)
-      if (findNum && typeof numVal === 'number' && !isNaN(numVal)) {
-        numb.push(numVal)
-      } else {
-        findNum = false
-      }
+  for (let item of str) {
+    const item2Num = Number(item)
+    if (isNaN(item2Num)) {
+      break
+    } else {
+      numb.push(item2Num)
     }
-  })
-  let val = 0
-  numb.forEach((value, index) => {
-    val += Number(value) * Math.pow(10, numb.length - index - 1)
-  })
-  console.log(val)
-  
+  }
+  return numb.reduce((acc, value, index) => {
+    return acc += Number(value) * Math.pow(10, numb.length - index - 1)
+  }, 0)
 }
-parseIntFn('1d32ddd')
+console.log(parseIntFn('132ddd'))
