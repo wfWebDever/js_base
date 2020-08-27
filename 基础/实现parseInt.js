@@ -19,4 +19,4 @@ const parseIntFn = function (str) {
     return acc += Number(value) * Math.pow(10, numb.length - index - 1)
   }, 0)
 }
-console.log(parseIntFn('132ddd'))
+console.log(parseIntFn('a132ddd'))

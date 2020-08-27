@@ -32,6 +32,16 @@ construcFn.prototype.toStr = function () {
   console.log(this.x, this.y)
 }
 
-const constrTest = construcFn.bind({}, 0)
-const constrTestobj = new constrTest(1, 2)
-constrTestobj.toStr()
+// const constrTest = construcFn.bind({}, 0)
+// const constrTestobj = new constrTest(1, 2)
+// constrTestobj.toStr()
+
+const a={name:'a'};
+const b ={name:'b'};
+function fun1(){
+  console.log(this.name);
+}
+const fun2 = fun1.bind(a);
+const fun3 = fun2.bind(b)
+fun3()
+fun2.call(b)
