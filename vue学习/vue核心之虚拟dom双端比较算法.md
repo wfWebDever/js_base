@@ -19,10 +19,10 @@ d a c b // 新的 newStart = 0; newEnd = 3
 1、 第一行的第一个元素a 和第二行的第一个元素d 比较，不相同，不处理。
 2、 第一行的最后一个元素d和第二行的最后一个元素b比较，不相同，不处理。
 3、 第一行的第一个元素a和第二行的最后一个元素b比较，不相同，不处理。
-4、 第一行的最后一个元素d和第二行的第一个元素d比较，**相同**，说明原先元素dom的最后一个元素到了第一个了，需要把最后元素移动到首位。
+4、 第一行的最后一个元素d和第二行的第一个元素d比较，**相同**，说明旧dom的最后一个元素到了第一个了，需要把最后元素移动到首位。
 ```javascript
-// 获取到父元素的dom, 获取到最后一个虚拟节点里面保留的真实dom。
-parentNode.insertBefore(oldCurrentLastNode, oldCurrentFirstNode)
+// 获取到父元素的dom, 获取到最后一个虚拟节点里面保留的真实dom。通过oldEndVnode.el
+parentNode.insertBefore(oldEndVnode.el, oldStartVnode.el)
 ```
 5、然后第一行 结束索引减1 ，第二行开始索引加1 
 
@@ -43,10 +43,10 @@ c b //newStart = 2; newEnd = 3
 
 1、 第一行的第一个元素b 和第二行的第一个元素c 比较，不相同，不处理。
 2、 第一行的最后一个元素c和第二行的最后一个元素b比较，不相同，不处理。
-3、 第一行的第一个元素b和第二行的最后一个元素b比较，**相同**，说明b所在的节点已经从开始移到末尾了
+3、 第一行的第一个元素b和第二行的最后一个元素b比较，**相同**，说明b所在的节点已经从开始移到当前（正在比较的新旧vnode）的dom末尾了
 ```javascript
 // 获取到父元素的dom, 获取到最后一个虚拟节点里面保留的真实dom。
-parentNode.insertBefore(oldCurrentFirstNode, null) // 这里移动到末尾，用到了null， 表示我要移动到最后一个节点后面节点也就是空节点前面。
+parentNode.insertBefore(oldStartVnode.el, oldEndVnode.el.nextSibling() || null) // 这里移动到末尾，可能会遇到null， 表示我要移动到最后一个节点后面节点也就是空节点前面。
 ```
 ```
 c //oldStart = 2; oldEnd = 2

@@ -3,7 +3,7 @@
  * @param val
  * @returns {number}
  */
-function toNumber (val) {
+function toNumber(val) {
   let n = parseFloat(val);
   return isNaN(n) ? val : n
 }
@@ -14,9 +14,9 @@ function toNumber (val) {
  * @returns {number}
  */
 function toNumberOld(value) {
-  let val = parseInt(value,10);
-  val = (val == ""? 0 : val);
-  val = isNaN(val)? 0 : val;
+  let val = parseInt(value, 10);
+  val = (val === "" ? 0 : val);
+  val = isNaN(val) ? 0 : val;
   return val;
 }
 

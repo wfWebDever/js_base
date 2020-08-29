@@ -10,5 +10,5 @@
 (function f () {} )()
 // 也可以用void ，void 会让JS引擎将标识符function当作表达式而不是函数声明 这样就会执行函数，返回的是undefined
 // void expression
-const a = void function f () {} ()
+const a = void function f () {console.log(this) // window or undefined} ()
 console.log(a) // undefined
