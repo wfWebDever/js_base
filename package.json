@@ -4,15 +4,18 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "promisetest": "promises-aplus-tests ES6/promise.js",
-    "docs:dev": "vuepress dev docs"
+    "docs:dev": "vuepress dev docs",
+    "build": "webpack --config config/webpack.config.js"
   },
   "dependencies": {
     "promises-aplus-tests": "^2.1.2",
     "tslint": "^6.0.0",
-    "typescript": "^3.8.2"
+    "typescript": "^3.8.2",
+    "webpack": "^4.44.1"
   },
   "devDependencies": {
     "standard": "*",
-    "vuepress": "^1.5.2"
+    "vuepress": "^1.5.2",
+    "webpack-cli": "^3.3.12"
   }
 }
