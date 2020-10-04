@@ -9,14 +9,15 @@ const parseIntFn = function (str) {
   let numb = []
   for (let item of str) {
     const item2Num = Number(item)
-    if (isNaN(item2Num)) {
+    if (Number.isNaN(item2Num)) {
       break
     } else {
       numb.push(item2Num)
     }
   }
+  // console.log(Number(numb.join('')))
   return numb.reduce((acc, value, index) => {
     return acc += Number(value) * Math.pow(10, numb.length - index - 1)
   }, 0)
 }
-console.log(parseIntFn('a132ddd'))
+console.log(parseIntFn('132ddd'))

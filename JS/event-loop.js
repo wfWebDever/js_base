@@ -10,13 +10,14 @@ setTimeout(() => {
 new Promise((resolve) => {
   console.log(2)
   for (let i = 0; i < 10000; i++) {
-    i === 9999 && resolve()
+    i === 9999 && resolve(i)
   }
-  resolve(i)
+  resolve()
   console.log(3)
-}).then(() => {
-  console.log(4)
+}).then((data) => {
+  console.log(4, 'data:',data)
 })
 console.log(5)
 
 // 2 3 5 4 1
+

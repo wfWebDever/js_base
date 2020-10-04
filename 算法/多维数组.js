@@ -5,6 +5,7 @@
 * 递归的返回处理，递归的终点在哪，可以把递归分成小范围来处理
 *
 * */
+
 // [1, 2, 3, [4], [5, 6, 7, [8, 9]]]
 function arrToOne (arr) {
   let arrOne = []
@@ -36,15 +37,29 @@ const arrToOne2 = (arr) => {
 // 上面思路可以用累积器 reduce试一下 初始值就是[]
 const arrToOne3 = (arr) => {
   return arr.reduce((arrOne, curr) => {
-    const currArr = Array.isArray(curr) ? arrToOne3(curr) : [curr]
-    arrOne.push(...currArr)
-    return arrOne
+    return arrOne.concat(Array.isArray(curr) ? arrToOne3(curr) : [curr])
   }, [])
 }
+
+
+// 用generator
+function * arr2One4 (arr) {
+  for (let i = 0; i < arr.length; i++) {
+    const item = arr[i]
+    Array.isArray(item) ? yield* arr2One4(item) : yield item
+  }
+}
+
 // 最后用ES6的 flat方法
 
-
-console.log(arrToOne([1, 2, 3, [4],[5, 6, 7, [8, 9]]]))
+const test = [1, 2, 3, [4], [5, 6, 7, [8, 9]]]
+console.log(arrToOne([1, 2, 3, [4], [5, 6, 7, [8, 9]]]))
 console.log(arrToOne2([1, 2, 3, [4], [5, 6, 7, [8, 9]]]))
 console.log(arrToOne3([1, 2, 3, [4], [5, 6, 7, [8, 9]]]))
-console.log([1, 2, 3, [4], [5, 6, 7, [8, 9]]].flat(Infinity))
+//console.log([1, 2, 3, [4], [5, 6, 7, [8, 9]]].flat(Infinity))
+const generat = arr2One4(test)
+let next = generat.next()
+while (!next.done) {
+  console.log(next.value)
+  next = generat.next()
+}
