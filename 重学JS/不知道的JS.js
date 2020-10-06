@@ -1,13 +1,5 @@
 // 1、函数词法作用域 是在函数定义时的作用域，一直向上找到全局作用域，不是运行时作用域， 以下例子正好说明这个结果
-// function foo() {
-//   console.log( a ); // 2 // 不是3
-// }
-// function bar() {
-//   let a = 3;
-//   foo();
-// }
-// var a = 2;
-// bar();
+
 
 // 2、this 既不指向函数自身也不指向函数的词法作用域。
 // this 实际上是在函数被调用时发生的绑定，它指向什么完全取决于函数在哪里被调用。
@@ -25,7 +17,6 @@
 // 这是一个JS bug, 但是无法修复了，因为很多系统项目在用。
 // null 是关键字，不可以被覆盖。
 // 原文为：`注 1:原理是这样的，不同的对象在底层都表示为二进制，在 JavaScript 中二进制前三位都为 0 的话会被判 断为 object 类型，null 的二进制表示是全 0，自然前三位也是 0，所以执行 typeof 时会返回“object”。 `
-
 // Undefined: 不是关键字 ，可以被覆盖，而使用void(0) 可以很安全的使用undefined值
 
 // 4、基本类型的变量 调用的方法，本质是引擎自动将字面量形式的转换为对象，然后在调用其原型上的方法。
@@ -42,15 +33,7 @@
 // Object.getOwnPropertyNames  //会遍历对象本身上的所有属性成一个数组集合,但包括设置为不能枚举的属性
 // for in 会遍历对象自身及其原型链上的属性
 // myObject.hasOwnProperty() 只针对某个属性是否是在对象本身上，所以需要和for in配合
-// const myObject = {
-//   a: 1,
-//   b: 2,
-// };
-// Object.defineProperty(myObject, 'c', {
-//   enumerable:false,
-//   value: 3
-// })
-// Object.getOwnPropertyNames(myObject); // ['a', 'b', 'c']
+
 
 /*第5天*/
 // 事件循环：
@@ -214,33 +197,6 @@ console.log(btn)
 // 总结
 
 /*第十一、十二天*/
-// 类型：
-// typeof Array === 'function'  //true
-// typeof Symbol() === 'symbol' // true
-// 检测null 方法
-// const nullVal = null
-// !nullVal && typeof nullVal === 'object'
-// JS弱类型的含义是指 变量永远不会强制其值的类型和初始值的类型一致，也就是说变量的值可以改变类型。
-
-// 数组
-// 数组也是对象的一种，也可以添加属性，通常是不会改变数组的个数的，但是添加的属性如果是字符串形式的数字类型的值，那么就会被强制转换成索引。
-// const arr = []; arr['13'] = 'name'; console.log(arr.length) // 14 这是一个坑
-// 类数组的改装成真正数组 用Array.prototype.slice.call(arguments) 原理就是使用数组原型中的方法通过call绑定对象实现
-
-// 字符串
-// 字符串类似与一个字符数组，可以借用数组的方法
-// 字符串由于是不可修改的，全部方法其实是生成新字符串， 而数组的方法是直接修改其本身的，比如reverse push等，这些就不能用在字符串上。
-const str = 'abcd'
-// let reverseStr = Array.prototype.reverse.call(str) // Cannot assign to read only property '0' of object '[object String]'
-// 上面借用reverse 行不通 因为reverse会直接修改对象本身，而字符串是不能被修改的。
-let reverseStr = Array.prototype.join.call(str, '-') // a-b-c-d
-reverseStr = Array.prototype.map.call(str, s => {
-  return s
-}).join('-') // a-b-c-d
-console.log(reverseStr)
-// 借用join 或者借用map先转换成数组
-// 如果你经常把你的字符串当作字符数组来使用，那你最好直接把它存入数组而不是字符串中。这样你就没必要每次都将字符串转换为数组。当你真正需要字符串表示时，你可以调用数组的join("")方法。
-
 // 数字
 // 0.1 + 0.2 === 0.3 // false  5.1+5.2 === 5.3 // false 由于二进制浮点数对于0.1 0.2实现都不是真正的这个值，故相加结果不是0.3
 // 原文：使用二进制浮点数最著名的副作用（请记住，是所有使用IEEE 754的语言——不仅是JavaScript）
@@ -256,48 +212,15 @@ console.log(Math.abs(num1 - num2) < Number.EPSILON) // true  // Math.abs取一�
 Number.isSafeInteger(Math.pow(2, 53))
 // isNaN 是唯一一个不等于其自身的值, 检测方法有ES6的Number.isNaN() 和ES5的window.isNaN() //后者会把非数字类型的也检测成true
 
-// JS 引用类型赋值或传递
-// 引用类型作为参数时，其引用会被复制到一个新的变量，这个变量和原先变量其实是引用的同一个值。
-// JS没有引用之间传递的过程， 比如 b引用a a引用 {}, 实质的是 b 和a 通过复制了引用，可以指向同一个值{}
-// 要想修改值的内容，那么必须通过当前的引用的值修改，也就是说不能通过再改变当前引用指向的值进行修改。
-// const a = {a: 1}; let b = a; b.a = 2 // 可以更改a对象
-// b = {a: 2} // 这样不行， 因为b指向了一个新的值
-// 原文：JS中的引用并不像其他语言中的引用或指针——它们永远不指向其他变量或引用，仅指向底层的值
-// JS中引用指向一个（共享的）值，所以如果你有10个不同的引用，它们始终是一个共享值的不同引用；它们都不引用/指向对方。
 
 /*第13天*/
-// 今天把类型一章看完了，发现没啥收获。
-// 类型转换
-// 当JSON.stringify(..)遇到undefined、function和symbol的时候，会自动忽略它们的值。如果这样的值在数组中，
-// 这个值会被替换成null（这样数组的位置信息就不被改变）。如果这样的值出现在对象的属性中，那这个属性会被排除掉。
-// JSON.stringify(..) 第3个参数可以打印漂亮的对象结构，这在日常开发显示某个对象值时很有用。而第二个参数是过滤数组或者函数。
-// NaN 也会被转换成假值 false
-// 假值对象
-const a1 = new Boolean(false)
-const b = new String('')
-const c = new Number(0)
-console.log(a1 && b && c) //Number0 // 也都是true
 
 /*第14天*/
-// 类型转换 a == b
+// 类型转换
 //console.log(0 == [null]) // true // [null]会先通过toString()转换成字符串'' ，然后数字和字符串相比， 会将字符串''转换成数字 0
 // null == undefined 除了这俩 其他任何和他俩比较都是false
-// 只要有布尔值 都会首先转换成数字
-// 如果两边的值中有 true 或者 false，千万不要使用 ==。
-// 如果两边的值中有 []、"" 或者 0，尽量不要使用 ==。
 
 /*第15天*/
-// 语句 操作符优先级
-// 今天似乎没发现什么新的东西,因为日常开发中用的比较多
-// 语句：学到了 语句包括表达式和 赋值语句的含义。
-// 操作符优先级 只有这两种情况下是右分组
-// true ? false : true ? true : false;
-// var a, b, c; a = b = c = 42;
-// 暂时性死区 TDZ
-// {
-//   a = 2;      // ReferenceError!
-//   let a;
-// }
 // try finally: finally中语句总是会执行，即便try中有return, 但是会让代码变得有些难懂。最好不要这样
 // const tryFinally = function () {
 //   try {
@@ -308,7 +231,6 @@ console.log(a1 && b && c) //Number0 // 也都是true
 // }
 // console.log(tryFinally())
 // 总结：语法、操作符、TDZ、容错等就是日常开发中的细节，这要在平日里注意积累，不要用那些难懂的语句编程。
-
 // ECMAScript 是规范，而JS是在浏览器上的实现
 
 /*第16天*/
@@ -317,9 +239,6 @@ console.log(a1 && b && c) //Number0 // 也都是true
 // 尾调用优化TCO，函数内部最后执行的函数，引擎会优化内存空间
 
 /*第17天*/
-// yield
-// 划重点：yield 会导致生成器在执行过程中发送出一个值，这有点类似于中间的 return
-//
 
 /*第20天*/
 // 使用generator的原因是为了用同步的书写方式实现异步，故需要把异步 promise的一些实现细节隐藏起来，作为一个函数，而不必都放在当前函数中
@@ -336,7 +255,6 @@ console.log(a1 && b && c) //Number0 // 也都是true
 //  const r3 = yield request( "http://some.url.3/?v=" + r1 + "," + r2);
 //  console.log( r3 );
 // }
-// 使用前面定义的工具run(..) run( foo );
 // 在 *foo() 内部，我们所做的一切就是要求 bar(..) 给我们一些 results，并通过 yield 来等待结果，这样更简洁也更清晰。
 // 我们不需要关心在底层是用Promise.all([ .. ]) Promise 组合来实现这一切。
 
@@ -358,14 +276,3 @@ console.log(a1 && b && c) //Number0 // 也都是true
 // 在浏览器中，我们的脚本可能需要在多个窗口之间进行交互。多个窗口意味着多个全局环境，不同的全局环境拥有不同的全局对象，从而拥有不同的内置类型构造函数。这可能会引发一些问题。比如，表达式 [] instanceof window.frames[0].Array 会返回 false，因为 Array.prototype !== window.frames[0].Array.prototype，并且数组从前者继承。
 
 /*第23天*/
-// setTimeout的深入理解, 见上面第二天的补充
-// 绑定slice
-// function boundSlice () {
-//   const sliceProto = [].slice
-//   //return sliceProto.call(arguments)
-//   const callProto = Function.prototype.call
-//   //return callProto.call(sliceProto, arguments)
-//   const slice = callProto.bind(sliceProto)
-//   return slice(arguments)
-// }
-// console.log(boundSlice(1,2,3))
