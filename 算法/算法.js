@@ -3,44 +3,42 @@ const quickSort = function (arr) {
   if (Array.isArray(arr) && arr.length <= 1) {
     return arr
   }
-  const middleVal = arr[Math.floor(arr.length / 2)]
+  const middleIndex = Math.floor(arr.length / 2)
+  const middleVal = arr[middleIndex]
   const left = []
-  const center = []
+  const center = [middleVal]
   const right = []
-  // ie9+ support  forEach
   arr.forEach(function (item, index) {
     if (item < middleVal) {
       left.push(item)
     } else if (item > middleVal) {
       right.push(item)
-    } else {
+    } else if (index !== middleIndex && middleVal === item) {
       center.push(item)
     }
   })
-
   return quickSort(left).concat(center, quickSort(right))
 }
 const sort_arr = [1, 3, 2, 5, 6, 14, 333, 14, 6, 7, 8]
-quickSort(sort_arr)
-console.log(sort_arr.sort(function (a, b) {
-  return a - b
-}))
+console.log(quickSort(sort_arr))
 
-// unquiue去重
+// unquiue去重 ES5方式
 const unique = function (arr) {
-  const arrNew = []; const obj = {}
-  arr.forEach(function (item, index, arr) {
-    if (!obj[item]) {
-      obj[item] = true
+  const obj = {}
+  const arrUnique = []
+  arr.forEach((item, index, arr) => {
+    if (!obj[typeof item + item + '']) {
+      obj[typeof item + item + ''] = true
+      arrUnique.push(item)
     }
   })
-  return Object.keys(obj)
+  return arrUnique
 }
 const arr = [1, '1', 2, 2, '3', 3, 5, 'a', 'a']
-console.info(unique(arr))// [ 1, 2, 3, 5, 'a' ] 数字1和字符串1没有区分
+console.info(unique(arr))
 
 // ES6方式
-const unique_es6 = function (arr) {
+const unique_es6 = arr => {
   return Array.from(new Set(arr))
 }
 // console.info(unique_es6(arr))
