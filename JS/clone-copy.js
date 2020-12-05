@@ -18,8 +18,8 @@ const obj1 = Object.assign({}, testObj)
 
 // 深拷贝 但是不能复制函数 和undefined 正则
 const o2Copy = JSON.parse(JSON.stringify(testObj))
-//testObj.e[0] = 22
-// console.log('JSON.parse&&JSON.parse :',o2Copy)
+testObj.b.c.d = [2, 3]
+console.log('JSON.parse&&JSON.parse :',o2Copy.b.c.d, o2Copy)
 
 // 深拷贝 es5方式
 // 优化算法 添加正则 函数等
