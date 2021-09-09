@@ -13,4 +13,6 @@ const hTotal = function () {
   console.log(map)
   return map
 }
-hTotal()
+// hTotal()
+
+
