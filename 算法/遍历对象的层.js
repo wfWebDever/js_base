@@ -10,20 +10,22 @@ const findObjDeep = (obj, deep) => {
   let tmpChilds = []
   let i = 2
   const keys = []
-  while (i <= deep && curChilds.length > 0) {
+  while (curChilds.length) {
     const parent = curChilds.shift();
     (typeof parent === 'object') && (Object.keys(parent).forEach(key => {
-      i === deep && keys.push(key)
-      tmpChilds.push(parent[key])
+      i === deep ? keys.push(key) : null;
+      typeof parent[key] === 'object' ? tmpChilds.push(parent[key]) : null
     }))
-    if (curChilds.length === 0 && tmpChilds.length > 0) {
+    if (!curChilds.length && i === deep) {
+      return keys
+    }
+    if (!curChilds.length && tmpChilds.length && deep > i) {
       curChilds = tmpChilds
       tmpChilds = []
       i++
     }
   }
-  console.log(keys)
   return keys
 }
 
-findObjDeep(o, 5)
+console.log(findObjDeep(o, 5))
