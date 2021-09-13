@@ -1,7 +1,6 @@
 
 # 什么时候发生http缓存
 客户端向服务端第二次发起请求时
-
 #分类
 ### 强缓存
 故名思议就是直接走浏览器缓存，不与服务端发生交互。
@@ -16,9 +15,9 @@ http1.0: Expires、Program
 或者不包含catch-control;
 或者```请求头```中catch-control: max-age = 0或者no-catch
 并且响应头中有
-http1.1:Etag字段（hash值)；
-http1.0: Last-Modified；
-那么再次发起请求时会再请求头中会带上if-not-match的字段值取Etag的值，if-modified-since的值取Last-modify的值请求到
+http1.1:Etag字段（hash值);
+http1.0: Last-Modified;
+那么再次发起请求时会再请求头中会带上if-not-match的字段值取ETag的值，if-modified-since的值取Last-modify的值请求到
 服务端，服务端进行验证是否缓存生效，返回304取缓存 或者200更新资源。
 ### 私有缓存
 只针对单个用户，一般指浏览器可以缓存，默认是私有缓存
@@ -27,6 +26,12 @@ catch-control: private
 针对代理服务器、CDN等可以缓存资源的统称,比如js css 图片等
 catch-control: public 
 # 前端如何在日常中实践
+单页应用中中的入口文件：index.html这类文件是需要经常改变的，需要协商缓存，故需要设置catch-control: public, no-catche
+index.html中加载的外部资源JS、CSS只要其版本(一般是通过webpack生成的hash文件名)不变，说明其内容没变，
+需要设置catch-control: public, max-age=xxxx 一般是365天。
+
+
+
 
 
 
