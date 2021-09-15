@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>实现钱币入袋</title>
+    <style >
+        .target-package {
+            width: 200px;
+            height: 150px;
+            border: 1px solid #ccc;
+            margin: 300px auto 0;
+
+
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="target-package"></div>
+<script>
+    /*
+    * 实现思路：找到要投入的袋子的位置，在其上方某个位置，放置一个钱币，然后通过动画设置开始和结束的效果，并且设置开始和结束的缩放。
+    * css动画用animation，其需要的keyframs平常是在css中固定写死的数值，现在需要动态传入位置信息，所以需要JS动态生成style标签，
+    * 重复多次钱币的动画，设置下一个钱币投入的延迟，
+    *
+    * */
+    const goldenToPackage = (targetClass, times) => {
+        const targetEl = typeof targetClass === 'string' && document.querySelector(`.${targetClass}`)
+        const targetElPosition = targetEl && targetEl.getBoundingClientRect()
+        const goldens = []
+        while(times) {
+            goldens.push(document.createElement('div'))
+            times --
+        }
+        addKeyframes(targetElPosition.left + 50, targetElPosition.top - 200, targetElPosition.left + 20, targetElPosition.top - 10)
+        for (const [index, el] of goldens.entries()) {
+            el.setAttribute('style', `position: fixed;width: 50px; height: 50px;border-radius: 50px; background: yellow; animation: my-anim-moveto 1.88s ${index * 0.3 }s`)
+            document.body.appendChild(el);
+        }
+    }
+    goldenToPackage('target-package', 4)
+    function addKeyframes(x1, y1, x2, y2) {
+        const style = document.createElement('style')
+        style.setAttribute('type', 'text/css')
+        const keyFrames = `@keyframes my-anim-moveto{
+            0%{
+                left: ${x1}px;
+                top: ${y1}px;
+                transform: scale(1);
+            }
+            20% {
+                transform: scale(0.8);
+            }
+            40% {
+                transform: scale(0.6);
+            }
+            60% {
+                transform: scale(0.4);
+            }
+            100%{
+                left: ${x2}px;
+                top: ${y2}px;
+                transform: scale(0);
+            }
+        }`
+        style.innerHTML = keyFrames
+        document.head.appendChild(style)
+    }
+</script>
+</body>
+</html>
