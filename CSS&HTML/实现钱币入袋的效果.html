@@ -9,6 +9,7 @@
             height: 150px;
             border: 1px solid #ccc;
             margin: 300px auto 0;
+
         }
 
     </style>
@@ -26,14 +27,24 @@
     const goldenToPackage = (targetClass, times) => {
         const targetEl = typeof targetClass === 'string' && document.querySelector(`.${targetClass}`)
         const targetElPosition = targetEl && targetEl.getBoundingClientRect()
+        // 钱币的初始宽高
+        const elPosition = {
+            width: 50,
+            height: 50,
+        }
+        // 钱币的初始位置 x1 y1 结束位置
+        const x1 = targetElPosition.left + targetElPosition.width - 10
+        const y1 = targetElPosition.top - 200
+        const x2 = targetElPosition.left + targetElPosition.width / 2
+        const y2 = targetElPosition.top
         const goldens = []
         while(times) {
             goldens.push(document.createElement('div'))
             times --
         }
-        addKeyframes(targetElPosition.left + 50, targetElPosition.top - 200, targetElPosition.left + 20, targetElPosition.top - 10)
+        addKeyframes(x1, y1, x2, y2)
         for (const [index, el] of goldens.entries()) {
-            el.setAttribute('style', `position: fixed;width: 50px; height: 50px;border-radius: 50px; background: yellow; animation: 1.58s linear ${index * 0.2 }s my-anim-moveto forwards`)
+            el.setAttribute('style', `position: fixed; left: ${x1}px; top: ${y1}px ;width: ${elPosition.width}px; height: ${elPosition.height}px;border-radius: 50px; background: yellow; animation: 1.58s linear ${index * 0.2 }s my-anim-moveto forwards`)
             document.body.appendChild(el);
         }
 
@@ -47,20 +58,25 @@
                 left: ${x1}px;
                 top: ${y1}px;
                 transform: scale(1);
+                transform-origin: left top;
             }
             20% {
                 transform: scale(0.8);
+                transform-origin: left top;
             }
             40% {
                 transform: scale(0.6);
+                transform-origin: left top;
             }
             60% {
                 transform: scale(0.4);
+                transform-origin: left top;
             }
             100%{
                 left: ${x2}px;
                 top: ${y2}px;
                 transform: scale(0);
+                transform-origin: left top;
 
             }
         }`
