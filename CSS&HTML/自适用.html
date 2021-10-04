@@ -22,14 +22,10 @@
         }
 
         .box {
-            display: -webkit-flex;
             display: flex;
-
-            -webkit-flex-direction: row;
             flex-direction: row;
-
             justify-content: flex-start;
-
+            border: 1px solid blue;
         }
 
         .left-nav {
@@ -58,6 +54,7 @@
         }
         .box-bfc {
             width: 100vw;
+            border: 1px solid green;
         }
         .box-bfc nav{
             float: left;
@@ -77,6 +74,7 @@
 
 <body>
 <p>布局的两种方式:</p>
+<p>Flex</p>
 <div class="box">
     <nav class="left-nav">
         <div>左侧可伸缩</div>
@@ -92,6 +90,7 @@
         右侧固定
     </nav>
 </div>
+<p>BFC+加浮动</p>
 <div class="box-bfc">
     <nav>
         <div>左侧固定</div>
