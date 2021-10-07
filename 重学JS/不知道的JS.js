@@ -80,7 +80,7 @@ function fun () {
 
 fun.prototype = {}
 const a = new fun()
-console.log(a.constructor) // ？
+console.log('a.constructor=', a.constructor) // ？
 // 原来的固有印象是通过构造函数fun new出来的对象a 会有一个属性指向其构造函数fun,其实错了，a根本没有属性指向fun,
 // a.constructor是通过原型链去找,如果在fun.prototype找到了就是fun.prototype的指向，如果没找到，那么继续往上找，
 // 一直找到Object.prototype ，而它的constructor =》Object函数,故上面的结果为
