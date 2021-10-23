@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "promisetest": "promises-aplus-tests ES6/promise.js",
+    "promisetest": "promises-aplus-tests ES6/promise/promise.js",
     "docs:dev": "vuepress dev docs",
     "build": "webpack --config config/webpack.config.js"
   },
