@@ -16,7 +16,10 @@ const add = function (val) {
   return fn
   
 }
-console.log(add(1)(2).sum())
+// console.log(add(1)(2).sum())
+
+// 变种题目 实现add(1)(2)() 输出3
+// add(1)(2)(3).sum() 输出6
 
 
 
