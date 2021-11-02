@@ -1,5 +1,5 @@
 // 实现bind 方法，
-// 首先需要理解用法：是一个函数.bind(obj) 返回的是一个函数，这个函数的执行对象被绑定了
+// 首先需要理解用法：fn.bind(obj, 参数1, 参数2, ...) 返回的是一个新函数，这个函数的执行对象this被绑定到了obj,
 // 会把参数预设, 也就是说提前也绑定函数参数的对应位置的值, 也可以说是闭包了
 // 构造函数情形下 绑定函数无效，但是参数预设正常
 Function.prototype.bind = function (obj, ...preArgs) {
@@ -9,6 +9,7 @@ Function.prototype.bind = function (obj, ...preArgs) {
     throw new TypeError(`bind must be a function `)
   }
   const fnBind = function(...args) {
+    // or this instanceOf fnBind
     const context = fn.prototype.isPrototypeOf(this) ? this : obj // this 如果是当前函数的实例
     return fn.apply(context, [...preArgs, ...args])
   }
