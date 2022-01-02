@@ -11,9 +11,16 @@ module.exports = Object.assign(webpackBaseConfig, {
   },
   output: {
     // 把所有依赖的模块合并输出到一个 bundle.js 文件
-    filename: 'js/[name].[hash:8].js',
+    filename: 'js/[name].[hash:10].js',
     // 输出文件都放到 dist 目录下
     path: path.resolve(__dirname, rootPath, 'dist'),
+  },
+  optimization: {
+    splitChunks: {
+      chunks: 'all',
+      minChunks: 1,
+      minSize: 1
+    }
   },
   plugins: [
     new clean.CleanWebpackPlugin(),
