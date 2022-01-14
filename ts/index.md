@@ -37,3 +37,4 @@ type typeStr= string | number | object
 const a: typeStr = 11
 const obj2: typeObj = {name: 'name'}
 ```
+# 泛型
