@@ -3,7 +3,7 @@
 ### Example user template
 
 # IntelliJ project files
-.idea
+/.idea
 node_modules
 bower_components
 vendor
@@ -11,6 +11,6 @@ vendor
 out
 gen
 ts/build
-yarn.lock
 ES6/promise-statle.js
 dist
+.DS_Store
