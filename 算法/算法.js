@@ -17,10 +17,11 @@ const quickSort = function (arr) {
       center.push(item)
     }
   })
-  return quickSort(left).concat(center, quickSort(right))
+  return [...quickSort(left), ...center, ...quickSort(right)]
+  // return quickSort(left).concat(center, quickSort(right))
 }
 const sort_arr = [1, 3, 2, 5, 6, 14, 333, 14, 6, 7, 8]
-console.log(quickSort(sort_arr))
+console.log('quick sort = ', quickSort(sort_arr))
 
 // unquiue去重 ES5方式
 const unique = function (arr) {
