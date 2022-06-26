@@ -38,3 +38,39 @@ const a: typeStr = 11
 const obj2: typeObj = {name: 'name'}
 ```
 # 泛型
+
+
+## react 与TS
+
+对于基本类型useState("") TS会进行类型推断 从而确定参数的类型是否正确
+```
+const [name, setName] = useState("");
+setName(1) 
+// 类型“number”的参数不能赋给类型“SetStateAction<string>”的参数。
+setName('1') 
+```
+
+对于引用类型 比如数组 对象等，需要用范型定义传入的类型
+```
+const [names, setNames] = useState([])
+setNames([{ a: 1 }])
+// 不能将类型“number”分配给类型“never”。
+```
+
+```
+const [names, setNames] = useState<{a: number}[]>([])
+setNames([{ a: 1 }])
+```
+
+## 全局变量 window的扩展 
+使用类型断言
+```
+window.a = 1
+// 类型“Window & typeof globalThis”上不存在属性“a”。
+
+// 类型断言
+interface Widnow {
+  [key: string]: any
+}
+(window as Widnow).a = 1
+````
