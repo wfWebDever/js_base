@@ -1,97 +1,91 @@
 <!DOCTYPE html>
 <html lang="zh-cn">
-<head>
-  <meta charset="UTF-8">
-</head>
-<body>
-<script type="text/javascript">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <script type="text/javascript">
+      const get_timer = function (fun, countdown, delay, immediately) {
+        //'use strict';
+        let timer = null
+        let count = function () {
+          if (countdown < 0) {
+            clearTimeout(timer)
+            return
+          }
 
-  const get_timer = function (fun, countdown, delay, immediately) {
-    //'use strict';
-    let timer = null;
-    let count = function () {
-      if (countdown < 0) {
-        clearTimeout(timer);
-        return;
-      }
-
-      if (immediately && !timer) {
-        fun.call(null, countdown, timer);
-        countdown--;
-      }
-      timer = setTimeout(function () {
-        fun.call(null, countdown, timer);
-        countdown--;
-        count();
-      }, delay);
-    };
-    return count;
-  };
-
-  const fun = function (time, timer) {
-    console.info(time, timer);
-  };
-
-  //var test = get_timer(fun, 5, 1000, false);
-  //test();
-
-  //second fun
-  const setTimer = function () {
-    let timer = null;
-    const clear = function () {
-      console.info("clear", timer);
-      clearTimeout(timer);
-    };
-    return {
-      init: function (func, times, delay) {
-        if (times <= 0) {
-          return;
+          if (immediately && !timer) {
+            fun.call(null, countdown, timer)
+            countdown--
+          }
+          timer = setTimeout(function () {
+            fun.call(null, countdown, timer)
+            countdown--
+            count()
+          }, delay)
         }
-        timer = setTimeout(() => {
-          func.call(this, arguments, timer);
-          times--;
-          clear();
-          this.init(func, times, delay);
+        return count
+      }
+
+      const fun = function (time, timer) {
+        console.info(time, timer)
+      }
+
+      //var test = get_timer(fun, 5, 1000, false);
+      //test();
+
+      //second fun
+      const setTimer = (function () {
+        let timer = null
+        const clear = function () {
+          console.info('clear', timer)
+          clearTimeout(timer)
+        }
+        return {
+          init: function (func, times, delay) {
+            if (times <= 0) {
+              return
+            }
+            timer = setTimeout(() => {
+              func.call(this, arguments, timer)
+              times--
+              clear()
+              this.init(func, times, delay)
+            }, delay)
+          },
+        }
+      })()
+
+      setTimer.init(func, 5, 1000)
+
+      function func(arg, timer) {
+        console.info(arg[1], timer)
+      }
+
+      var call_bind_a = function () {
+        return [(() => this.x).bind({ x: 'inner' })()]
+      }.call({ x: 'outer' })
+      //console.info(call_bind_a);
+
+      //程序5秒后执行
+      function delay_exec_fun(func, times, delay) {
+        let timer = null
+        console.info(times)
+        if (times == 0) {
+          func()
+          return
+        }
+        setTimeout(() => {
+          times--
+          delay_exec_fun(func, times, delay)
         }, delay)
       }
-    };
-  }();
 
-  setTimer.init(func, 5, 1000);
+      function c() {
+        console.info('5秒后执行该代码')
+      }
 
-  function func(arg, timer) {
-    console.info(arg[1], timer);
-  }
-
-  var call_bind_a = (function () {
-    return [
-      (() => this.x).bind({x: 'inner'})()
-    ];
-  }).call({x: 'outer'});
-  //console.info(call_bind_a);
-
-  //程序5秒后执行
-  function delay_exec_fun(func, times, delay) {
-    let timer = null;
-    console.info(times);
-    if (times == 0) {
-      func();
-      return;
-    }
-    setTimeout(() => {
-      times--;
-      delay_exec_fun(func, times, delay);
-    }, delay)
-
-  }
-
-  function c() {
-    console.info("5秒后执行该代码");
-  }
-
-  delay_exec_fun(c, 5, 1000);
-
-
-</script>
-</body>
+      delay_exec_fun(c, 5, 1000)
+    </script>
+  </body>
 </html>

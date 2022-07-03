@@ -6,9 +6,9 @@ var people = {
     return () => {
       return this.name
     }
-  }
+  },
 }
 var getName = people.setName(name)
 console.log(people.name) // y
-console.log(getName())  // x
-console.log(name)       // x
+console.log(getName()) // x
+console.log(name) // x

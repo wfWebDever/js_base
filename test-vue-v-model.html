@@ -1,19 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>Title</title>
-</head>
-<body>
-<div id="app">
-    test
-</div>
-<script>
-
-</script>
-<script type="module">
-  import Vue from './node_modules/vue/dist/vue.esm.browser.js'
-  /*const Child = {
+  </head>
+  <body>
+    <div id="app">test</div>
+    <script></script>
+    <script type="module">
+      import Vue from './node_modules/vue/dist/vue.esm.browser.js'
+      /*const Child = {
     template: `
        <div>
            <input :value="value"  @input="update"/>
@@ -38,20 +34,20 @@
       }
     }
   }*/
-  const Home = {
-    template: `<div>{{a}}{{b}}</div>`,
-    data(){
-      return {
-        a: 1,
-        b: 2,
+      const Home = {
+        template: `<div>{{a}}{{b}}</div>`,
+        data() {
+          return {
+            a: 1,
+            b: 2,
+          }
+        },
       }
-    },
-  }
 
-  const app = new Vue({
-    render: h => h(Home)
-  })
-  app.$mount('#app')
-</script>
-</body>
+      const app = new Vue({
+        render: (h) => h(Home),
+      })
+      app.$mount('#app')
+    </script>
+  </body>
 </html>

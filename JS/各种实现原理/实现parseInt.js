@@ -17,7 +17,7 @@ const parseIntFn = function (str) {
   }
   // console.log(Number(numb.join('')))
   return numb.reduce((acc, value, index) => {
-    return acc += Number(value) * Math.pow(10, numb.length - index - 1)
+    return (acc += Number(value) * Math.pow(10, numb.length - index - 1))
   }, 0)
 }
 console.log(parseIntFn('132ddd'))

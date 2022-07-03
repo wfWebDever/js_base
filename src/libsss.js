@@ -1,6 +1,6 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 
 export default () => {
-    console.log('libss')
-    console.log('libss', React)
+  console.log('libss')
+  console.log('libss', React)
 }

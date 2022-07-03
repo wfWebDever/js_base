@@ -1,22 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>去抖</title>
-</head>
-<body>
+  </head>
+  <body>
+    <input
+      type="text"
+      id="div1"
+      onkeypress="debounce(func,5000,true)"
+      value="单击"
+    />
 
+    <script type="text/javascript">
+      function func(a, b, c) {
+        console.info(new Date().getTime())
+      }
 
-<input type="text" id="div1" onkeypress="debounce(func,5000,true)" value="单击"/>
-
-<script type="text/javascript">
-
-  function func(a,b ,c) {
-    console.info(new Date().getTime());
-  }
-
-  function debounce(method, delay, immediate) {
-    /*debugger;
+      function debounce(method, delay, immediate) {
+        /*debugger;
     let timer;
     return function () {
       let context = this, args = arguments;
@@ -34,23 +36,22 @@
       timer = setTimeout(later, delay);
       console.info(timer);
     }*/
-    if (immediate && !debounce.timer) {
-      method.apply(null, arguments);
-    }
-    clearTimeout(debounce.timer);
-    debounce.timer = setTimeout(function () {
-      method.apply(null, arguments);
-    }, delay);
-  }
+        if (immediate && !debounce.timer) {
+          method.apply(null, arguments)
+        }
+        clearTimeout(debounce.timer)
+        debounce.timer = setTimeout(function () {
+          method.apply(null, arguments)
+        }, delay)
+      }
 
-  function clickfun() {
-    debounce(func, 5000);
-  }
+      function clickfun() {
+        debounce(func, 5000)
+      }
 
-  /*document.querySelectorAll('#div1')[0].addEventListener('click',function () {
+      /*document.querySelectorAll('#div1')[0].addEventListener('click',function () {
 
   })*/
-
-</script>
-</body>
+    </script>
+  </body>
 </html>

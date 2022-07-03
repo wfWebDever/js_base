@@ -9,7 +9,7 @@ const add = function (val) {
   }
   return fn
 }
-console.log('1:',add(1)(2)(3).sum())
+console.log('1:', add(1)(2)(3).sum())
 
 // 变种题目 2
 // add2() // => 0
@@ -18,11 +18,11 @@ console.log('1:',add(1)(2)(3).sum())
 const add2 = (...args) => {
   const value = (args.length && args[0]) || 0
   const fn = (...argsInner) => {
-    return argsInner.length ? add2(argsInner[0]+ value) : value
+    return argsInner.length ? add2(argsInner[0] + value) : value
   }
   return args.length ? fn : 0
 }
-console.log('2=',add2(), add2(1)(2)(), add2(1)(2)(3)())
+console.log('2=', add2(), add2(1)(2)(), add2(1)(2)(3)())
 
 // 变种3
 // chain(1).add(2).add(3).valueOf()
@@ -47,6 +47,3 @@ const chain = (value) => {
 }
 // test
 console.log(chain(1).add(2).add(5).valueOf())
-
-
-

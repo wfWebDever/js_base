@@ -1,4 +1,4 @@
-function containsRepeatingLetter (str) {
+function containsRepeatingLetter(str) {
   const arr = str.split('')
   let flag = false
   for (const [index, val] of arr.entries()) {
@@ -10,7 +10,7 @@ function containsRepeatingLetter (str) {
   return flag
 }
 // 用正则 引用
-function containsRepeatingLetter_2 (str) {
+function containsRepeatingLetter_2(str) {
   const reg = /([a-zA-Z])\1/
   return reg.test(str)
 }

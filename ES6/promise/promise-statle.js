@@ -4,11 +4,11 @@ const RESOLVED = 'fulfilled'
 
 const REJECT = 'rejected'
 
-function _isFunction (val) {
+function _isFunction(val) {
   return typeof val === 'function'
 }
 
-function _isThenable (x) {
+function _isThenable(x) {
   return _isFunction(x) || (typeof x === 'object' && x !== null)
 }
 
@@ -30,7 +30,7 @@ function _isThenable (x) {
 
  */
 
-function resolvePromise (promise, x, resolve, reject) {
+function resolvePromise(promise, x, resolve, reject) {
   // 要求每次返回新的promise
 
   // 如果返回是当前的promise, 则抛出typeError
@@ -51,7 +51,7 @@ function resolvePromise (promise, x, resolve, reject) {
         then.call(
           x,
 
-          val => {
+          (val) => {
             if (!called) {
               called = true
 
@@ -65,7 +65,7 @@ function resolvePromise (promise, x, resolve, reject) {
             }
           },
 
-          reason => {
+          (reason) => {
             if (!called) {
               called = true
 
@@ -95,7 +95,7 @@ function resolvePromise (promise, x, resolve, reject) {
 }
 
 class Promise {
-  constructor (fn) {
+  constructor(fn) {
     // 当前promise状态
 
     this.status = PENDING
@@ -149,12 +149,12 @@ class Promise {
 
    */
 
-  resolve (val) {
+  resolve(val) {
     // 只有当状态为PENDING时候才执行
 
     // 确保Promise只会被执行一次
 
-    const res = v => {
+    const res = (v) => {
       // 记录当前的值
 
       this.value = v
@@ -171,7 +171,7 @@ class Promise {
 
       if (onResolveCallback.length) {
         setTimeout(() => {
-          onResolveCallback.forEach(each => {
+          onResolveCallback.forEach((each) => {
             each()
           })
         }, 0)
@@ -209,7 +209,7 @@ class Promise {
 
    */
 
-  reject (e) {
+  reject(e) {
     // 只有当前状态为PENDING的时候才执行
 
     // 确保Promise只会被执行一次
@@ -229,7 +229,7 @@ class Promise {
 
       if (onRejectCallback.length) {
         setTimeout(() => {
-          onRejectCallback.forEach(each => {
+          onRejectCallback.forEach((each) => {
             each()
           })
         })
@@ -263,18 +263,15 @@ class Promise {
 
    */
 
-  then (onFulfilled, onRejected) {
-    onFulfilled = typeof onFulfilled === 'function' ? onFulfilled : val => val
+  then(onFulfilled, onRejected) {
+    onFulfilled = typeof onFulfilled === 'function' ? onFulfilled : (val) => val
 
     onRejected =
-
       typeof onRejected === 'function'
-
         ? onRejected
-
-        : err => {
-          throw err
-        }
+        : (err) => {
+            throw err
+          }
 
     const self = this
 
@@ -353,7 +350,7 @@ class Promise {
 
    */
 
-  catch (reject) {
+  catch(reject) {
     // 相当于新加入一个then方法
 
     return this.then(undefined, reject)
@@ -375,15 +372,15 @@ class Promise {
 
    */
 
-  finally (fnc = () => {}) {
+  finally(fnc = () => {}) {
     return this.then(
-      val => {
+      (val) => {
         fnc()
 
         return val
       },
 
-      err => {
+      (err) => {
         fnc()
 
         throw err
@@ -409,7 +406,7 @@ class Promise {
 
    */
 
-  static resolve (x) {
+  static resolve(x) {
     // 如果为Promise实例
 
     // 则返回该实例
@@ -465,7 +462,7 @@ class Promise {
 
    */
 
-  static reject (reason) {
+  static reject(reason) {
     /**
 
      * @example

@@ -1,84 +1,83 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>Title</title>
     <style>
-        .change {
-            width: 100px;
-            height: 100px;
-        }
+      .change {
+        width: 100px;
+        height: 100px;
+      }
     </style>
-</head>
-<body>
-<ul id="ul">
-    <li>11</li>
-    <li>22</li>
-    <li>33</li>
-</ul>
+  </head>
+  <body>
+    <ul id="ul">
+      <li>11</li>
+      <li>22</li>
+      <li>33</li>
+    </ul>
 
-<script>
-    // 通过id 查询是最快的
-    const ul = document.querySelector('#ul')
-    //ul.style.width = '100px'
-    //ul.style.height = '100px'
-    // 上面会操作3次dom, 进行2次的重排。
-    ul.className = 'change'
-    // 如果通过改变class 那么只需要一次重排 或者
-    ul.setAttribute('style', 'width: 100px; height: 100px')
+    <script>
+      // 通过id 查询是最快的
+      const ul = document.querySelector('#ul')
+      //ul.style.width = '100px'
+      //ul.style.height = '100px'
+      // 上面会操作3次dom, 进行2次的重排。
+      ul.className = 'change'
+      // 如果通过改变class 那么只需要一次重排 或者
+      ul.setAttribute('style', 'width: 100px; height: 100px')
 
-    // 增加10个li元素
-    function addLi () {
-      for (let i = 4; i<= 14; i++) {
-        const li = document.createElement('li')
-        li.append(document.createTextNode(i+''+i))
-        ul.append(li)
+      // 增加10个li元素
+      function addLi() {
+        for (let i = 4; i <= 14; i++) {
+          const li = document.createElement('li')
+          li.append(document.createTextNode(i + '' + i))
+          ul.append(li)
+        }
       }
-    }
-    addLi()
-    // 10次重排
+      addLi()
+      // 10次重排
 
-    //如果先删除ul元素 数据量大的时候会造成闪烁
-    function addLiByDelUl () {
-      document.body.removeChild(ul)
-      const ulDom = document.createElement('ul')
-      for (let i = 1; i<= 14; i++) {
-        const li = document.createElement('li')
-        li.append(document.createTextNode(i+''+i))
-        ulDom.append(li)
+      //如果先删除ul元素 数据量大的时候会造成闪烁
+      function addLiByDelUl() {
+        document.body.removeChild(ul)
+        const ulDom = document.createElement('ul')
+        for (let i = 1; i <= 14; i++) {
+          const li = document.createElement('li')
+          li.append(document.createTextNode(i + '' + i))
+          ulDom.append(li)
+        }
+        document.body.append(ulDom)
       }
-      document.body.append(ulDom)
-    }
-    addLiByDelUl()
+      addLiByDelUl()
 
-    // 通过文档片段 只进行一次更新
-    function addLiByDelDocumentFragment () {
-      const docFrag = document.createDocumentFragment()
-      for (let i = 4; i<= 14; i++) {
-        const li = document.createElement('li')
-        li.append(document.createTextNode(i+''+i))
-        docFrag.append(li)
+      // 通过文档片段 只进行一次更新
+      function addLiByDelDocumentFragment() {
+        const docFrag = document.createDocumentFragment()
+        for (let i = 4; i <= 14; i++) {
+          const li = document.createElement('li')
+          li.append(document.createTextNode(i + '' + i))
+          docFrag.append(li)
+        }
+        ul.append(docFrag)
       }
-      ul.append(docFrag)
-    }
-    addLiByDelDocumentFragment()
+      addLiByDelDocumentFragment()
 
-    // 通过innerHtml 也是一次重排过程
-    function addLiByInnerHtm () {
-      let htm = ''
-      for (let i = 4; i<= 14; i++) {
-        htm += `<li>${i}${i}</li>`
+      // 通过innerHtml 也是一次重排过程
+      function addLiByInnerHtm() {
+        let htm = ''
+        for (let i = 4; i <= 14; i++) {
+          htm += `<li>${i}${i}</li>`
+        }
+        ul.innerHTML = ul.innerHTML + htm
       }
-      ul.innerHTML = ul.innerHTML + htm
-    }
-    addLiByInnerHtm()
+      addLiByInnerHtm()
 
-    // 我们再看下 vue内部对dom实现的优化
-    function insertBefore (parentNode, newNode, referenceNode) {
-      parentNode.insertBefore(newNode, referenceNode);
-    }
-    // insertBefore这个方法用在了diff算法时，找到了某一个节点的位置发生了变化，用浏览器的原生方法交换旧节点的位置，也是重排一次。
-
-</script>
-</body>
+      // 我们再看下 vue内部对dom实现的优化
+      function insertBefore(parentNode, newNode, referenceNode) {
+        parentNode.insertBefore(newNode, referenceNode)
+      }
+      // insertBefore这个方法用在了diff算法时，找到了某一个节点的位置发生了变化，用浏览器的原生方法交换旧节点的位置，也是重排一次。
+    </script>
+  </body>
 </html>

@@ -1,8 +1,8 @@
-const path = require('path');
+const path = require('path')
 const rootPath = '../'
 const webpackBaseConfig = require('./webpack.config')
 const clean = require('clean-webpack-plugin')
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = Object.assign(webpackBaseConfig, {
   mode: 'production',
@@ -19,14 +19,14 @@ module.exports = Object.assign(webpackBaseConfig, {
     splitChunks: {
       chunks: 'all',
       minChunks: 1,
-      minSize: 1
-    }
+      minSize: 1,
+    },
   },
   plugins: [
     new clean.CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       template: 'public/index.html',
-      title: 'test'
-    })
-  ]
-});
+      title: 'test',
+    }),
+  ],
+})
