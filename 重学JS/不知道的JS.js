@@ -34,7 +34,6 @@
 // for in 会遍历对象自身及其原型链上的属性
 // myObject.hasOwnProperty() 只针对某个属性是否是在对象本身上，所以需要和for in配合
 
-
 /*第5天*/
 // 事件循环：
 // 1、宿主环境和引擎关系，如同浏览器和V8关系。
@@ -74,7 +73,7 @@
 //JS继承的理解
 // JS根本不是所谓的继承机制，因为继承是需要复制父辈的属性和方法的，而JS是通过原型链获取属性和方法，没有复制。
 // 通过'构造函数'举例来说
-function fun () {
+function fun() {
   console.log('fun')
 }
 
@@ -90,7 +89,7 @@ Object.defineProperty(fun.prototype, 'constructor', {
   enumerable: false,
   writable: true,
   configurable: true,
-  value: fun
+  value: fun,
 })
 console.log(a.constructor) // function fun
 // 再往下深入的话，那其实这个constructor有什么作用呢，既然我可以随便定义这个属性。
@@ -125,7 +124,7 @@ if (!Object.create) {
 /*第10天*/
 //通过两个对象之间建立委托联系的形式，更好的实现了关注点分离。举例
 // 首先是类的形式，'子类'需要call 一下'父类'，获取父的属性，然后通过创建一个新对象指向父函数的原型并赋到子类prototype上实现原型的关联
-function fa (name) {
+function fa(name) {
   this.name = name
 }
 
@@ -133,7 +132,7 @@ fa.prototype.getName = function () {
   return this.name
 }
 
-function fb (name, age) {
+function fb(name, age) {
   fa.call(this, name)
   this.age = age
 }
@@ -144,15 +143,15 @@ console.log(f.getName())
 // 这种方式一点都不分离化，也很费解。
 // 以下是对象形式的委托关联
 const obj1 = {
-  getName () {
+  getName() {
     return this.name
-  }
+  },
 }
 const obj2 = {
   name: 'li',
-  getAge () {
+  getAge() {
     return this.age
-  }
+  },
 }
 Object.setPrototypeOf(obj2, obj1)
 console.log(obj2.getName())
@@ -162,33 +161,35 @@ console.log(obj2.getName())
 //ES6中 class 中原型的探究
 // es6  class 说到底是隐藏了一些细节关系，不用通过显示的prototype来关联两个对象， 总结其实就是一种语法糖.
 class Widget {
-  constructor (width, height) {
+  constructor(width, height) {
     this.width = width || 50
     this.height = height || 50
     this.$elem = null
   }
-  
-  render ($where) {
+
+  render($where) {
     if (this.$elem) {
-      this.$elem.css({ width: this.width, height: this.height }).appendTo($where)
+      this.$elem
+        .css({ width: this.width, height: this.height })
+        .appendTo($where)
     }
   }
 }
 
 class Button extends Widget {
-  constructor (width, height, label) {
+  constructor(width, height, label) {
     super(width, height) // 类似执行了 Widget.call(this, width, height)
     this.label = label || 'Default'
     this.$elem = 'button'
   }
-  
-  render ($where) {
+
+  render($where) {
     super.render($where) // 往上找原型widget中的render方法 也是一种委托关联关系，本质不变
     this.$elem.click(this.onClick.bind(this))
   }
-  
-  onClick (evt) {
-    console.log('Button \'' + this.label + '\' clicked!')
+
+  onClick(evt) {
+    console.log("Button '" + this.label + "' clicked!")
   }
 }
 
@@ -211,7 +212,6 @@ console.log(Math.abs(num1 - num2) < Number.EPSILON) // true  // Math.abs取一�
 // 测试是不是安全整数的方法
 Number.isSafeInteger(Math.pow(2, 53))
 // isNaN 是唯一一个不等于其自身的值, 检测方法有ES6的Number.isNaN() 和ES5的window.isNaN() //后者会把非数字类型的也检测成true
-
 
 /*第13天*/
 

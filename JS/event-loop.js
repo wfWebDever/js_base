@@ -15,9 +15,8 @@ new Promise((resolve) => {
   resolve()
   console.log(3)
 }).then((data) => {
-  console.log(4, 'data:',data)
+  console.log(4, 'data:', data)
 })
 console.log(5)
 
 // 2 3 5 4 1
-

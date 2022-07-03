@@ -1,19 +1,19 @@
-var isValid = function(s) {
+var isValid = function (s) {
   if (typeof s !== 'string') {
-    return  false
+    return false
   }
   if (s === '') {
     return true
   }
   if (s.length % 2 !== 0) {
-    return  false
+    return false
   }
   const arr = s.split('')
   const stack = [arr[0]]
   const match = {
     '(': ')',
     '[': ']',
-    '{': '}'
+    '{': '}',
   }
   for (let i = 1; i < arr.length; i++) {
     if (arr[i] === match[stack[stack.length - 1]]) {
@@ -23,12 +23,18 @@ var isValid = function(s) {
     }
   }
   return stack.length === 0
-  
-};
-const data1 = "()"
-const data2 = "()[]{}"
-const data3 = "(]"
-const data4 = "([)]"
-const data5 = "{[]}"
+}
+const data1 = '()'
+const data2 = '()[]{}'
+const data3 = '(]'
+const data4 = '([)]'
+const data5 = '{[]}'
 
-console.log(isValid(data1), isValid(data2), isValid(data3), isValid(data4), isValid(data5), isValid('(){'))
+console.log(
+  isValid(data1),
+  isValid(data2),
+  isValid(data3),
+  isValid(data4),
+  isValid(data5),
+  isValid('(){')
+)

@@ -8,7 +8,7 @@ Function.prototype.bind = function (obj, ...preArgs) {
   if (typeof fn !== 'function') {
     throw new TypeError(`bind must be a function `)
   }
-  const fnBind = function(...args) {
+  const fnBind = function (...args) {
     // or this instanceOf fnBind
     const context = fn.prototype.isPrototypeOf(this) ? this : obj // this 如果是当前函数的实例
     return fn.apply(context, [...preArgs, ...args])
@@ -17,10 +17,10 @@ Function.prototype.bind = function (obj, ...preArgs) {
   return fnBind
 }
 // Test
-const test = function(a, b ,c) {
-  console.log('test this',this, 'args=',arguments, 'a,b,c', a, b, c)
+const test = function (a, b, c) {
+  console.log('test this', this, 'args=', arguments, 'a,b,c', a, b, c)
 }
-const bindTest = test.bind({a: 1}, 'args')
+const bindTest = test.bind({ a: 1 }, 'args')
 bindTest(1, 2, 3)
 // test
 console.log([] instanceof Array)
@@ -37,12 +37,12 @@ construcFn.prototype.toStr = function () {
 // const constrTestobj = new constrTest(1, 2)
 // constrTestobj.toStr()
 
-const a={name:'a'};
-const b ={name:'b'};
-function fun1(){
-  console.log(this.name);
+const a = { name: 'a' }
+const b = { name: 'b' }
+function fun1() {
+  console.log(this.name)
 }
-const fun2 = fun1.bind(a);
+const fun2 = fun1.bind(a)
 const fun3 = fun2.bind(b)
 fun3()
 fun2.call(b)

@@ -1,14 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>Title</title>
-</head>
-<body>
-
-<script type="text/javascript">
-    //第一种方法，先提取如 218  206  179 190  8080 这几个数字的字符串，然后数组中的前4个元素组成IP，最后1个元素是端口
-    /*var regExpHost=/\d+/g;
+  </head>
+  <body>
+    <script type="text/javascript">
+      //第一种方法，先提取如 218  206  179 190  8080 这几个数字的字符串，然后数组中的前4个元素组成IP，最后1个元素是端口
+      /*var regExpHost=/\d+/g;
     var host =OCURL.match(regExpHost);
     var hostValue=host[0]+"."+host[1]+"."+host[2]+"."+host[3];
     var portValue=host[4];
@@ -20,16 +19,16 @@
     var IP= (IPort[0].split(":"))[0] ;
     var Port= (IPort[0].split(":"))[1];*/
 
-    var get_url_param=function (name) {
-        var url=window.location.search;
-        var test='?_ijt=n9noongulfldt7036t1q8mngr8&b=ff';
-        console.info(url);
-        var reg=new RegExp("(?|&"+name+"=");
-        var val=url.match(reg);
-        console.info(val);
-    };
+      var get_url_param = function (name) {
+        var url = window.location.search
+        var test = '?_ijt=n9noongulfldt7036t1q8mngr8&b=ff'
+        console.info(url)
+        var reg = new RegExp('(?|&' + name + '=')
+        var val = url.match(reg)
+        console.info(val)
+      }
 
-    get_url_param('');
-</script>
-</body>
+      get_url_param('')
+    </script>
+  </body>
 </html>

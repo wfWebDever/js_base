@@ -39,7 +39,7 @@ const arr = [1, '1', 2, 2, '3', 3, 5, 'a', 'a']
 console.info(unique(arr))
 
 // ES6方式
-const unique_es6 = arr => {
+const unique_es6 = (arr) => {
   return Array.from(new Set(arr))
 }
 // console.info(unique_es6(arr))

@@ -1,15 +1,15 @@
 /*
-*
-* 多维数组拍平
-* 思路就是递归 但是呢，有个问题是递归这种机器思路有点逆反，反人类的思路 遇到递归的题目是犯杵的 我理解的递归有点类似于深度遍历，
-* 递归的返回处理，递归的终点在哪，可以把递归分成小范围来处理
-*
-* */
+ *
+ * 多维数组拍平
+ * 思路就是递归 但是呢，有个问题是递归这种机器思路有点逆反，反人类的思路 遇到递归的题目是犯杵的 我理解的递归有点类似于深度遍历，
+ * 递归的返回处理，递归的终点在哪，可以把递归分成小范围来处理
+ *
+ * */
 
 // [1, 2, 3, [4], [5, 6, 7, [8, 9]]]
-function arrToOne (arr) {
+function arrToOne(arr) {
   let arrOne = []
-  arr.forEach(val => {
+  arr.forEach((val) => {
     if (!Array.isArray(val)) {
       arrOne.push(val)
     } else {
@@ -27,7 +27,7 @@ function arrToOne (arr) {
 const arrToOne2 = (arr) => {
   const arrOne = []
   const fn = (currArray) => {
-    currArray.forEach(val => {
+    currArray.forEach((val) => {
       Array.isArray(val) ? fn(val) : arrOne.push(val)
     })
   }
@@ -41,9 +41,8 @@ const arrToOne3 = (arr) => {
   }, [])
 }
 
-
 // 用generator
-function * arr2One4 (arr) {
+function* arr2One4(arr) {
   for (let i = 0; i < arr.length; i++) {
     const item = arr[i]
     Array.isArray(item) ? yield* arr2One4(item) : yield item
