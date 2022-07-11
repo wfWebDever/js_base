@@ -19,6 +19,42 @@ https://tailwindcss.com/docs/utility-first
 ## 默认配置
 https://github.com/tailwindlabs/tailwindcss/blob/master/stubs/defaultConfig.stub.js
 
+## css 优先级 !!
+如果跟Material UI 结合使用的话 这些组件它会生成一个class,在`<head>`的底部加载,
+导致覆盖tailwindcss样式.
+
+解决办法
+1.入口文件中加上mui的Provider 设置优先加载，故mui的css的样式 会在`<head>` 的前部加载，早于其他样式库的加载.
+2.tailwindcss 加上页面根元素加的类 比如 `root` 、`__next`等, 生成 ``#root text-red``之类的class
+提升权重
+
+```
+// index.jsx
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+import { StyledEngineProvider } from '@mui/material/styles'
+import { CssBaseline } from '@mui/material'
+import './index.css'
+import App from './App'
+
+const root = ReactDOM.createRoot(document.getElementById('root'))
+root.render(
+  <React.StrictMode>
+    <StyledEngineProvider injectFirst>
+      {/* Your component tree. Now you can override MUI's styles. */}
+      <CssBaseline />
+      <App />
+    </StyledEngineProvider>
+  </React.StrictMode>
+)
+```
+
+```
+module.exports = {
+  important: '#root',
+}
+```
+
 ## 字体 颜色等配置
 颜色 遵循按照使用文字颜色名称（如红色、绿色等）和数字刻度（其中 50 为浅色，900 为深色）。我发现它比使用抽象名称（如primaryor ）更容易维护danger，相关的样式都可以使用该字段，比如
 text-gray bg-gray border-gray等
@@ -114,4 +150,30 @@ module.exports = {
 >
             Almost before we knew
 </Typography>
+```
+
+## 移除未使用的 CSS
+本地调试使用时发现 每次会多生成重复的class，而在生产环境中 会自动开启清理未使用的class
+配置如下
+
+```
+// 自动的配置
+// tailwind.config.js
+module.exports = {
+  purge: [
+    './src/**/*.html',
+    './src/**/*.vue',
+    './src/**/*.jsx',
+  ],
+  theme: {},
+  variants: {},
+  plugins: [],
+}
+
+// 手动控制
+只在生产中移除未使用的样式，因为在开发中移除它们意味着您需要在任何时候改变您的模板时重新编译，并且在启用 PurgeCSS 的情况下编译速度要慢得多
+purge: {
+    enabled: true,
+    content: ['./src/**/*.html'],
+  },
 ```
