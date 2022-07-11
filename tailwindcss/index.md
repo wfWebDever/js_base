@@ -27,6 +27,9 @@ https://github.com/tailwindlabs/tailwindcss/blob/master/stubs/defaultConfig.stub
 1.入口文件中加上mui的Provider 设置优先加载，故mui的css的样式 会在`<head>` 的前部加载，早于其他样式库的加载.
 2.tailwindcss 加上页面根元素加的类 比如 `root` 、`__next`等, 生成 ``#root text-red``之类的class
 提升权重
+3.如果使用的model弹出窗之类的，那么生成的元素为了布局 会挣脱已有的根元素 ，需要在body上设置id
+如果是next框架 那么需要引入_document.js文件.
+
 
 ```
 // index.jsx
@@ -53,6 +56,25 @@ root.render(
 module.exports = {
   important: '#root',
 }
+```
+
+```
+// _document.js
+import { Html, Head, Main, NextScript } from 'next/document'
+
+const Document = () => {
+  return (
+    <Html>
+      <Head />
+      <body id="app">
+        <Main />
+        <NextScript />
+      </body>
+    </Html>
+  )
+}
+
+export default Document
 ```
 
 ## 字体 颜色等配置
@@ -90,25 +112,49 @@ text-red
 
 
 ### 字体
-- 首先从字体库中下载字体文件
+- 第一种方式是在head中直接引入字体地址 这种方式会自动压缩文件体积，适合能连外网的情况下
+```
+<link
+         rel="stylesheet"
+         href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,600,700&display=swap"
+       />
+```
+
+- 第二种类如果是本地加载，字体库中下载字体文件(一般包含4种粗重 400-700)
 https://fonts.google.com/specimen/Edu+SA+Beginner#type-tester
 
 - 定义到到CSS样式文件这个
 ```
+// global.css
 @font-face {
-  font-family: "arima";
-  src: url("./assets/fonts/Arima-VariableFont_wght.ttf") format("woff");
+  font-family: "EduSABeginner";
+  src: url("../assets/fonts/EduSABeginner-Bold.ttf") format("woff2");
+  font-style: normal;
+  font-weight: 700;
 }
 @font-face {
-  font-family: "edu";
-  src: url("./assets/fonts/EduSABeginner-VariableFont_wght.ttf") format("woff");
+  font-family: "EduSABeginner";
+  src: url("../assets/fonts/EduSABeginner-SemiBold.ttf") format("woff2");
+  font-style: normal;
+  font-weight: 600;
 }
-body {
-  margin: 0;
+@font-face {
+  font-family: "EduSABeginner";
+  src: url("../assets/fonts/EduSABeginner-Medium.ttf") format("woff2");
+  font-style: normal;
+  font-weight: 500;
+}
+@font-face {
+  font-family: "EduSABeginner";
+  src: url("../assets/fonts/EduSABeginner-Regular.ttf") format("woff2");
+  font-style: normal;
+  font-weight: 400;
 }
 ```
+
 - 如果是全局都生效的字体 直接生成到html中
 ```
+// global.css
 @layer base {
   html {
     font-family: "edu", 'arima', 'Helvetica', 'ui-sans-serif',
@@ -128,14 +174,16 @@ body {
   }
 }
 ```
-- 生成字体库 单独调用
+- 配置字体库
 ```
+// tailwind.config.js
 const defaultTheme = require('tailwindcss/defaultTheme')
 
 module.exports = {
   content: ['./src/**/*.{js,jsx,ts,tsx}'],
   theme: {
     fontFamily: {
+      edusa: ['EduSABeginner', ...defaultTheme.fontFamily.sans],
       arima: ['arima', ...defaultTheme.fontFamily.sans],
       edu: ['edu', ...defaultTheme.fontFamily.sans]
     }
@@ -146,7 +194,7 @@ module.exports = {
 
 // component
 <Typography
-  className="font-edu"
+  className="font-edusa"
 >
             Almost before we knew
 </Typography>
