@@ -77,6 +77,64 @@ const Document = () => {
 export default Document
 ```
 
+## 配置响应式的宽度
+如果要搭配mui组件库使用 那么需要设置这2者的响应式的宽度保持一致.
+
+```
+// tailwind.css https://tailwindcss.com/docs/screens
+module.exports = {
+  theme: {
+    screens: {
+      'sm': '640px',
+      'md': '900px',
+      'lg': '1024px',     
+      'xl': '1280px',     
+    }
+  }
+}
+```
+
+```
+// mui 
+// nextjs  _app.js
+const theme = createTheme({
+  breakpoints: {
+    values: {
+      xs: 0,
+      sm: 640,
+      md: 900,
+      lg: 1024,
+      xl: 1280,
+    },
+  },
+});
+function MyApp({ Component, pageProps }) {
+  return (
+    <StyledEngineProvider injectFirst>
+      {/* Your component tree. Now you can override MUI's styles. */}
+      <CssBaseline />
+      <ThemeProvider theme={theme}>
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </ThemeProvider>
+    </StyledEngineProvider>
+  )
+}
+
+// custom compoentn
+import useMediaQuery from '@mui/material/useMediaQuery';
+import { useTheme } from '@mui/core/styles';
+export default function SimpleMediaQuery() {
+  // > 800px is ipad screen 
+  const isIpad = useMediaQuery('(min-width:800px)');
+  // width > 1024 is pc screen
+  const isPC = useMediaQuery(theme.breakpoints.up('lg'));
+
+  return <span>{`(min-width:600px) matches: ${matches}`}</span>;
+}
+```
+
 ## 字体 颜色等配置
 颜色 遵循按照使用文字颜色名称（如红色、绿色等）和数字刻度（其中 50 为浅色，900 为深色）。我发现它比使用抽象名称（如primaryor ）更容易维护danger，相关的样式都可以使用该字段，比如
 text-gray bg-gray border-gray等
