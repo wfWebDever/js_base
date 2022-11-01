@@ -4,8 +4,10 @@
 
 这里说的临界条件指的是滚动， 父级或者最近的祖先级有滚动，当元素到达设置的临界条件时，就会
 粘在滚动祖先的相对距离,注意这里说的是相对滚动祖先元素.
+以下是总结的注意点:
+- 当该元素所在的父级也因为滚动脱离视觉范围后 该元素也会随之返回到relative位置.
+- 如果该元素所在的父级只包括该元素 也就是说父级高度等于小于该元素，那么该元素不会滚动.
 
-还有一个注意点 就是 当该元素所在的父级也滚动出视觉范围后 该元素也会随之返回到relative位置.
 
 ## 
 
@@ -34,6 +36,13 @@ body{color:#fff; font-family:arial; font-weight:bold; font-size:40px; }
 ```
 
 例子：https://elad.medium.com/css-position-sticky-how-it-really-works-54cd01dc2d46
+
+## 例子2
+比如有个设计是这样的 ,有header banner顺序摆放 然后需要也做粘性定位
+刚开始做法是把header absolute定位在banner中，然后监听页面滚动，当滚动时候，设置其为sticky.
+但是过程中会有闪烁，最后发现最简洁的做法是把banner margin 负值，让header 浮在banner 上. 
+完美收工.
+
 
 
 
