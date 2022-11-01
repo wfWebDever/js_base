@@ -35,6 +35,13 @@ body{color:#fff; font-family:arial; font-weight:bold; font-size:40px; }
 
 例子：https://elad.medium.com/css-position-sticky-how-it-really-works-54cd01dc2d46
 
+## 例子2
+比如有个设计是这样的 ,有header banner 然后需要也做粘性定位
+刚开始做法是把header absoulute定位在banner中，然后监听页面滚动，当滚动时候，设置其为sticky.
+但是过程中会有闪烁，最后发现最简洁的做法是 把banner margin 父值，让header 浮在banner 上. 这样 不用动态调整定位值.
+完美收工.
+
+
 
 
 
