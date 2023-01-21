@@ -9,6 +9,7 @@
     "build": "webpack --config config/webpack.prod.js",
     "lint": "npx prettier --write ."
   },
+  
   "private": true,
   "dependencies": {
     "promises-aplus-tests": "^2.1.2",
