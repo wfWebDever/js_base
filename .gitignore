@@ -14,3 +14,4 @@ ts/build
 ES6/promise-statle.js
 dist
 /.DS_Store
+.DS_Store
