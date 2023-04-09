@@ -14,7 +14,7 @@
 参考：https://www.semrush.com/blog/what-is-cls/?kw=&cmp=AA_SRCH_DSA_Blog_EN&label=dsa_pagefeed&Network=g&Device=c&utm_content=622582344887&kwid=dsa-1754979150845&cmpid=18361936995&agpid=141795398095&BU=Core&extid=60114129467&adpos=&gclid=Cj0KCQjw2cWgBhDYARIsALggUhpvqrSI48hMUz1oiCfjeXi1PeAH7ArOHkWRSfy7kk4qPOa541wqQ9UaAoV2EALw_wcB
 
 
+- 最大内容绘制(LCP)
+一般最容易发生和解决的就是图片的大小，可以使用CDN 以及图片使用webp格式
+
 - 首次输入延迟(FID) 
-
-
--最大内容绘制(LCP)。
