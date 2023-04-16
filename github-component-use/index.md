@@ -3,7 +3,7 @@
 ## 谷歌地图
 组件对比
 
-- google 原生JS (不合适 直接忽略)
+- google 原生JS 
 - google-map-react：最新版本引入后在react18下报错 有提问者直接推荐其他组件 (X)
 - react-google-maps (<https://tomchentw.github.io/react-google-maps/#installation>) 对 react 16.8之前版本支持的最好,但是对于react18 不太兼容
 报一些waring 但是没有大的错误.(Y)
