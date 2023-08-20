@@ -9,7 +9,11 @@
     "build": "webpack --config config/webpack.prod.js",
     "lint": "npx prettier --write ."
   },
-  
+  "engines": {
+    "node": "18.17.1",
+    "npm": "9.6.7",
+    "yarn": "1.22.19"
+  },
   "private": true,
   "dependencies": {
     "promises-aplus-tests": "^2.1.2",
