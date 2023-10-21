@@ -86,3 +86,8 @@ function useData(url) {
 ## 同一个组建中 如果一个输入框组件会频繁更改state 需要把其他的值用useMemo包裹起来 避免造成大量计算 这在一些表单组件中很有用
 ，还可以通过将每一个输入组件移动到子组件中 这样不会影响父组件
 
+## useEffect 最好是单独的进程独立出来 而不是放在一个effect中 利于维护
+
+## https://react.dev/learn/lifecycle-of-reactive-effects 打开和关闭同步这个案例 很有典型，需要清楚2种用法
+第一种方案会重复创建和卸载监听事件，第2种只会在true的时候创建新的监听事件 所以第2种方案最好
+
