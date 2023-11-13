@@ -1,0 +1,17 @@
+# 页面滚动条结合flex的实现
+
+父级使用100vh 高度为当前屏幕高度 然后使用flex布局
+子元素使用flex: 1 1 auto 这样子元素会占据剩余的所有空间 注意设置overflow-auto
+这样超出的时候会在子元素处出现滚动条 不然的话子元素会尽量占据所有的高度 整个页面出现滚动条
+
+```html
+<div className="relative h-screen flex flex-col">
+    <div className="border border-solid border-gray h-2/5 bg-red text-center">
+        child1
+    </div>
+    <div className="border border-solid border-black flex-auto overflow-auto">
+        <img src="https://cdn.pixabay.com/photo/2022/06/25/23/41/ladybug-7284337_1280.jpg" alt="image"
+        />
+    </div>
+</div>
+```
