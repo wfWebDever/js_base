@@ -4,6 +4,27 @@
 react 组件随着状态(props state)的改变，每一次重新渲染都有它单独的props state 函数 effect 等所有。
 除非设置了依赖项，比如effect 设置了[a]，当a不变时effect不会重新执行，或者callback函数的[a]，a不变时callback的函数保持不变。
 
+
+## useState: the useState and effect is after the return because the useState is called conditionly, the hooks muse be used in every render
+```
+import { useState, useEffect } from 'react'
+
+export default function SetData({id}) {
+  if (!id) return null
+  
+  const [data, setData] = useState('')
+  useEffect(() => {
+   setData(id)
+  }, [])
+
+  return (
+    <Box className="text-center text-lg">
+      {data}  
+    </Box>
+  )
+}
+```
+
 ## Effect 开发环境执行2次
 开发环境下 effect会执行2次 是因为有些问题不好排查 ，比如一个组件在加载后触发一个外部服务的连接，然后切换到另一个组件后，上个组件卸载，
 但是没有取消连接服务，此后当又切换到该组件时重新连接服务，这样服务连接的会越来越多，遇到服务累积的问题不好排查，
@@ -13,7 +34,6 @@ react 组件随着状态(props state)的改变，每一次重新渲染都有它�
 
 比如倒计时这段代码 
 ```
-import { Box, Typography } from '@mui/material'
 import { useState, useEffect } from 'react'
 
 export default function SetTime() {
@@ -45,10 +65,9 @@ export default function SetTime() {
 
 ## useSyncExternalStore 
 
-## fetch data api custom hook
+## fetch data when race condition: use ignore or AbortCotroller, but the best way is use Apollo's useQuery or SWR
 
-比如获取接口数据的封装 注意一下数据的竞争获取```ignore```
-
+### ignore
 ```
 
 function SearchResults({ query }) {
@@ -61,6 +80,8 @@ function SearchResults({ query }) {
   }
   // ...
 }
+
+
 
 function useData(url) {
   const [data, setData] = useState(null);
@@ -79,6 +100,28 @@ function useData(url) {
   }, [url]);
   return data;
 }
+```
+
+### AbortController
+
+```javescript
+function useData(url) {
+  const [data, setData] = useState(null);
+  useEffect(() => {
+    const controller = new AbortCotroller()
+    fetch(url, {
+      signal: controller.signal
+    })
+      .then(response => response.json())
+      .then(json => {
+        setData(json);
+      });
+
+    return () =>controller.abort()
+  }, [url]);
+  return data;
+}
+
 ```
 
 ## 列表循环时的key, 如果key发生变化，那么dom会重建，组件状态会重置换 不但光指列表 如果想要一个普通的组件也这样 设置一个key，比如该数据的id 那么id变化时想重新渲染 那么就更改此key
