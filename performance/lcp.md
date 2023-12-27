@@ -6,6 +6,9 @@ exp: Next.js
 
 - 资源打包后推到CDN，资源加缓存,开启Gzip压缩资源
 
+- 服务端渲染的html体积尽量减少
+  nextjs会把服务端数据放到html 一个标签中 所以修剪数据大小
+
 - CSS打包缩小体积，关键的打包到header 内联标签中  非关键的延迟加载(使用loadcss)
   减少CSS文件数量 写到一个文件中 或者都import进到global.css中
   
