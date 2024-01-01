@@ -125,9 +125,43 @@ function useData(url) {
 ```
 
 ## 列表循环时的key, 如果key发生变化，那么dom会重建，组件状态会重置换 不但光指列表 如果想要一个普通的组件也这样 设置一个key，比如该数据的id 那么id变化时想重新渲染 那么就更改此key
+这对于一些组件依赖父组件的重新渲染 很有帮助，避免使用effect这种方法
 
 ## 同一个组建中 如果一个输入框组件会频繁更改state 需要把其他的值用useMemo包裹起来 避免造成大量计算 这在一些表单组件中很有用
 ，还可以通过将每一个输入组件移动到子组件中 这样不会影响父组件
+```
+export default function ContactManager() {
+  const [contacts, setContacts] = useState(initialContacts)
+  const [selectedId, setSelectedId] = useState(0)
+  const selectedContact = contacts.find((c) => c.id === selectedId)
+
+  function handleSave(updatedData) {
+    const nextContacts = contacts.map((c) => {
+      if (c.id === updatedData.id) {
+        return updatedData
+      } else {
+        return c
+      }
+    })
+    setContacts(nextContacts)
+  }
+
+  return (
+    <div>
+      <ContactList
+        contacts={contacts}
+        selectedId={selectedId}
+        onSelect={(id) => setSelectedId(id)}
+      />
+      <hr />
+      <EditContact
+        savedContact={selectedContact}
+        onSave={handleSave}
+        key={selectedContact.id}
+      />
+    </div>
+  )
+```
 
 ## useEffect 最好是单独的进程独立出来 而不是放在一个effect中 利于维护
 
