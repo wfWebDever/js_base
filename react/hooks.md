@@ -168,3 +168,7 @@ export default function ContactManager() {
 ## https://react.dev/learn/lifecycle-of-reactive-effects 打开和关闭同步这个案例 很有典型，需要清楚2种用法
 第一种方案会重复创建和卸载监听事件，第2种只会在true的时候创建新的监听事件 所以第2种方案最好
 
+
+
+# ref
+可以作为一个取最新值 但不会重新渲染页面的存量.
