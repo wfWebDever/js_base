@@ -1,0 +1,67 @@
+# Website Tech SEO
+
+## Tech SEO
+
+- Reference websites: [Apartment](https://www.apartments.com), [Redfin](https://www.redfin.com), etc.
+- Tools: [Semrush](https://www.semrush.com), [Google Search Console](https://search.google.com/search-console/about), [Google Rich Results Test](https://search.google.com/test/rich-results), [PageSpeed Insights](https://pagespeed.web.dev)
+- Resources: [Google Search Console Documentation](https://developers.google.com/search/docs), [Schema.org](https://schema.org)
+
+## Summary:
+SEO involves URL structure design, the header part of the page, the H1 title of the page, the page content, page FAQ, embedding Schema structured markup, internal linking for SEO, XML sitemap, robots.txt, 301 and 302 redirects, responsive design, and website speed optimization.
+
+## URL Structure Design and Optimization:
+ensuring URLs are concise, clear, and descriptive. Google favors semantic and simple URLs. Each page should only have one URL to avoid duplicate content. If the same page has multiple URLs, use the `rel="canonical"` tag to tell search engines which URL is the preferred version. Also, consider multilingual settings (described in the header part).
+
+For example: `https://xxxx/Los-Angeles/studio-apartments-for-rent`.
+
+Make sure to check Semrush daily to see if there are any abnormal errors. 
+
+## Header Section:
+The page header includes `title`, `description`, `og:xxx` (for sharing), `canonical`, and `alternate` (for multilingual purposes). The key is to ensure that the `title` and `description` match the theme of the current page, and that different URLs do not have duplicate content. Otherwise, Semrush will detect errors.
+
+## Page H1 Title:
+The H1 title should ideally match or be similar to the URL, making it easier to clearly express the page’s content. For example:
+
+- [Apartments Los Angeles](https://www.apartments.com/los-angeles-ca/)
+- [Redfin Los Angeles Rentals](https://www.redfin.com/city/11203/CA/Los-Angeles/houses-for-rent)
+- [Semrush Site Audit](https://www.semrush.com/siteaudit/campaign/4756982/review/overview)
+
+More examples:
+
+- [Google Search Console](https://search.google.com/search-console/about)
+- [Page Speed Insights](https://pagespeed.web.dev/?hl=en)
+
+## Internal Links:
+Internal links refer to links between pages under the same website domain. A good internal link structure helps search engines better understand the website’s structure and the importance of pages, thus improving the overall SEO performance.
+
+For example: the hyperlinks at the bottom of the listing page on a rental website represent different search results for listings.
+
+## Page Content and FAQ:
+This refers to large sections of descriptive information and Q&A on the page. By naturally incorporating relevant keywords in the context, search engines can better understand the content and theme of the page.
+
+For example: the content and FAQ at the bottom of the listing page on a rental website
+
+## Schema:
+Schema uses a set of standardized semantic tags to help search engines better understand the meaning of the webpage content. Based on the Schema.org vocabulary, Schema markup involves adding structured data (usually in JSON-LD format) to HTML, allowing search engines to accurately crawl and display content. It can also generate rich results in search results (such as star ratings, images, FAQ snippets, etc.).
+
+For example, searching for "1600 West 35th Street" on Google not only ranks the address but also displays ratings, images, etc.
+
+## XML Sitemap and Robots.txt:
+These help search engines better crawl and index website content. The corresponding code files are `sitemap.xml.jsx` and `robots.txt.jsx`. For pages with no data, the  page   of the official website uses X-Robots-Tag: noindex to handle indexing exclusion.
+
+A new link can be submitted, but it’s best to use the sitemap method mentioned above.
+
+## 301 and 302 Redirects:
+Due to an old version of the website and some incorrect URLs, redirects were applied to prevent traffic loss.
+
+
+## Responsive Design:
+Google favors responsive websites for SEO, so responsive design is essential.
+
+## Website Speed Optimization:
+This is mainly reflected in Google Console - Core Web Vitals results. Before April 2024, the key metrics were LCP, CLS, and FID. 
+
+In April 2024, Google replaced FID with the INP metric.
+
+There’s a delay in reflecting website speed optimizations, so changes made this month may not show results until next month.
+
