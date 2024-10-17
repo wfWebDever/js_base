@@ -44,7 +44,7 @@ article {
 
 @layer utilities {
   article a {
-    @apply font-sans text-current underline underline-offset-[3px];
+    @apply font-sans text-current underline underline-offset-[3px] font-semibold;
     @apply decoration-black/30 dark:decoration-white/30;
     @apply transition-colors duration-300 ease-in-out;
   }
@@ -53,13 +53,31 @@ article {
     @apply decoration-black/50 dark:decoration-white/50;
   }
 }
-article h2 {
-  @apply font-semibold text-3xl;
+article h1 {
+  @apply  font-semibold text-3xl;
   @apply text-black;
-  @apply mb-6;
+  @apply mt-1;
+}
+
+article h2 {
+  @apply font-semibold text-2xl;
+  @apply text-black;
+  @apply mb-6 mt-12;
+}
+article h3 {
+  @apply font-semibold text-base;
+  @apply text-black;
+  @apply my-4;
 }
 article p {
   @apply mb-5;
+}
+
+ul {
+  @apply list-disc pl-6 mb-5;
+}
+li {
+  @apply my-2;
 }
 
 .animate {
@@ -97,6 +115,10 @@ html.scrolled #back-to-top {
 pre {
   @apply border border-black/15 py-5 px-4 my-6 rounded-md  bg-[#fafafa] text-[#09090b] overflow-x-auto;
 }
+article code {
+  @apply text-[#09090b] font-semibold;
+}
+
 
 .dark {
   --astro-code-color-text: #fafafa;
