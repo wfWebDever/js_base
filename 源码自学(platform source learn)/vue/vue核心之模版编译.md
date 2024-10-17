@@ -1,9 +1,0 @@
-# 编译发生的阶段是在mounted阶段，也就是页面加载的时候
-编译分成了三个阶段，分别为AST、标记、生成执行代码字符串
-```
-  const ast = parse(template.trim(), options);
-  if (options.optimize !== false) {
-    optimize(ast, options);
-  }
-  const code = generate(ast, options);
-```

@@ -1,7 +1,5 @@
 <article>
-要学习看官方文档
-
-## hooks
+# react 学习看官方文档
 
 react 组件随着状态(props state)的改变，每一次重新渲染都有它单独的 props state 函数 effect 等所有。
 除非设置了依赖项，比如 effect 设置了[a]，当 a 不变时 effect 不会重新执行，或者 callback 函数的[a]，a 不变时 callback 的函数保持不变。
@@ -69,43 +67,40 @@ export default function SetTime() {
 
 ## fetch data when race condition: use ignore or AbortCotroller, but the best way is use Apollo's useQuery or SWR
 
-## ignore
+- ignore
 
-```
-
+```ts
 function SearchResults({ query }) {
-  const [page, setPage] = useState(1);
-  const params = new URLSearchParams({ query, page });
-  const results = useData(`/api/search?${params}`);
+  const [page, setPage] = useState(1)
+  const params = new URLSearchParams({ query, page })
+  const results = useData(`/api/search?${params}`)
 
   function handleNextPageClick() {
-    setPage(page + 1);
+    setPage(page + 1)
   }
   // ...
 }
 
-
-
 function useData(url) {
-  const [data, setData] = useState(null);
+  const [data, setData] = useState(null)
   useEffect(() => {
-    let ignore = false;
+    let ignore = false
     fetch(url)
       .then(response => response.json())
       .then(json => {
         if (!ignore) {
-          setData(json);
+          setData(json)
         }
-      });
+      })
     return () => {
-      ignore = true;
-    };
-  }, [url]);
-  return data;
+      ignore = true
+    }
+  }, [url])
+  return data
 }
 ```
 
-### AbortController
+- AbortController
 
 ```javescript
 function useData(url) {
@@ -176,10 +171,10 @@ export default function ContactManager() {
 
 最好是单独的进程独立出来 而不是放在一个 effect 中 利于维护
 
-## https://react.dev/learn/lifecycle-of-reactive-effects
+## 打开和关闭同步这个案例
 
-打开和关闭同步这个案例 很有典型，需要清楚 2 种用法
-
+https://react.dev/learn/lifecycle-of-reactive-effects
+很有典型，需要清楚 2 种用法,
 第一种方案会重复创建和卸载监听事件，第 2 种只会在 true 的时候创建新的监听事件 所以第 2 种方案最好
 
 ## ref
