@@ -2,6 +2,11 @@ import Catalog from '@/components/catalog'
 
 const data = [
   {
+    title: 'Performance',
+    description: '',
+    href: '/performance'
+  },
+  {
     title: 'SEO',
     description: 'SEO strategies and best practices for improving website visibility.',
     href: '/seo'
@@ -17,9 +22,9 @@ const data = [
     href: '/css'
   },
   {
-    title: 'Performance',
+    title: 'Algorithm',
     description: '',
-    href: '/performance'
+    href: '/algorithm'
   },
   {
     title: 'GithubUsedComponents',
