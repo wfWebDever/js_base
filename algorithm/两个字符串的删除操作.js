@@ -12,7 +12,7 @@
  * @param {string} word2
  * @return {number}
  */
-var minDistance = function (word1, word2) {
+export function minDistance(word1, word2) {
   if (!word1 || !word2) {
     return 0
   }
@@ -20,8 +20,8 @@ var minDistance = function (word1, word2) {
   const w2 = word2.split('')
   let s1 = 0
   let e1 = w1.length - 1
-  let s2 = 0
-  let e2 = w2.length - 1
+  const s2 = 0
+  const e2 = w2.length - 1
   let step = 0
   while (s1 < e1 && s2 < e2) {
     if (w1[s1] !== w2[s2]) {
@@ -29,8 +29,12 @@ var minDistance = function (word1, word2) {
       step += 1
     }
     if (w1[e1] !== w2[e2]) {
+      e1 -= 1
+      step += 1
     }
   }
+
+  return step
 }
 
-console.log(minDistance('sea', 'eat'))
+// console.log(minDistance('sea', 'eat'))

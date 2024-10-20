@@ -4,14 +4,17 @@ function containsRepeatingLetter(str) {
   for (const [index, val] of arr.entries()) {
     if (val === arr[index + 1]) {
       flag = true
-      return
     }
   }
+
   return flag
 }
 // 用正则 引用
-function containsRepeatingLetter_2(str) {
+function containsRepeatingLetterUseReg(str) {
   const reg = /([a-zA-Z])\1/
+
   return reg.test(str)
 }
-console.log(containsRepeatingLetter('rattler'))
+export { containsRepeatingLetter, containsRepeatingLetterUseReg }
+
+// console.log(containsRepeatingLetter('rattler'))
