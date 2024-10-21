@@ -63,6 +63,12 @@ export default function RootLayout({
                   {' '}
                   Email{' '}
                 </a>{' '}
+                <a
+                  href="/reflections"
+                  className="inline-block decoration-black/30 dark:decoration-white/30 hover:decoration-black/50 focus-visible:decoration-black/50 dark:hover:decoration-white/50 dark:focus-visible:decoration-white/50 text-current hover:text-black focus-visible:text-black dark:hover:text-white dark:focus-visible:text-white transition-colors duration-300 ease-in-out underline underline-offset-[3px]"
+                >
+                  Reflections
+                </a>
               </nav>
             </div>
           </div>
