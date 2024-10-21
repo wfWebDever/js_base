@@ -1,10 +1,10 @@
-const o = {
-  a: { x: { y: { z: 1 } }, m: 2 },
-  b: { o: { p: { q: 3 } } },
-  c: 3,
-}
+// const o = {
+//   a: { x: { y: { z: 1 } }, m: 2 },
+//   b: { o: { p: { q: 3 } } },
+//   c: 3
+// }
 
-const findObjDeep = (obj, deep) => {
+export const findObjDeep = (obj, deep) => {
   if (deep === 1) return null
   let curChilds = [obj]
   let tmpChilds = []
@@ -13,7 +13,7 @@ const findObjDeep = (obj, deep) => {
   while (curChilds.length) {
     const parent = curChilds.shift()
     typeof parent === 'object' &&
-      Object.keys(parent).forEach((key) => {
+      Object.keys(parent).forEach(key => {
         i === deep ? keys.push(key) : null
         typeof parent[key] === 'object' ? tmpChilds.push(parent[key]) : null
       })
@@ -26,13 +26,14 @@ const findObjDeep = (obj, deep) => {
       i++
     }
   }
+
   return keys
 }
 
-const getDepth = (obj, depth) => {
+export const getDepth = (obj, depth) => {
   const res = []
   const fn = (o, d) => {
-    Object.keys(o).forEach((key) => {
+    Object.keys(o).forEach(key => {
       if (d === 1) {
         res.push(key)
       }
@@ -41,8 +42,9 @@ const getDepth = (obj, depth) => {
     })
   }
   fn(obj, depth)
+
   return res
 }
 
 // console.log(findObjDeep(o, 5));
-console.info(getDepth(o, 3))
+// console.info(getDepth(o, 3))

@@ -15,7 +15,7 @@
  * 故只能移动left right小的一方。
  *
  * */
-var maxArea = function (height) {
+export function maxArea(height) {
   let left = 0
   let right = height.length - 1
   let max = 0
@@ -27,5 +27,6 @@ var maxArea = function (height) {
       right -= 1
     }
   }
+
   return max
 }

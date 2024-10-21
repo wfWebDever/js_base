@@ -1,4 +1,4 @@
-var isValid = function (s) {
+export const isClosedValid = function (s) {
   if (typeof s !== 'string') {
     return false
   }
@@ -13,7 +13,7 @@ var isValid = function (s) {
   const match = {
     '(': ')',
     '[': ']',
-    '{': '}',
+    '{': '}'
   }
   for (let i = 1; i < arr.length; i++) {
     if (arr[i] === match[stack[stack.length - 1]]) {
@@ -22,19 +22,20 @@ var isValid = function (s) {
       stack.push(arr[i])
     }
   }
+
   return stack.length === 0
 }
-const data1 = '()'
-const data2 = '()[]{}'
-const data3 = '(]'
-const data4 = '([)]'
-const data5 = '{[]}'
+// const data1 = '()'
+// const data2 = '()[]{}'
+// const data3 = '(]'
+// const data4 = '([)]'
+// const data5 = '{[]}'
 
-console.log(
-  isValid(data1),
-  isValid(data2),
-  isValid(data3),
-  isValid(data4),
-  isValid(data5),
-  isValid('(){')
-)
+// console.log(
+//   isValid(data1),
+//   isValid(data2),
+//   isValid(data3),
+//   isValid(data4),
+//   isValid(data5),
+//   isValid('(){')
+// )
