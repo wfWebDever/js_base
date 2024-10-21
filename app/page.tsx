@@ -46,30 +46,20 @@ const data = [
 export default function Page() {
   return (
     <>
-      <h1 className="font-semibold">Reflections</h1>
-      <p className="my-4">
-        Many frontend features that were previously built using complex tricks can now be
-        implemented with basic principles due to the development of browsers and frontend
-        technologies.
+      <h1 className="font-semibold">Introduction</h1>
+      <p className="my-4 leading-8">
+        As a front-end developer with over a decade of rich experience, I specialize in modern web
+        technology stacks, with particular expertise in <strong className="px-1">React</strong> and{' '}
+        <strong className="px-1">Next.js</strong> frameworks. Through years of practice and deep
+        understanding, I can efficiently build complex, high-performance web applications. My work
+        style emphasizes <strong className="px-1">efficiency</strong> and{' '}
+        <strong className="px-1">quality</strong>, always maintaining a proactive attitude to ensure
+        projects are completed on time. If you&apos;re looking for an experienced, technically
+        proficient front-end expert, feel free to contact me at
+        <strong className="text-blue-500 px-1">xinyilan2005@gmail.com</strong> to discuss how we can
+        bring value to your project.
       </p>
-      <p className="my-4">
-        For example, layouts that used to require many hacks can now be achieved simply by using
-        `flex` and `grid`.
-      </p>
-      <p className="my-4">
-        Another example is the floating header at the top, which used to require various positioning
-        techniques but can now be done with `sticky`.
-      </p>
-      <p className="my-4">
-        Sometimes I wonder if we&apos;d be better off just waiting for technological advancements
-        rather than racking our brains to come up with laborious methods to create effects that look
-        cool but aren&apos;t really worth the effort.{' '}
-      </p>
-      <p className="my-4">
-        Another example is the interview questions and algorithm problems we used to compile. Now
-        with the support of AI, we just need to input the questions, and it can generate answers,
-        and the quality of the answers is quite good.
-      </p>
+
       <section>
         <h2 className="font-semibold">Latest Posts</h2>
         <Catalog data={data} />
