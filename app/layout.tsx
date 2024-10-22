@@ -1,3 +1,4 @@
+import { Analytics } from '@vercel/analytics/react'
 import type { Metadata } from 'next'
 import localFont from 'next/font/local'
 
@@ -76,6 +77,7 @@ export default function RootLayout({
         <main>
           <div className="mx-auto max-w-screen-sm px-3">{children}</div>
         </main>
+        <Analytics />
       </body>
     </html>
   )
