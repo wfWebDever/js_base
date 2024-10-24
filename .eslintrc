@@ -1,75 +1,37 @@
 {
-  "extends": ["airbnb", "next/core-web-vitals", "next/typescript", "prettier"],
-  "plugins": ["prettier", "simple-import-sort", "import"],
+  "plugins": ["prettier", "simple-import-sort"],
+  "extends": ["next/core-web-vitals", "next/typescript", "prettier"],
   "rules": {
     "prettier/prettier": 2,
-    "arrow-parens": [2, "as-needed"],
-    "comma-dangle": 0,
-    "import/extensions": [
-      2,
-      "ignorePackages",
-      {
-        "js": "never",
-        "jsx": "never",
-        "ts": "never",
-        "tsx": "never",
-        "mdx": "never"
-      }
-    ],
-    "import/prefer-default-export": 0,
-    "jsx-a11y/click-events-have-key-events": 0,
-    "jsx-a11y/no-static-element-interactions": 0,
-    "jsx-a11y/anchor-is-valid": 0,
-    "no-console": [
-      2,
-      {
-        "allow": ["info", "warn", "error"]
-      }
-    ],
-    "no-nested-ternary": 1,
-    "no-new": 0,
-    "no-param-reassign": 1,
-    "no-unused-vars": 2,
-    "no-use-before-define": 0,
-    "object-curly-newline": 0,
-    "object-property-newline": [
-      2,
-      {
-        "allowAllPropertiesOnSameLine": true
-      }
-    ],
-    "func-style": 0,
-    "react/jsx-filename-extension": [
-      2,
-      {
-        "extensions": [".js", ".jsx", ".ts", ".tsx", ".mdx"]
-      }
-    ],
-    "react/jsx-props-no-spreading": 0,
-    "default-param-last": 0,
-    "padding-line-between-statements": [
-      2,
-      { "blankLine": "always", "prev": "*", "next": "return" },
-      { "blankLine": "never", "prev": "block", "next": "*" }
-    ],
+    "no-shadow": 2,
     "import/no-unresolved": [
       2,
       {
         "ignore": ["^swiper", "^echarts"]
       }
     ],
+    "import/newline-after-import": 2,
     "import/no-extraneous-dependencies": [
       2,
       {
         "devDependencies": true
       }
     ],
-    "react/require-default-props": 2,
-    "react/forbid-prop-types": 2,
-    "react/button-has-type": 2,
-    "react/no-unstable-nested-components": 2,
-    "no-shadow": 2,
-    "import/newline-after-import": 2,
+    "jsx-a11y/click-events-have-key-events": 0,
+    "jsx-a11y/no-static-element-interactions": 0,
+    "no-console": [
+      2,
+      {
+        "allow": ["info", "warn", "error"]
+      }
+    ],
+    "no-nested-ternary": 2,
+    "no-param-reassign": 2,
+    "padding-line-between-statements": [
+      2,
+      { "blankLine": "always", "prev": ["const", "let", "var"], "next": "*" },
+      { "blankLine": "any", "prev": ["const", "let", "var"], "next": ["const", "let", "var"] }
+    ],
     "simple-import-sort/imports": [
       2,
       {
@@ -86,48 +48,8 @@
           ["^.+\\.(css|less|scss)$"]
         ]
       }
-    ]
-  },
-  "settings": {
-    "import/resolver": {
-      "alias": {
-        "extensions": [".tsx", ".ts", ".js", ".jsx", ".mdx"]
-      },
-      "typescript": {
-        "alwaysTryTypes": true,
-        "project": "./tsconfig.json"
-      }
-    }
-  },
-  "overrides": [
-    {
-      "files": ["./**/*.ts", "./**/*.tsx", "./**/*.mdx"],
-      "plugins": ["@typescript-eslint"],
-      "extends": ["plugin:@typescript-eslint/recommended"],
-      "parserOptions": {
-        "project": "./tsconfig.json"
-      },
-      "rules": {
-        "@typescript-eslint/no-unused-vars": [
-          2,
-          {
-            "argsIgnorePattern": "^_"
-          }
-        ],
-        "no-shadow": 0,
-        "no-console": 1,
-        "no-bitwise": 1,
-        "@typescript-eslint/no-explicit-any": 1,
-        "react/display-name": 0,
-        "react/require-default-props": 0,
-        "no-restricted-syntax": 0,
-        "import/no-extraneous-dependencies": [
-          2,
-          {
-            "devDependencies": true
-          }
-        ]
-      }
-    }
-  ]
+    ],
+    "no-bitwise": 1,
+    "@typescript-eslint/no-explicit-any": 1
+  }
 }
