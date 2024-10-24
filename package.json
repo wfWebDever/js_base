@@ -5,7 +5,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "prepare": "husky"
   },
   "engines": {
     "node": ">=20.17.0",
@@ -13,11 +14,6 @@
     "yarn": ">=1.22.19"
   },
   "private": true,
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
   "dependencies": {
     "@mdx-js/loader": "^3.0.1",
     "@mdx-js/react": "^3.0.1",
