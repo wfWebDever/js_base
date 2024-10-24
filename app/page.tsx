@@ -50,13 +50,13 @@ export default function Page() {
       <p className="my-4 leading-8">
         As a front-end developer with over a decade of rich experience, I specialize in modern web
         technology stacks, with particular expertise in <strong className="px-1">React</strong> and{' '}
-        <strong className="px-1">Next.js</strong> frameworks. Through years of practice and deep
+        <strong className="px-1">Next.js</strong> frameworks. With years of practice and a deep
         understanding, I can efficiently build complex, high-performance web applications. My work
         style emphasizes <strong className="px-1">efficiency</strong> and{' '}
-        <strong className="px-1">quality</strong>, always maintaining a proactive attitude to ensure
-        projects are completed on time. If you&apos;re looking for an experienced, technically
-        proficient front-end expert, feel free to contact me at
-        <strong className="text-blue-500 px-1">xinyilan2005@gmail.com</strong> to discuss how we can
+        <strong className="px-1">quality</strong>, and I maintain a proactive attitude to ensure
+        projects are completed on time. If you&apos;re seeking an experienced and technically
+        proficient front-end expert, feel free to contact me at{' '}
+        <strong className="text-blue-500 px-1">xinyilan2005@gmail.com</strong> to discuss how I can
         bring value to your project.
       </p>
 
