@@ -33,7 +33,7 @@ export default function SetData({ id }) {
 
 比如倒计时这段代码
 
-```
+```js
 import { useState, useEffect } from 'react'
 
 export default function SetTime() {
@@ -45,7 +45,7 @@ export default function SetTime() {
   useEffect(() => {
     console.info('effect runs ')
     const timer = setInterval(() => {
-      setTime((time) => time - 1)
+      setTime(time => time - 1)
     }, 1000)
     return () => {
       clearInterval(timer)
@@ -102,9 +102,9 @@ function useData(url) {
 
 - AbortController
 
-```javescript
+```js
 function useData(url) {
-  const [data, setData] = useState(null);
+  const [data, setData] = useState(null)
   useEffect(() => {
     const controller = new AbortCotroller()
     fetch(url, {
@@ -112,14 +112,13 @@ function useData(url) {
     })
       .then(response => response.json())
       .then(json => {
-        setData(json);
-      });
+        setData(json)
+      })
 
-    return () =>controller.abort()
-  }, [url]);
-  return data;
+    return () => controller.abort()
+  }, [url])
+  return data
 }
-
 ```
 
 ## 列表循环时的 key

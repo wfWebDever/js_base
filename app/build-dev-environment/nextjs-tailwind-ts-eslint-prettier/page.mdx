@@ -1,12 +1,14 @@
+# Next.js + Tailwind CSS + TypeScript + ESLint + Prettier
+
 ## initialize project
 
-```
+```bash
 # npx create-next-app@latest
 ```
 
 ## package.json
 
-```ts
+```json
 {
   "name": "feng-wei-frontend-tech-blog",
   "version": "1.0.0",
@@ -50,7 +52,7 @@
 
 ## .nvmrc
 
-```
+```bash
 20.17.0
 ```
 
@@ -59,7 +61,7 @@
 Inherits Next.js and TypeScript rules, and uses Prettier for code formatting.
 `Airbnb` rules are not needed, because some rules are conflicted with `next/core-web-vitals` and `next/typescript`.
 
-```js
+```json
 {
   "plugins": ["prettier", "simple-import-sort"],
   "extends": ["next/core-web-vitals", "next/typescript", "prettier"],
@@ -115,12 +117,11 @@ Inherits Next.js and TypeScript rules, and uses Prettier for code formatting.
     "@typescript-eslint/no-explicit-any": 1
   }
 }
-
 ```
 
 ## .eslintignore
 
-```
+```bash
 .next
 dist
 node_modules/
@@ -131,7 +132,7 @@ node_modules/
 
 ## .prettierrc
 
-```js
+```json
 {
   "tabWidth": 2,
   "printWidth": 100,
@@ -140,7 +141,6 @@ node_modules/
   "arrowParens": "avoid",
   "trailingComma": "none"
 }
-
 ```
 
 ## tsconfig.json
@@ -148,7 +148,7 @@ node_modules/
 the `include` options are used to specify the files to be included from the compilation process.
 if you want to include some files in the project, you can use `"xxxfile/**/*.ts"`
 
-```ts
+```json
 {
   "compilerOptions": {
     "lib": ["dom", "dom.iterable", "esnext"],
@@ -172,40 +172,44 @@ if you want to include some files in the project, you can use `"xxxfile/**/*.ts"
       "@/*": ["./*"]
     }
   },
-  "include": [
-    "next-env.d.ts",
-    ".next/types/**/*.ts",
-    "*.tsx",
-    "*.ts"
-  ],
+  "include": ["next-env.d.ts", ".next/types/**/*.ts", "*.tsx", "*.ts"],
   "exclude": ["node_modules"]
 }
-
 ```
 
 ## lint-staged
 
 first, install `lint-staged` and `husky`
 
-```
+```bash
 # yarn add --dev lint-staged husky
 ```
 
 then, initialize `husky`, will create `.husky` folder and `pre-commit.sh` file
 
-```
+```bash
 # npx husky init
 ```
 
 in `.husky/pre-commit.sh`, add this command
 
-```
+```bash
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+
+# use project specified node version
+nvm use
+
+# run lint-staged
 npx lint-staged
 ```
 
 add `.lintstagedrc` file
 
-```
+```js
 const path = require('path')
 
 const buildEslintCommand = filenames =>
@@ -215,5 +219,4 @@ module.exports = {
   'app/**/*.{js,jsx,ts,tsx}': [buildEslintCommand],
   'components/**/*.{js,jsx,ts,tsx}': [buildEslintCommand]
 }
-
 ```

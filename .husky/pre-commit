@@ -1,1 +1,11 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+
+# use project specified node version
+nvm use
+
+# run lint-staged
 npx lint-staged
