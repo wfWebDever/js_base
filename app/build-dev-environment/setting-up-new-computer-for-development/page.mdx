@@ -1,0 +1,164 @@
+# New Mac for frontend development
+
+## install Xcode Command Line Tools
+
+It comes with **git** pre-installed
+
+## install Iterm2
+
+Switch to zsh
+
+```bash
+chsh -s /bin/zsh
+```
+
+Check the current shell
+
+```bash
+echo $SHELL
+```
+
+## install oh-my-zsh
+
+https://ohmyz.sh/#install
+
+If permission fails, copy the proxy command from the `clashx` tool
+
+## install brew
+
+https://brew.sh/
+
+## install nvm and node version manager
+
+https://github.com/nvm-sh/nvm#zsh
+
+```bash
+brew install nvm
+```
+
+- open the terminal and run the following command to open the `.zshrc` file
+
+```bash
+# open ~/.zshrc
+```
+
+- Follow the instructions to configure the environment variable. Copy the nvm last displayed code to `~/.zshrc`, such as this code or similar to use 'nvm' bash completion
+(按照提示 配置环境变量 将下面的代码复制到`~/.zshrc`)
+
+```bash
+export NVM_DIR="$HOME/.nvm"
+[ -s "/usr/local/opt/nvm/nvm.sh" ] && \. "/usr/local/opt/nvm/nvm.sh" # This loads nvm
+[ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/usr/local/opt/nvm/etc/bash_completion.d/nvm" # This loads nvm bash_completion
+```
+
+- nvm automatically switches the node version of the project
+automatically load and read `.nvmrc`.(自动切换项目的 node 版本也同样复制一下到`~/.zshrc` 会自动加载项目中配置的`.nvmrc`中node版本)
+
+[https://github.com/nvm-sh/nvm#zsh](https://github.com/nvm-sh/nvm#zsh)
+
+```bash
+# place this after nvm initialization!
+
+autoload -U add-zsh-hook
+
+load-nvmrc() {
+local nvmrc_path
+nvmrc_path="$(nvm_find_nvmrc)"
+
+if [ -n "$nvmrc_path" ]; then
+local nvmrc_node_version
+nvmrc_node_version=$(nvm version "$(cat "${nvmrc_path}")")
+
+    if [ "$nvmrc_node_version" = "N/A" ]; then
+      nvm install
+    elif [ "$nvmrc_node_version" != "$(nvm version)" ]; then
+      nvm use
+    fi
+
+elif [ -n "$(PWD=$OLDPWD nvm_find_nvmrc)" ] && [ "$(nvm version)" != "$(nvm version default)" ]; then
+echo "Reverting to nvm default version"
+nvm use default
+fi
+}
+
+add-zsh-hook chpwd load-nvmrc
+load-nvmrc
+
+```
+
+- If installation fails, refer to https://github.com/nvm-sh/nvm#installing-and-updating
+
+- Finally, source it
+
+```bash
+source ~/.zshrc
+```
+
+### install node 20 or 18
+
+```bash
+nvm install 20
+```
+
+- Switch to node 20
+
+```bash
+nvm use 20
+```
+
+- install yarn
+
+```bash
+npm install -g yarn
+```
+
+### Add a `.nvmrc` file to the project root and set the node version
+
+```bash
+# touch .nvmrc
+20.17.0
+```
+
+
+- when open the terminal of the project, the node version will be switched automatically
+
+```bash
+Found '/Users/weifeng/code2/js_base/.nvmrc' with version <20.17.0>
+Now using node v20.17.0 (npm v10.8.2)
+```
+
+## specify node npm yarn version
+
+Set the node npm yarn version in `package.json`
+
+```json
+"engines": {
+    "node": ">=20.17.0",
+    "npm": "10.8.2",
+    "yarn": ">=1.22.19"
+  },
+```
+
+If using yarn to install, it will check the node npm version, if the version is inconsistent, it will stop the installation, and the following information will be displayed(
+如果使用 yarn 进行 yarn install 会检查 node npm 版本，版本不一致 则中止安装，如下信息
+而用 npm install 则不会报错，所以推荐用 yarn)
+
+```bash
+error my-app-config-ts-eslint@0.1.0: The engine "node" is incompatible with this module. Expected version "16.14.0". Got "14.19.0"
+error Found incompatible module.
+info Visit https://yarnpkg.com/en/docs/cli/install for documentation about this command.
+```
+
+## switch between npm and yarn
+
+Default is npm, if using yarn, convert package.lock -> yarn.lock
+If using yarn, use the following command to convert and generate yarn.lock, then delete the node_models folder, and use yarn install(如果想使用yarn 可以用下述命令,转换生成yarn.lock后，删除node_models文件夹，然后用yarn install)
+
+
+```bash
+npm install -g synp
+```
+
+```bash
+synp --source-file /path/to/package-lock.json
+```
