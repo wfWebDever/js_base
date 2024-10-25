@@ -22,28 +22,21 @@
 
 ## 例子 1
 
-```
+```html
 <main class="main-container">
   <header class="main-header">HEADER</header>
   <div class="main-content">MAIN CONTENT</div>
   <footer class="main-footer">FOOTER</footer>
 </main>
-<br><br><br><br>
+<br /><br /><br /><br />
 ```
 
-```
-body{color:#fff; font-family:arial; font-weight:bold; font-size:40px; }
-.main-container{ max-width:600px; margin:0 auto; border:solid 10px green; padding:10px; margin-top:40px;}
-.main-container *{padding:10px;background:#aaa; border:dashed 5px #000;}
-.main-container * + *{margin-top:20px;}
-.main-header{
-  height:50px; background:#aaa;
-}
-.main-content{
-  min-height:1000px;
-}
-
-.main-footer{position:-webkit-sticky; position:sticky; bottom:0; border-color:red;}
+```html
+body{color:#fff; font-family:arial; font-weight:bold; font-size:40px; } .main-container{
+max-width:600px; margin:0 auto; border:solid 10px green; padding:10px; margin-top:40px;}
+.main-container *{padding:10px;background:#aaa; border:dashed 5px #000;} .main-container * +
+*{margin-top:20px;} .main-header{ height:50px; background:#aaa; } .main-content{ min-height:1000px;
+} .main-footer{position:-webkit-sticky; position:sticky; bottom:0; border-color:red;}
 ```
 
 例子：https://elad.medium.com/css-position-sticky-how-it-really-works-54cd01dc2d46

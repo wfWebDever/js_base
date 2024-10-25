@@ -2,6 +2,7 @@ import { Analytics } from '@vercel/analytics/react'
 import type { Metadata } from 'next'
 import localFont from 'next/font/local'
 
+import 'prismjs/themes/prism-tomorrow.css'
 import './globals.css'
 
 const geistSans = localFont({

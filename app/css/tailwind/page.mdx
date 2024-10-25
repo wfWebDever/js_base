@@ -4,32 +4,34 @@
 
 ```html
 但是一旦你真正用这种方式构建了一些东西，你很快就会注意到一些非常重要的好处：
-
-你不是在浪费精力发明类名。不再需要添加愚蠢的类名，比如sidebar-inner-wrapper仅仅为了能够设置样式，也不再为真正只是一个 flex 容器的东西的完美抽象名称而苦恼。
-你的 CSS 停止增长。使用传统方法，每次添加新功能时，CSS 文件都会变大。使用实用程序，一切都是可重用的，因此您很少需要编写新的 CSS。
-做出改变感觉更安全。CSS 是全球性的，当你做出改变时，你永远不知道会破坏什么。HTML 中的类是本地的，因此您可以更改它们而不必担心其他问题。
+你不是在浪费精力发明类名。不再需要添加愚蠢的类名，比如sidebar-inner-wrapper仅仅为了能够设置样式，也不再为真正只是一个
+flex 容器的东西的完美抽象名称而苦恼。 你的 CSS 停止增长。使用传统方法，每次添加新功能时，CSS
+文件都会变大。使用实用程序，一切都是可重用的，因此您很少需要编写新的 CSS。 做出改变感觉更安全。CSS
+是全球性的，当你做出改变时，你永远不知道会破坏什么。HTML
+中的类是本地的，因此您可以更改它们而不必担心其他问题。
 ```
 
 ## 实现原理
-通过postcss插件将文件中的css代码转换成ast 最后转化成css style 插入到项目生成后的html head中，而且打包过程中会自动删除所有未使用的 CSS 类似与tree shaking.
+
+通过 postcss 插件将文件中的 css 代码转换成 ast 最后转化成 css style 插入到项目生成后的 html head 中，而且打包过程中会自动删除所有未使用的 CSS 类似与 tree shaking.
 
 ## 接入方式 参照官网文档
+
 https://tailwindcss.com/docs/utility-first
 
 ## 默认配置
+
 https://github.com/tailwindlabs/tailwindcss/blob/master/stubs/defaultConfig.stub.js
 
 ## css 优先级 !!
-如果跟Material UI 结合使用的话 这些组件它会生成一个class,在`<head>`的底部加载,
-导致覆盖tailwindcss样式.
 
-解决办法
-1.入口文件中加上mui的Provider 设置优先加载，故mui的css的样式 会在`<head>` 的前部加载，早于其他样式库的加载.
-2.tailwindcss 加上页面根元素加的类 比如 `root` 、`__next`等, 生成 ``#root text-red``之类的class
-提升权重
-3.如果使用的model弹出窗之类的，那么生成的元素为了布局 会挣脱已有的根元素 ，需要在body上设置id
-如果是next框架 那么需要引入_document.js文件.
+如果跟 Material UI 结合使用的话 这些组件它会生成一个 class,在`<head>`的底部加载,
+导致覆盖 tailwindcss 样式.
 
+解决办法 1.入口文件中加上 mui 的 Provider 设置优先加载，故 mui 的 css 的样式 会在`<head>` 的前部加载，早于其他样式库的加载.
+2.tailwindcss 加上页面根元素加的类 比如 `root` 、`__next`等, 生成 `#root text-red`之类的 class
+提升权重 3.如果使用的 model 弹出窗之类的，那么生成的元素为了布局 会挣脱已有的根元素 ，需要在 body 上设置 id
+如果是 next 框架 那么需要引入\_document.js 文件.
 
 ```jsx
 // index.jsx
@@ -54,7 +56,7 @@ root.render(
 
 ```jsx
 module.exports = {
-  important: '#root',
+  important: '#root'
 }
 ```
 
@@ -78,24 +80,25 @@ export default Document
 ```
 
 ## 配置响应式的宽度
-如果要搭配mui组件库使用 那么需要设置这2者的响应式的宽度保持一致.
+
+如果要搭配 mui 组件库使用 那么需要设置这 2 者的响应式的宽度保持一致.
 
 ```jsx
 // tailwind.css https://tailwindcss.com/docs/screens
 module.exports = {
   theme: {
     screens: {
-      'sm': '640px',
-      'md': '900px',
-      'lg': '1024px',     
-      'xl': '1280px',     
+      sm: '640px',
+      md: '900px',
+      lg: '1024px',
+      xl: '1280px'
     }
   }
 }
 ```
 
 ```jsx
-// mui 
+// mui
 // nextjs  _app.js
 const theme = createTheme({
   breakpoints: {
@@ -104,10 +107,10 @@ const theme = createTheme({
       sm: 640,
       md: 900,
       lg: 1024,
-      xl: 1280,
-    },
-  },
-});
+      xl: 1280
+    }
+  }
+})
 function MyApp({ Component, pageProps }) {
   return (
     <StyledEngineProvider injectFirst>
@@ -123,21 +126,22 @@ function MyApp({ Component, pageProps }) {
 }
 
 // custom compoentn
-import useMediaQuery from '@mui/material/useMediaQuery';
-import { useTheme } from '@mui/core/styles';
+import useMediaQuery from '@mui/material/useMediaQuery'
+import { useTheme } from '@mui/core/styles'
 export default function SimpleMediaQuery() {
-  // > 800px is ipad screen 
-  const isIpad = useMediaQuery('(min-width:800px)');
+  // > 800px is ipad screen
+  const isIpad = useMediaQuery('(min-width:800px)')
   // width > 1024 is pc screen
-  const isPC = useMediaQuery(theme.breakpoints.up('lg'));
+  const isPC = useMediaQuery(theme.breakpoints.up('lg'))
 
-  return <span>{`(min-width:600px) matches: ${matches}`}</span>;
+  return <span>{`(min-width:600px) matches: ${matches}`}</span>
 }
 ```
 
 ## 字体 颜色等配置
-颜色 遵循按照使用文字颜色名称（如红色、绿色等）和数字刻度（其中 50 为浅色，900 为深色）。我发现它比使用抽象名称（如primaryor ）更容易维护danger，相关的样式都可以使用该字段，比如
-text-gray bg-gray border-gray等
+
+颜色 遵循按照使用文字颜色名称（如红色、绿色等）和数字刻度（其中 50 为浅色，900 为深色）。我发现它比使用抽象名称（如 primaryor ）更容易维护 danger，相关的样式都可以使用该字段，比如
+text-gray bg-gray border-gray 等
 
 ```jsx
 // tailwind.config.js
@@ -156,32 +160,29 @@ module.exports = {
   },
   plugins: []
 }
-
 ```
 
 ```jsx
 // 在MUI组件中使用时
-<Typography
-           className="text-red"
->
-text-red
-</Typography>
+<Typography className="text-red">text-red</Typography>
 ```
-
 
 ### 字体
-- 第一种方式是在head中直接引入字体地址 这种方式会自动压缩文件体积，适合能连外网的情况下
+
+- 第一种方式是在 head 中直接引入字体地址 这种方式会自动压缩文件体积，适合能连外网的情况下
+
 ```jsx
 <link
-         rel="stylesheet"
-         href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,600,700&display=swap"
-       />
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,600,700&display=swap"
+/>
 ```
 
-- 第二种类如果是本地加载，字体库中下载字体文件(一般包含4种粗重 400-700)
-https://fonts.google.com/specimen/Edu+SA+Beginner#type-tester
+- 第二种类如果是本地加载，字体库中下载字体文件(一般包含 4 种粗重 400-700)
+  https://fonts.google.com/specimen/Edu+SA+Beginner#type-tester
 
-- 定义到到CSS样式文件这个
+- 定义到到 CSS 样式文件这个
+
 ```jsx
 // global.css
 @font-face {
@@ -210,30 +211,23 @@ https://fonts.google.com/specimen/Edu+SA+Beginner#type-tester
 }
 ```
 
-- 如果是全局都生效的字体 直接生成到html中
-```
+- 如果是全局都生效的字体 直接生成到 html 中
+
+```css
 // global.css
 @layer base {
   html {
-    font-family: "edu", 'arima', 'Helvetica', 'ui-sans-serif',
-    'system-ui',
-    '-apple-system',
-    'BlinkMacSystemFont',
-    '"Segoe UI"',
-    'Roboto',
-    '"Helvetica Neue"',
-    'Arial',
-    '"Noto Sans"',
-    'sans-serif',
-    '"Apple Color Emoji"',
-    '"Segoe UI Emoji"',
-    '"Segoe UI Symbol"',
-    '"Noto Color Emoji"';
+    font-family: 'edu', 'arima', 'Helvetica', 'ui-sans-serif', 'system-ui', '-apple-system',
+      'BlinkMacSystemFont', '"Segoe UI"', 'Roboto', '"Helvetica Neue"', 'Arial', '"Noto Sans"',
+      'sans-serif', '"Apple Color Emoji"', '"Segoe UI Emoji"', '"Segoe UI Symbol"',
+      '"Noto Color Emoji"';
   }
 }
 ```
+
 - 配置字体库
-```
+
+```js
 // tailwind.config.js
 const defaultTheme = require('tailwindcss/defaultTheme')
 
@@ -259,10 +253,11 @@ module.exports = {
 ```
 
 ## 移除未使用的 CSS
-本地调试使用时发现 每次会多生成重复的class，而在生产环境中 会自动开启清理未使用的class
+
+本地调试使用时发现 每次会多生成重复的 class，而在生产环境中 会自动开启清理未使用的 class
 配置如下
 
-```
+```js
 // 自动的配置
 // tailwind.config.js
 module.exports = {
