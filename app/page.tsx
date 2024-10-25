@@ -40,6 +40,11 @@ const data = [
     title: 'Interview',
     description: '',
     href: '/interview'
+  },
+  {
+    title: 'Build Dev Environment',
+    description: '',
+    href: '/build-dev-environment'
   }
 ]
 

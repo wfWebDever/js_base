@@ -2,6 +2,6 @@
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": "explicit"
   },
-  "cSpell.words": ["swiper", "echarts", "tailwindcss"],
+  "cSpell.words": ["swiper", "echarts", "tailwindcss", "eslint", "nextjs"],
   "git.allowForcePush": true
 }

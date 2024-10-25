@@ -1,0 +1,219 @@
+## initialize project
+
+```
+# npx create-next-app@latest
+```
+
+## package.json
+
+```ts
+{
+  "name": "feng-wei-frontend-tech-blog",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "prepare": "husky"
+  },
+  "engines": {
+    "node": ">=20.17.0",
+    "npm": "10.8.2",
+    "yarn": ">=1.22.19"
+  },
+  "private": true,
+  "dependencies": {
+    "next": "^14.2.15",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "eslint": "^8",
+    "eslint-config-next": "14.2.15",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-simple-import-sort": "^12.1.1",
+    "husky": "^9.1.6",
+    "lint-staged": "^15.2.10",
+    "postcss": "^8",
+    "prettier": "^2.8.4",
+    "sass": "^1.50.0",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5"
+  }
+}
+```
+
+## .nvmrc
+
+```
+20.17.0
+```
+
+## .eslintrc
+
+Inherits Next.js and TypeScript rules, and uses Prettier for code formatting.
+`Airbnb` rules are not needed, because some rules are conflicted with `next/core-web-vitals` and `next/typescript`.
+
+```js
+{
+  "plugins": ["prettier", "simple-import-sort"],
+  "extends": ["next/core-web-vitals", "next/typescript", "prettier"],
+  "rules": {
+    "prettier/prettier": 2,
+    "no-shadow": 2,
+    "import/no-unresolved": [
+      2,
+      {
+        "ignore": ["^swiper", "^echarts"]
+      }
+    ],
+    "import/newline-after-import": 2,
+    "import/no-extraneous-dependencies": [
+      2,
+      {
+        "devDependencies": true
+      }
+    ],
+    "jsx-a11y/click-events-have-key-events": 0,
+    "jsx-a11y/no-static-element-interactions": 0,
+    "no-console": [
+      2,
+      {
+        "allow": ["info", "warn", "error"]
+      }
+    ],
+    "no-nested-ternary": 2,
+    "no-param-reassign": 2,
+    "padding-line-between-statements": [
+      2,
+      { "blankLine": "always", "prev": ["const", "let", "var"], "next": "*" },
+      { "blankLine": "any", "prev": ["const", "let", "var"], "next": ["const", "let", "var"] }
+    ],
+    "simple-import-sort/imports": [
+      2,
+      {
+        "groups": [
+          // Side effect imports.
+          ["^\\u0000"],
+          // Third packages. `react` related packages come first.
+          ["^react", "^@?\\w"],
+          // Internal packages.
+          ["^@/\\w"],
+          // Parent imports. Put `..` last. Other relative imports. Put same-folder imports and `.` last.
+          ["^\\.\\.(?!/?$)", "^\\.\\./?$", "^\\./(?=.*/)(?!/?$)", "^\\.(?!/?$)", "^\\./?$"],
+          // Css relative imports.
+          ["^.+\\.(css|less|scss)$"]
+        ]
+      }
+    ],
+    "no-bitwise": 1,
+    "@typescript-eslint/no-explicit-any": 1
+  }
+}
+
+```
+
+## .eslintignore
+
+```
+.next
+dist
+node_modules/
+/.idea
+.DS_Store
+
+```
+
+## .prettierrc
+
+```js
+{
+  "tabWidth": 2,
+  "printWidth": 100,
+  "semi": false,
+  "singleQuote": true,
+  "arrowParens": "avoid",
+  "trailingComma": "none"
+}
+
+```
+
+## tsconfig.json
+
+the `include` options are used to specify the files to be included from the compilation process.
+if you want to include some files in the project, you can use `"xxxfile/**/*.ts"`
+
+```ts
+{
+  "compilerOptions": {
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "incremental": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "paths": {
+      "@/*": ["./*"]
+    }
+  },
+  "include": [
+    "next-env.d.ts",
+    ".next/types/**/*.ts",
+    "*.tsx",
+    "*.ts"
+  ],
+  "exclude": ["node_modules"]
+}
+
+```
+
+## lint-staged
+
+first, install `lint-staged` and `husky`
+
+```
+# yarn add --dev lint-staged husky
+```
+
+then, initialize `husky`, will create `.husky` folder and `pre-commit.sh` file
+
+```
+# npx husky init
+```
+
+in `.husky/pre-commit.sh`, add this command
+
+```
+npx lint-staged
+```
+
+add `.lintstagedrc` file
+
+```
+const path = require('path')
+
+const buildEslintCommand = filenames =>
+  `next lint --fix --file ${filenames.map(f => path.relative(process.cwd(), f)).join(' --file ')}`
+
+module.exports = {
+  'app/**/*.{js,jsx,ts,tsx}': [buildEslintCommand],
+  'components/**/*.{js,jsx,ts,tsx}': [buildEslintCommand]
+}
+
+```
