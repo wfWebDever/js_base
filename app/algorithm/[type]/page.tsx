@@ -9,10 +9,6 @@ import { strToNum } from '@/algorithm/行列转数字'
 import { captureThreeNumbers } from '@/algorithm/连续3个数字'
 import { containsRepeatingLetter, containsRepeatingLetterUseReg } from '@/algorithm/重复的字母'
 
-type Params = {
-  type: string
-}
-
 const types: Record<string, ((...args: any[]) => any)[]> = {
   'multi-array': [arrToOne, arrToOne2, arrToOne3],
   'three-continuous-numbers': [captureThreeNumbers],
@@ -48,9 +44,14 @@ const test: Record<string, any[]> = {
   'is-close': ['()[]{}'] // , '(]', '([)]', '{[]}', '(){'
 }
 
-export default function AlgorithmTypeContent({ params }: { params: Params }) {
-  const algorithms = types[params.type] || []
-  const testData = test[params.type]
+export default async function AlgorithmTypeContent({
+  params
+}: {
+  params: Promise<{ type: string }>
+}) {
+  const type = (await params).type
+  const algorithms = types[type] || []
+  const testData = test[type] || []
 
   return (
     <article>
