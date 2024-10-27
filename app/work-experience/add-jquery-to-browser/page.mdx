@@ -1,0 +1,14 @@
+# 浏览器添加 jQuery
+故事发生在 2013-14 年吧，从传统公司加入第一家互联网公司，遇到了一个资深前端，那时候我们是用 jQuery 开发手机 webapp,
+日常工作需要大量的操作 dom,以及在浏览器查看所需要的 dom 节点，如 `document.getElementById` 等。
+他告诉我，浏览器添加 jQuery 需要这样写，可以直接用 jquery 的 api 操作 dom
+
+```javascript
+const jquery_11 = document.createElement('script')
+
+jquery_11.src = 'http://code.jquery.com/jquery.js'
+jquery_11.onload = function () {
+  console.info('JQuery is loaded!')
+}
+document.head.appendChild(jquery_11)
+```

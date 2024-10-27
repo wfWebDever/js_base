@@ -45,6 +45,16 @@ const data = [
     title: 'Build Dev Environment',
     description: '',
     href: '/build-dev-environment'
+  },
+  {
+    title: 'Work Experience',
+    description: '',
+    href: '/work-experience'
+  },
+  {
+    title: 'JS',
+    description: '',
+    href: '/js'
   }
 ]
 

@@ -1,0 +1,58 @@
+# 回忆以前做网盘系统的时候 遇到的一个问题，浏览器要唤起本地 PC 客户端，进行大文件的下载。
+
+本地 PC C++客户端采用的方式是在本地放一个 http serve 服务，通过和浏览器端进行交互来发送用户登陆信息、文件信息等，这样客户端可以免重复登陆。
+
+- 客户端的服务地址 http://127.0.0.1:15000/startapp 数据传输的 post 方法，jsonp 只能用 get ，而且数据量包括文件信息 token 信息等，
+  所以不能用 jsonp 方式，这个跨域问题解决过程如下：
+  解决办法是：最简单方便是和 pc 端的同事商议，改响应头信息 ，在这个接口的服务端添加 header 中的 cros  
+  最关键的处理在服务器部分，其实无论是否跨域，服务器都是可以获取上述请求的。问题的关键在于服务器的回应是否能够返回到浏览器。
+  所以在服务器发送回应的时候，需要添加一个文件头
+
+```html
+Access-Control-Allow-Origin: http://foo.example //表明服务器允许http://foo.example的请求
+Access-Control-Allow-Origin: * //表明服务器允许所有请求
+```
+
+- 发现 IE8 IE9 下 失败 原因是 IE10 以上在 XMLHttpRequest 支持了跨域 HTTP 请求的处理,低版本的不支持，
+  查看 angulrajs 源码发现确实是如此，需要用 XDomainRequest 跨域请求 用到了 jquery.xdomainrequest 插件 引入后 在 IE9 下发起请求 成功返回
+
+查看 Angularjs 源码发现 是没有这个
+
+```javascript
+function createXhr() {
+  return new window.XMLHttpRequest()
+}
+```
+
+http://www.cnblogs.com/Darren_code/p/cors.html
+
+XDR (IE 8-9 Only)
+对于 XHR2，IE 浏览器的支持是 IE10 以上。但是 IE 早在 IE8 时就推出了 XDomainRequest 对象进行跨域操作，一直沿用到 IE10 才被取代掉。
+因此在 IE8,IE9 中应该使用 XDomainRequest (XDR)来实现。
+XDR 在创建时是通过 new XDomainRequest() 进行创建。其他操作和 XHR 有细微差别。比如 open 方法只有 method 和 url 两个参数，
+XDR 只支持异步不支持同步操作。详细见文档:XDomainRequest object
+
+- Chrome 和 Firefox，我们网站是 https 协议的，访问本地是 http,这些浏览器在请求还未发出的时候就会拦截请求。
+  上线前自测 发现在 https 下 无法请求 浏览器还是报跨域 通过分析百度的请求发现 是用了 flash
+  然后再 github 上找相关插件 下载下来 这个模块
+
+```html
+cors-proxy-browser-master
+```
+
+这个模块主要是把 html 代码添加相应的 flash 属性 我们直接把改变后的代码加到页面中 把生成的过程代码给注释掉
+
+```html
+<span style="position:absolute;top:0;left:0">
+  <object type="application/x-shockwave-flash" data="/dist/common/crossxhr.swf" width="1" height="1" id="FlashHttpRequest_gateway" style="visibility: visible;">
+         <param name="wmode" value="transparent">
+         <param name="allowscriptaccess" value="always">
+    </object>
+    </span>
+```
+
+- 再次发请求 还是发送不了 发现还缺一个 crossxml 请求地址 需要在服务端加上并返回这种格式的 xml 返回内容 并设置头属性为 text/xml
+
+## 总结 in 2024
+
+以前为了兼容 IE 低版本，解决跨域问题，需要添加很多代码，现在浏览器都支持了跨域，只需要在服务端设置头信息即可。我记得这个工作是 2016 年做的，现在回过头来看，前端浪费了很多时间在兼容 IE 低版本上。
