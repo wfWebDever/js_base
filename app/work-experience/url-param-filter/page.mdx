@@ -1,0 +1,27 @@
+# url 参数过滤
+
+```javascript
+export function get_query_url_param(url_search: string, name: string) {
+  const reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)')
+  const r = url_search.match(reg)
+
+  if (r) {
+    return (r && r[2]) || ''
+  } else {
+    return ''
+  }
+}
+```
+
+```javascript
+const url_search = window.location.search
+
+if (url_search) {
+  const insidelink = get_query_url_param(url_search.substr(1), 'insidelink')
+
+  console.info(insidelink)
+  const from = get_query_url_param(url_search.substr(1), 'from')
+
+  console.info(from)
+}
+```

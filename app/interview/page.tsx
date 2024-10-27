@@ -7,7 +7,27 @@ const data = [
     href: '/interview/closure'
   },
   { title: 'Bind', description: 'Bind', href: '/interview/bind' },
-  { title: 'Promise', description: 'Promise', href: '/interview/promise' }
+  { title: 'Promise', description: 'Promise', href: '/interview/promise' },
+  {
+    title: '知识点汇总',
+    description: '知识点汇总',
+    href: '/interview/knowledge-summary'
+  },
+  {
+    title: 'Jsonp',
+    description: 'Jsonp',
+    href: '/interview/jsonp'
+  },
+  {
+    title: 'TS',
+    description: 'TS',
+    href: '/interview/ts'
+  },
+  {
+    title: 'event loop',
+    description: 'event loop',
+    href: '/interview/event-loop'
+  }
 ]
 
 export default function Interview() {
