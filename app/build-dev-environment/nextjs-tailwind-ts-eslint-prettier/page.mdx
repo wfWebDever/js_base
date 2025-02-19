@@ -14,39 +14,55 @@
 {
   "name": "feng-wei-frontend-tech-blog",
   "version": "1.0.0",
+  "engines": {
+    "node": ">=20.17.0",
+    "yarn": ">=1.22.19"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "type-check": "tsc --noEmit",
+    "validate": "yarn lint && yarn type-check",
     "prepare": "husky"
   },
-  "engines": {
-    "node": ">=20.17.0",
-    "npm": "10.8.2",
-    "yarn": ">=1.22.19"
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "eslint --fix --config .eslintrc",
+      "bash -c 'tsc --project tsconfig.json --noEmit'"
+    ]
   },
-  "private": true,
   "dependencies": {
-    "next": "^15.0.1",
-    "react": "^18.0.0",
-    "react-dom": "^18.0.0"
+    "@emotion/react": "^11.10.6",
+    "@emotion/styled": "^11.10.6",
+    "@mui/base": "5.0.0-alpha.128",
+    "@mui/icons-material": "5.11.16",
+    "@mui/material": "5.12.3",
+    "@mui/x-date-pickers": "7.22.2",
+    "dayjs": "^1.11.10",
+    "husky": "^9.1.4",
+    "lint-staged": "^15.2.9",
+    "lodash": "^4.17.21",
+    "next": "^15.0.3",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
   },
   "devDependencies": {
+    "@types/lodash": "^4.14.202",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "autoprefixer": "^10.4.7",
     "eslint": "^8",
     "eslint-config-next": "^15.0.1",
     "eslint-config-prettier": "^8.5.0",
-    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-import": "^2.30.0",
+    "eslint-plugin-prettier": "^5.2.3",
     "eslint-plugin-simple-import-sort": "^12.1.1",
-    "husky": "^9.1.6",
-    "lint-staged": "^15.2.10",
-    "postcss": "^8",
-    "prettier": "^2.8.4",
-    "sass": "^1.50.0",
-    "tailwindcss": "^3.4.1",
+    "postcss": "^8.4.14",
+    "prettier": "^3.4.2",
+    "tailwindcss": "3.3.2",
     "typescript": "^5"
   }
 }
@@ -65,58 +81,56 @@ Inherits Next.js and TypeScript rules, and uses Prettier for code formatting.
 
 ```json
 {
-  "plugins": ["prettier", "simple-import-sort"],
+  "plugins": ["prettier", "simple-import-sort","import"],
   "extends": ["next/core-web-vitals", "next/typescript", "prettier"],
   "rules": {
     "prettier/prettier": 2,
-    "no-shadow": 2,
+    "arrow-parens": [2, "as-needed"],
+    "comma-dangle": 0,
+    "jsx-a11y/click-events-have-key-events": 0,
+    "jsx-a11y/no-static-element-interactions": 0,
+    "jsx-a11y/anchor-is-valid": 0,
+    "no-nested-ternary": 1,
+    "no-new": 0,
+    "no-param-reassign": 1,
+    "no-unused-vars": 2,
+    "no-use-before-define": 0,
+    "object-curly-newline": 0,
+    "func-style": 0,
+    "react/jsx-props-no-spreading": 0,
+    "default-param-last": 0,
     "import/no-unresolved": [
       2,
       {
         "ignore": ["^swiper", "^echarts"]
       }
     ],
+
+    "react/forbid-prop-types": 2,
+    "react/button-has-type": 2,
+    "react/no-unstable-nested-components": 2,
     "import/newline-after-import": 2,
+    "simple-import-sort/imports": [
+      2,
+      {
+        "groups": [
+          ["^\\u0000"],
+          ["^react", "^@?\\w"],
+          ["^@/\\w"],
+          ["^\\.\\.(?!/?$)", "^\\.\\./?$", "^\\./(?=.*/)(?!/?$)", "^\\.(?!/?$)", "^\\./?$"],
+          ["^.+\\.(css|less|scss)$"]
+        ]
+      }
+    ],
+    "no-shadow": 0,
+    "no-console": [1, { "allow": ["warn", "error"] }],
+    "@typescript-eslint/no-explicit-any": 1,
     "import/no-extraneous-dependencies": [
       2,
       {
         "devDependencies": true
       }
-    ],
-    "jsx-a11y/click-events-have-key-events": 0,
-    "jsx-a11y/no-static-element-interactions": 0,
-    "no-console": [
-      2,
-      {
-        "allow": ["info", "warn", "error"]
-      }
-    ],
-    "no-nested-ternary": 2,
-    "no-param-reassign": 2,
-    "padding-line-between-statements": [
-      2,
-      { "blankLine": "always", "prev": ["const", "let", "var"], "next": "*" },
-      { "blankLine": "any", "prev": ["const", "let", "var"], "next": ["const", "let", "var"] }
-    ],
-    "simple-import-sort/imports": [
-      2,
-      {
-        "groups": [
-          // Side effect imports.
-          ["^\\u0000"],
-          // Third packages. `react` related packages come first.
-          ["^react", "^@?\\w"],
-          // Internal packages.
-          ["^@/\\w"],
-          // Parent imports. Put `..` last. Other relative imports. Put same-folder imports and `.` last.
-          ["^\\.\\.(?!/?$)", "^\\.\\./?$", "^\\./(?=.*/)(?!/?$)", "^\\.(?!/?$)", "^\\./?$"],
-          // Css relative imports.
-          ["^.+\\.(css|less|scss)$"]
-        ]
-      }
-    ],
-    "no-bitwise": 1,
-    "@typescript-eslint/no-explicit-any": 1
+    ]
   }
 }
 ```
@@ -153,30 +167,68 @@ if you want to include some files in the project, you can use `"xxxfile/**/*.ts"
 ```json
 {
   "compilerOptions": {
+    "target": "ES2017",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "allowSyntheticDefaultImports": true,
+    "downlevelIteration": true,
     "noEmit": true,
     "esModuleInterop": true,
     "module": "esnext",
-    "moduleResolution": "bundler",
+    "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
-    "plugins": [
-      {
-        "name": "next"
-      }
-    ],
     "paths": {
       "@/*": ["./*"]
-    }
+    },
+    "baseUrl": "."
   },
-  "include": ["next-env.d.ts", ".next/types/**/*.ts", "*.tsx", "*.ts"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "types/**/*.d.ts"],
   "exclude": ["node_modules"]
 }
+```
+
+## tailwindcss
+
+```
+import type { Config } from 'tailwindcss'
+import defaultTheme from 'tailwindcss/defaultTheme'
+
+export default {
+  important: '#__nextBody',
+  content: [
+    './pages/**/*.{js,ts,jsx,tsx,mdx}',
+    './components/**/*.{js,ts,jsx,tsx,mdx}',
+    './app/**/*.{js,ts,jsx,tsx,mdx}'
+  ],
+  theme: {
+    screens: {
+      sm: '600px',
+      md: '768px',
+      lg: '992px',
+      xl: '1440px'
+    },
+    fontFamily: {
+      Inter: ['var(--font-Inter)', ...defaultTheme.fontFamily.sans],
+      EBGaramond: ['var(--font-EBGaramond)', ...defaultTheme.fontFamily.sans]
+    },
+    extend: {
+      colors: {
+        primary: '#012232'
+      },
+      maxWidth: {
+        page: '1440px'
+      }
+    }
+  },
+  plugins: []
+} satisfies Config
+
 ```
 
 ## lint-staged
@@ -209,16 +261,13 @@ nvm use
 npx lint-staged
 ```
 
-add `.lintstagedrc` file
+add config to package.json
 
-```js
-const path = require('path')
-
-const buildEslintCommand = filenames =>
-  `next lint --fix --file ${filenames.map(f => path.relative(process.cwd(), f)).join(' --file ')}`
-
-module.exports = {
-  'app/**/*.{js,jsx,ts,tsx}': [buildEslintCommand],
-  'components/**/*.{js,jsx,ts,tsx}': [buildEslintCommand]
-}
+```
+"lint-staged":{
+    "*.{js,jsx,ts,tsx}": [
+      "eslint --fix --config .eslintrc",
+      "bash -c 'tsc --project tsconfig.json --noEmit'"
+    ]
+  }
 ```
