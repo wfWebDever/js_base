@@ -36,7 +36,7 @@ export default function RootLayout({
               <Link
                 href="/"
                 target="_self"
-                className="inline-block decoration-black/30 dark:decoration-white/30 hover:decoration-black/50 focus-visible:decoration-black/50 dark:hover:decoration-white/50 dark:focus-visible:decoration-white/50 text-current hover:text-black focus-visible:text-black dark:hover:text-white dark:focus-visible:text-white transition-colors duration-300 ease-in-out"
+                className="inline-block decoration-black/30  hover:decoration-black/50 focus-visible:decoration-black/50   text-current hover:text-black focus-visible:text-black  transition-colors duration-300 ease-in-out"
               >
                 <div className="font-semibold"> Feng Wei&nbsp;🔬</div>{' '}
               </Link>{' '}
@@ -45,7 +45,7 @@ export default function RootLayout({
                 <Link
                   href="/"
                   target="_self"
-                  className="inline-block decoration-black/30 dark:decoration-white/30 hover:decoration-black/50 focus-visible:decoration-black/50 dark:hover:decoration-white/50 dark:focus-visible:decoration-white/50 text-current hover:text-black focus-visible:text-black dark:hover:text-white dark:focus-visible:text-white transition-colors duration-300 ease-in-out underline underline-offset-[3px]"
+                  className="inline-block decoration-black/30  hover:decoration-black/50 focus-visible:decoration-black/50  text-current hover:text-black focus-visible:text-black  transition-colors duration-300 ease-in-out underline underline-offset-[3px]"
                 >
                   {' '}
                   Home{' '}
@@ -53,7 +53,7 @@ export default function RootLayout({
                 <Link
                   href="https://github.com/wfWebDever"
                   target="_self"
-                  className="inline-block decoration-black/30 dark:decoration-white/30 hover:decoration-black/50 focus-visible:decoration-black/50 dark:hover:decoration-white/50 dark:focus-visible:decoration-white/50 text-current hover:text-black focus-visible:text-black dark:hover:text-white dark:focus-visible:text-white transition-colors duration-300 ease-in-out underline underline-offset-[3px]"
+                  className="inline-block decoration-black/30  hover:decoration-black/50 focus-visible:decoration-black/50  text-current hover:text-black focus-visible:text-black  transition-colors duration-300 ease-in-out underline underline-offset-[3px]"
                 >
                   {' '}
                   Github{' '}
@@ -61,14 +61,14 @@ export default function RootLayout({
                 <Link
                   href="mailto:xinyilan2005@gmail.com"
                   target="_self"
-                  className="inline-block decoration-black/30 dark:decoration-white/30 hover:decoration-black/50 focus-visible:decoration-black/50 dark:hover:decoration-white/50 dark:focus-visible:decoration-white/50 text-current hover:text-black focus-visible:text-black dark:hover:text-white dark:focus-visible:text-white transition-colors duration-300 ease-in-out underline underline-offset-[3px]"
+                  className="inline-block decoration-black/30  hover:decoration-black/50 focus-visible:decoration-black/50  text-current hover:text-black focus-visible:text-black  transition-colors duration-300 ease-in-out underline underline-offset-[3px]"
                 >
                   {' '}
                   Email{' '}
                 </Link>{' '}
                 <Link
                   href="/reflections"
-                  className="inline-block decoration-black/30 dark:decoration-white/30 hover:decoration-black/50 focus-visible:decoration-black/50 dark:hover:decoration-white/50 dark:focus-visible:decoration-white/50 text-current hover:text-black focus-visible:text-black dark:hover:text-white dark:focus-visible:text-white transition-colors duration-300 ease-in-out underline underline-offset-[3px]"
+                  className="inline-block decoration-black/30  hover:decoration-black/50 focus-visible:decoration-black/50  text-current hover:text-black focus-visible:text-black  transition-colors duration-300 ease-in-out underline underline-offset-[3px]"
                 >
                   Reflections
                 </Link>
