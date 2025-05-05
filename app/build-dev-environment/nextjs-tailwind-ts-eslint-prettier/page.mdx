@@ -263,7 +263,8 @@ npx lint-staged
 
 add config to package.json
 
-```
+```json
+//必须指定配置文件 不然会导致执行的不一致
 "lint-staged":{
     "*.{js,jsx,ts,tsx}": [
       "eslint --fix --config .eslintrc",

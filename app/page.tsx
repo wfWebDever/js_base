@@ -12,19 +12,9 @@ const data = [
     href: '/seo'
   },
   {
-    title: 'React',
-    description: '',
-    href: '/react'
-  },
-  {
     title: 'CSS',
     description: '',
     href: '/css'
-  },
-  {
-    title: 'Algorithm',
-    description: '',
-    href: '/algorithm'
   },
   {
     title: 'GithubUsedComponents',
@@ -37,19 +27,9 @@ const data = [
     href: '/vue-source-learn'
   },
   {
-    title: 'Interview',
-    description: '',
-    href: '/interview'
-  },
-  {
     title: 'Build Dev Environment',
     description: '',
     href: '/build-dev-environment'
-  },
-  {
-    title: 'Work Experience',
-    description: '',
-    href: '/work-experience'
   },
   {
     title: 'JS',
