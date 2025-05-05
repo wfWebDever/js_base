@@ -47,7 +47,11 @@ export default function VueSourceLearn() {
   return (
     <section>
       <h1 className="font-semibold">vue 源码学习</h1>
-      <p>知识这东西需要不断的温故知新 下一阶段再看以前写的内容 可能又有了新的体会。</p>
+      <p>
+        知识这东西需要不断的温故知新 下一阶段再看以前写的内容 可能又有了新的体会。
+        <br />
+        vue源码学习是我当初花费了大量时间去学习的，这也见证着我那些年的成长。
+      </p>
       <Catalog data={data} />
     </section>
   )

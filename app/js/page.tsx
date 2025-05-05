@@ -5,11 +5,6 @@ const data = [
     title: 'Relearn JS',
     description: 'Relearn JS',
     href: '/js/relearn-js'
-  },
-  {
-    title: 'Countdown',
-    description: 'Countdown',
-    href: '/js/countdown'
   }
 ]
 
