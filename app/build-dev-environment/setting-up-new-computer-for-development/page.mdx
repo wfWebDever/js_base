@@ -112,7 +112,7 @@ nvm use 20
 npm install -g yarn
 ```
 
-### Add a `.nvmrc` file to the project root and set the node version
+### Add a `.nvmrc` file to the code project root and set the node version(创建这个文件在项目根目录中)
 
 ```bash
 # touch .nvmrc
@@ -129,14 +129,13 @@ Now using node v20.17.0 (npm v10.8.2)
 
 ## specify node npm yarn version
 
-Set the node npm yarn version in `package.json`
+Set the node npm yarn version in `package.json` (heruku项目要去掉>=只接受准确的项目号 不然部署报错)
 
 ```json
 "engines": {
     "node": ">=20.17.0",
-    "npm": "10.8.2",
     "yarn": ">=1.22.19"
-  },
+},
 ```
 
 If using yarn to install, it will check the node npm version, if the version is inconsistent, it will stop the installation, and the following information will be displayed(
