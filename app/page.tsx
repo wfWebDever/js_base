@@ -41,22 +41,20 @@ const data = [
 export default function Page() {
   return (
     <>
-      <h1 className="font-semibold">Introduction</h1>
-      <p className="my-4 leading-8">
-        As a front-end developer with over a decade of rich experience, I specialize in modern web
-        technology stacks, with particular expertise in <strong className="px-1">React</strong> and{' '}
-        <strong className="px-1">Next.js</strong> frameworks. With years of practice and a deep
-        understanding, I can efficiently build complex, high-performance web applications. My work
-        style emphasizes <strong className="px-1">efficiency</strong> and{' '}
-        <strong className="px-1">quality</strong>, and I maintain a proactive attitude to ensure
-        projects are completed on time. If you&apos;re seeking an experienced and technically
-        proficient front-end expert, feel free to contact me at{' '}
-        <strong className="text-blue-500 px-1">xinyilan2005@gmail.com</strong> to discuss how I can
-        bring value to your project.
-      </p>
-
+      <div>
+        <h1 className="font-semibold mt-10">自我介绍</h1>
+        <p>新的AI时代已经来临,AI也已经正在摧古拉朽般改变着我们的生活和工作方式。</p>
+        <p>
+          从事程序开发好多年了,最近一年接触AI编程得出的结论是:AI编程可以极大地提升开发效率,并且可以帮助我们更好地理解和学习技术。
+        </p>
+        <p>但同时危机也会伴随而来,AI编程会抹平大部分程序员的技术壁垒。</p>
+        <p>
+          世界上唯一不变的就是变化,我想要在接下来的时间,拥抱AI,依托于现有的技术，探寻下我可以做些什么,这也算是一种重启人生吧.
+        </p>
+        <p>这个页面是我个人总结的技术流的目录,我也会在这里记录下我对AI学习和探索的过程。</p>
+      </div>
       <section>
-        <h2 className="font-semibold">Latest Posts</h2>
+        <h2 className="font-semibold mt-10">技术流</h2>
         <Catalog data={data} />
       </section>
     </>
