@@ -36,17 +36,27 @@ const data = [
 
 const envData = [
   {
-    title: 'Build Dev Environment',
+    title: 'Nextjs+Tailwind+Typescript+Eslint+Prettier',
     description: '',
-    href: '/build-dev-environment'
+    href: '/build-dev-environment/nextjs-tailwind-ts-eslint-prettier'
+  },
+  {
+    title: 'Setting up a new computer for development',
+    description: '',
+    href: '/build-dev-environment/setting-up-new-computer-for-development'
   }
 ]
 
 const aiData = [
   {
-    title: 'develop a project scaffolding',
+    title: '使用AI快速开发脚手架',
     description: '',
     href: '/ai/dev-project-scaffolding'
+  },
+  {
+    title: '用AI写代码后，乐趣减少了吗？',
+    description: '',
+    href: '/ai/code-writing-fun-loss'
   }
 ]
 
