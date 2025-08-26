@@ -49,14 +49,19 @@ const envData = [
 
 const aiData = [
   {
-    title: '使用AI快速开发脚手架',
+    title: 'AI编程工具比较',
     description: '',
-    href: '/ai/dev-project-scaffolding'
+    href: '/ai/tools-comparison'
   },
   {
     title: '用AI写代码后，乐趣减少了吗？',
     description: '',
     href: '/ai/code-writing-fun-loss'
+  },
+  {
+    title: '使用AI快速开发脚手架',
+    description: '',
+    href: '/ai/dev-project-scaffolding'
   }
 ]
 
