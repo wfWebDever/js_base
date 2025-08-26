@@ -22,7 +22,7 @@ const data = [
     href: '/github-used-components'
   },
   {
-    title: 'Vue Souece Learn',
+    title: 'Vue Source Learn',
     description: '',
     href: '/vue-source-learn'
   },
@@ -36,9 +36,9 @@ const data = [
 
 const envData = [
   {
-    title: 'Nextjs+Tailwind+Typescript+Eslint+Prettier',
+    title: 'Next.js+Tailwind+Typescript+Eslint+Prettier',
     description: '',
-    href: '/build-dev-environment/nextjs-tailwind-ts-eslint-prettier'
+    href: '/build-dev-environment/next.js-tailwind-ts-eslint-prettier'
   },
   {
     title: 'Setting up a new computer for development',
